@@ -1,0 +1,23 @@
+[04-May-2022 04:05:02 UTC] PHP Notice:  Undefined variable: idProduto in /home/e4vokoclkhu2/public_html/marvolt/configuracao/usuario/consulta_usuario.php on line 203
+[04-May-2022 04:05:03 UTC] PHP Notice:  Undefined variable: idProduto in /home/e4vokoclkhu2/public_html/marvolt/configuracao/usuario/consulta_usuario.php on line 203
+[04-May-2022 04:05:29 UTC] PHP Notice:  Trying to access array offset on value of type null in /home/e4vokoclkhu2/public_html/marvolt/configuracao/usuario/cadastro_usuario.php on line 74
+[04-May-2022 04:05:34 UTC] PHP Notice:  Undefined variable: idProduto in /home/e4vokoclkhu2/public_html/marvolt/configuracao/usuario/consulta_usuario.php on line 203
+[04-May-2022 04:06:19 UTC] PHP Notice:  Undefined variable: idProduto in /home/e4vokoclkhu2/public_html/marvolt/configuracao/usuario/consulta_usuario.php on line 203
+[04-May-2022 04:06:20 UTC] PHP Notice:  Undefined variable: idProduto in /home/e4vokoclkhu2/public_html/marvolt/configuracao/usuario/consulta_usuario.php on line 203
+[04-May-2022 04:06:30 UTC] PHP Notice:  Undefined variable: idProduto in /home/e4vokoclkhu2/public_html/marvolt/configuracao/usuario/consulta_usuario.php on line 203
+[04-May-2022 04:06:45 UTC] PHP Notice:  Undefined variable: idProduto in /home/e4vokoclkhu2/public_html/marvolt/configuracao/usuario/consulta_usuario.php on line 203
+[04-May-2022 04:06:46 UTC] PHP Notice:  Undefined variable: idProduto in /home/e4vokoclkhu2/public_html/marvolt/configuracao/usuario/consulta_usuario.php on line 203
+[04-May-2022 04:06:51 UTC] PHP Notice:  Trying to access array offset on value of type null in /home/e4vokoclkhu2/public_html/marvolt/_incluir/topo.php on line 15
+[04-May-2022 04:06:51 UTC] PHP Notice:  Undefined variable: idProduto in /home/e4vokoclkhu2/public_html/marvolt/configuracao/usuario/consulta_usuario.php on line 203
+[04-May-2022 05:23:52 UTC] PHP Notice:  Undefined index: user_portal in /home/e4vokoclkhu2/public_html/marvolt/_incluir/topo.php on line 6
+[04-May-2022 05:23:52 UTC] PHP Notice:  Undefined variable: idProduto in /home/e4vokoclkhu2/public_html/marvolt/configuracao/usuario/consulta_usuario.php on line 203
+[04-May-2022 05:37:34 UTC] PHP Notice:  Undefined variable: idProduto in /home/e4vokoclkhu2/public_html/marvolt/configuracao/usuario/consulta_usuario.php on line 203
+[04-May-2022 05:37:35 UTC] PHP Notice:  Undefined variable: idProduto in /home/e4vokoclkhu2/public_html/marvolt/configuracao/usuario/consulta_usuario.php on line 203
+[04-May-2022 05:37:37 UTC] PHP Notice:  Undefined variable: idProduto in /home/e4vokoclkhu2/public_html/marvolt/configuracao/usuario/consulta_usuario.php on line 203
+[04-May-2022 05:37:38 UTC] PHP Notice:  Undefined variable: idProduto in /home/e4vokoclkhu2/public_html/marvolt/configuracao/usuario/consulta_usuario.php on line 203
+[04-May-2022 05:41:13 UTC] PHP Notice:  Undefined variable: idProduto in /home/e4vokoclkhu2/public_html/marvolt/configuracao/usuario/consulta_usuario.php on line 203
+[04-May-2022 05:41:16 UTC] PHP Notice:  Undefined variable: idProduto in /home/e4vokoclkhu2/public_html/marvolt/configuracao/usuario/consulta_usuario.php on line 203
+[04-May-2022 13:07:56 UTC] PHP Notice:  Undefined variable: idProduto in /home/e4vokoclkhu2/public_html/marvolt/configuracao/usuario/consulta_usuario.php on line 203
+[04-May-2022 13:07:57 UTC] PHP Notice:  Undefined variable: idProduto in /home/e4vokoclkhu2/public_html/marvolt/configuracao/usuario/consulta_usuario.php on line 203
+[04-May-2022 13:09:25 UTC] PHP Notice:  Undefined variable: idProduto in /home/e4vokoclkhu2/public_html/marvolt/configuracao/usuario/consulta_usuario.php on line 203
+[04-May-2022 13:09:27 UTC] PHP Notice:  Undefined variable: idProduto in /home/e4vokoclkhu2/public_html/marvolt/configuracao/usuario/consulta_usuario.php on line 203

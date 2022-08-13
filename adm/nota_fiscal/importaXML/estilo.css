@@ -1,0 +1,157 @@
+/* CSS Document */
+H1 {
+	color: #000099;
+	/* font-size: 18pt;  */
+       	font-family: Arial;
+	text-align: center;
+}
+H4 {
+	color: #FF0000;
+	/* font-size: 18pt;  */
+       	font-family: Arial;
+	text-align: left;
+}
+H2 {
+	color: #000099;
+	font-size: 18pt;
+	font-family: Arial;
+	text-align: left;
+}
+/* Formata todos os titulos das tabelas de listagem de dados*/
+.titulo_tabela {
+	font-size : 13pt;
+	background-color: #000099;
+	color : #FFFFFF;
+	font-family: Arial;
+	font-weight: bold;
+}
+.titulo_tabela_oc {
+	font-size : 10pt;
+	background-color: #000099;
+	color : #FFFFFF;
+	font-family: Arial;
+	font-weight: bold;
+}
+.titulo_tabela1 {
+	font-size : 11pt;
+	background-color: #000099;
+	color : #FFFFFF;
+	font-family: Arial;
+	font-weight: bold;
+}
+/* Formata as linhas dos dados das tabelas*/
+.linhas_tabela {
+	font-size : 11pt;
+	color: #000099;
+	background-color : #FFFFFF;
+	font-family: Arial;
+	border-width : 1px;
+ border-color : #006FD9;
+	border-style : solid;
+}
+.linhas_tabela_menor {
+	font-size : 8pt;
+	color: #000099;
+	font-family: Arial;
+	font-weight: bold;
+	border-width : 1px;
+ border-color : #006FD9;
+	border-style : solid;
+}
+.texto_normal {
+	font-size : 10pt;
+	color: #000099;
+	font-family: Arial;
+	font-weight: bold;
+}
+.texto_vermelho {
+	font-size : 10pt;
+	color:  #FF0000;
+	font-family: Arial;
+	font-weight: bold;
+}
+.texto_normal_menor {
+	font-size : 8pt;
+	color: #000099;
+	font-family: Arial;
+	font-weight: bold;
+}
+.texto_inclusao {
+	font-size : 14pt;
+	color: #000033;
+	;
+	font-family: Arial;
+	font-weight: bold;
+}
+.botao {
+	font-size : 10pt;
+	color: #000099;
+	font-family: Arial;
+	font-weight: bold;
+}
+.input_normal {
+	color: #000080;
+	border: 1px solid #000080;
+}
+.cor0 {
+	font-family: Arial;
+	font-size: 12pt;
+	color: #FFFFFF;
+	height: 25pt;
+	border: solid 5px #95B3D7;
+	font-weight:bold;
+	background: #727070;
+}
+.cor1 {
+	font-family: Arial;
+	font-size: 8pt;
+	color: #B8293F;
+	margin-left: 0pt;
+	border-width: 1pt;
+	border: #FFFFFF;
+	height: 10pt;
+	background: #DADBDB;
+}
+.cor2 {
+	font-family: Arial;
+	font-size: 8pt;
+	color: #B8293F;
+	margin-left: 1pt;
+	border-width: 0pt;
+	border: #FFFFFF;
+	height: 10pt;
+	background: #FFFFFF;
+}
+.cor3 {
+	font-family: Arial;
+	font-size: 8pt;
+	color: #1F497D;
+	margin-left: 1pt;
+	border-width: 0pt;
+	border: #FFFFFF;
+	height: 10pt;
+	background: #FFFFFF;
+}
+.cor100 {
+	font-family: Arial;
+	font-size: 12pt;
+	font-weight:bold;
+	color: #FFFFFF;
+	margin-left: 0pt;
+	border-width: 1pt;
+	border: #FFFFFF;
+	height: 25pt;
+	background : #727070;
+}
+.header-fixa
+{
+   font-family: Arial;
+   font-size: 10pt;
+   font-weight:bold;
+   color: #000000;
+   border: 5pt #FFFFFF;
+   height: 10pt;
+   background: #CCCCCC;
+   position:relative;
+   bottom: 1px;
+}

@@ -1,0 +1,28 @@
+/* estilos da pesquisa */
+main div#janela_pesquisa {
+    width:860px;
+    height: 70px;
+    margin:0 auto 30px;
+    border-bottom:1px dotted #ddd;
+}
+
+main div#janela_pesquisa form {
+    width:470px;
+    margin:10px auto;
+}
+
+main div#janela_pesquisa form input[type="text"] {
+    width:380px;
+    padding:10px;
+    border:1px solid #CDC99B;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    float:left;
+    outline: none;
+}
+
+main div#janela_pesquisa form input[type="image"] {
+    outline: none;
+    cursor: pointer;
+}
+/* fim do estilo da pesquisa */

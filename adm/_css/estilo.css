@@ -1,0 +1,304 @@
+@font-face {
+    font-family:'ariallight';
+    src: url(../fonte/arial-nova-light.ttf) format('opentype');
+    font-style:normal;
+}
+
+body { 
+    margin:0 ;
+
+}
+
+
+div#menulateral {
+margin: 0px;
+padding: 0px;
+
+}
+
+div#menulateral{
+float: left;
+
+
+}
+
+div#menulateral input[type="checkbox"]:checked ~ nav{
+    transform: translatey(-250px);
+    }
+
+
+div#menulateral input[type="checkbox"]{
+position: fixed;
+display: none;
+}
+
+div#menulateral img{
+position: fixed;
+padding: 5px;
+top:10px;
+
+}
+
+div#menulateral img:hover{
+position: fixed;
+background-color: rgb(221, 221, 221,0.2);
+border-radius: 20px;
+padding: 5px;
+transition: all .2s;
+}
+
+
+
+
+div#menulateral nav{
+background: rgb(19, 124, 120);
+height:58px;
+margin-top: 0px;
+position: fixed;
+transition: all .6s;
+border-bottom-right-radius: 20px;
+box-shadow: 0px 0px 5px 0px rgba(14, 84, 82, 1);
+padding-left: 110px;
+
+}
+
+@media screen and (max-width:1000px){
+    div#menulateral{
+      margin-top: 50px;
+    
+    }
+    div#menulateral nav{
+        background: rgb(19, 124, 120);
+        height:100%;
+        width: 200px;
+        transform: translateX(-280px);
+        padding-left: 20px;
+        padding-right: 0x;
+       
+    }
+    div#menulateral nav ul{
+        list-style: none;
+        margin-left: 0px;
+     }
+
+    div#menulateral nav ul li{
+      width: 100%;
+      position: relative;
+
+   
+    }
+    div#menulateral nav ul li a{
+      
+    }
+    div#menulateral nav ul li  ul{
+        display:  none;
+        position: absolute;
+        background: rgb(92, 134, 131);
+        box-shadow: 0px 0px 5px 0px rgba(14, 84, 82, 1);
+        border-radius:2px;
+        width: 180px;
+        margin-left: 100px;
+        margin-top: -50px;
+      
+    }
+    
+    
+    div#menulateral input[type="checkbox"]:checked ~ nav{
+        transform: translatey(0px);
+    }
+
+    div#menulateral input[type="checkbox"]:checked ~ nav{
+        transform: translateX(0px);
+    }
+
+    
+        
+        
+        
+}
+
+
+
+
+
+
+
+div#menulateral nav ul{
+margin: 0; padding: 0;
+margin-right: 30px;
+list-style: none;
+
+
+}
+
+div#menulateral ul li{
+float: left;
+position: relative;
+
+}
+div#menulateral ul li i{
+ 
+   margin-left: 5px;
+    
+    }
+
+
+div#menulateral ul li a {
+    display: inline-block;
+    padding: 20px 8px;
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+    cursor: pointer;
+
+    }
+
+    
+div#menulateral a:hover{
+    color: rgb(214, 214, 214);
+    transition: 0.4s;
+
+     }
+    
+div#menulateral ul li ul {
+    display:  none;
+    position: absolute;
+    background: rgb(128, 128, 128);
+    box-shadow: 0px 0px 5px 0px rgba(93, 93, 93);
+    border-radius:2px;
+    width: 180px;
+
+}
+
+div#menulateral ul li ul li {
+   padding-top: 0px;
+   
+}
+
+
+div#menulateral ul li ul li a {
+    padding: 12px;
+    width: 150px;
+    display: block;
+    font-size: 15px;
+}
+
+
+div#menulateral ul li i {
+ font-size: 15px;
+}
+
+
+
+div#menulateral ul li:hover ul {
+display: block; }
+        
+
+div#menulateral label{
+    padding: 15px;
+    position: absolute;
+    z-index: 1;
+
+   }
+  
+   div#menulateral img{
+      cursor:pointer;
+      
+     }
+    
+
+ header {
+    width:100%;
+    height:60px;
+    background: rgba(14, 84, 82, 0.8);
+    border-bottom:1px solid #666;
+    position: fixed;
+}
+
+div#header_central {
+    position: relative;
+   
+    height:67px;
+    margin:0 auto;
+
+   
+}
+
+div#header_central img {
+    margin-top:20px;   
+}
+div#header_saudacao {
+    position: absolute;
+    top:10px;
+    right:50px;
+    text-align: right;
+    border-bottom:1px dotted #ddd;
+    padding: 10px;
+    
+    
+}
+
+div#header_saudacao h5 {
+    font-family: sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    margin:2px 0 0 0; 
+    padding:0; 
+    color: white;
+
+}
+
+div#header_saudacao h5 a{
+  text-decoration: none;
+  color: white;
+  
+}
+
+div#header_saudacao h5 a:hover{
+    transition: all 0.2s ease-in-out;
+    color: rgb(181, 180, 180);
+    letter-spacing: 1px;
+ 
+    
+  }
+
+
+main {
+    width:100%;
+    height: 100%;
+    min-height: 500px;
+    padding:100px 0;
+    margin:0 auto;
+
+
+}
+
+footer {
+    clear: both;
+    width:100%;
+    height:60px;
+    border-top:1px solid #ddd;
+}
+
+div#footer_central {
+    width:800px;
+    margin:0 auto;
+}
+
+div#footer_central p {
+    font-family: sans-serif;
+    font-size: 11px;
+    text-align: center
+}
+
+#titulo {
+    width: 400px;
+    margin: 30px auto;
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 600;
+    font-size: 20px;
+    border-bottom:1px solid #ddd; 
+    position: relative;
+  
+}

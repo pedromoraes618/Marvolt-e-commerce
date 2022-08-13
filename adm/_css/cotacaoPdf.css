@@ -1,0 +1,67 @@
+@font-face {
+    font-family:'ariallight';
+    src: url(../fonte/arial-nova-light.ttf) format('opentype');
+    font-style:normal;
+}
+.page-break { page-break-before: always; }
+
+*{
+   font-family:'ariallight';
+}
+#linha{
+    width: 100%;
+    border: 0.5px solid ;
+   margin-top: 5px;
+}
+
+#linhaTotal{
+    width: 100%;
+    border: 0.5px solid ;
+   margin-top: 30px;
+}
+div#dadosCliente{
+    font-family:'ariallight';
+    padding-top: 20px;
+  
+}
+
+#tempresa img{
+float: right;
+}
+#tcotacao tr td{
+    width: 510px;
+}
+
+#tcliente tr td{
+    width: 510px;
+}
+#cabecalhoTabela{
+
+    border-top: 1px solid;
+    margin-top: 20px;
+    border-spacing: 0 2px;
+   
+
+
+}
+
+#linhaCabecalho{
+    background-color: rgba(107, 107, 107,0.3);
+ 
+}
+
+#linhaCabecalho td{
+   padding-top: 4px;
+   padding-bottom: 4px;
+}
+
+div#agrupamento{
+display: block;
+width: 100%;
+padding: 20px 0px;
+}
+div#elemento{
+    display: inline-block;
+    border-bottom: 1px solid rgba(107, 107, 107,0.3);
+    width: 100%;
+}

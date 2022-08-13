@@ -1,0 +1,50 @@
+[04-May-2022 02:44:16 UTC] PHP Warning:  include(../classes/cliente/editar_cliente.php): failed to open stream: No such file or directory in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/editar_cliente.php on line 9
+[04-May-2022 02:44:16 UTC] PHP Warning:  include(): Failed opening '../classes/cliente/editar_cliente.php' for inclusion (include_path='.:/opt/alt/php74/usr/share/pear') in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/editar_cliente.php on line 9
+[04-May-2022 02:44:16 UTC] PHP Notice:  Undefined variable: clienteID in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/editar_cliente.php on line 49
+[04-May-2022 02:44:16 UTC] PHP Notice:  Undefined variable: razao_social in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/editar_cliente.php on line 57
+[04-May-2022 02:44:16 UTC] PHP Notice:  Undefined variable: cpfcnpj in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/editar_cliente.php on line 64
+[04-May-2022 02:44:16 UTC] PHP Notice:  Undefined variable: cidade in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/editar_cliente.php on line 74
+[04-May-2022 02:44:16 UTC] PHP Notice:  Undefined variable: estados in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/editar_cliente.php on line 79
+[04-May-2022 02:44:17 UTC] PHP Notice:  Undefined variable: lista_estados in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/editar_cliente.php on line 80
+[04-May-2022 02:44:17 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, null given in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/editar_cliente.php on line 80
+[04-May-2022 02:44:17 UTC] PHP Notice:  Undefined variable: email in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/editar_cliente.php on line 112
+[04-May-2022 02:44:17 UTC] PHP Notice:  Undefined variable: telefone in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/editar_cliente.php on line 122
+[04-May-2022 02:44:17 UTC] PHP Notice:  Undefined variable: observacao in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/editar_cliente.php on line 131
+[04-May-2022 02:44:17 UTC] PHP Notice:  Undefined variable: nome_fantasia in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/editar_cliente.php on line 162
+[04-May-2022 02:44:17 UTC] PHP Notice:  Undefined variable: inscricao_estadual in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/editar_cliente.php on line 169
+[04-May-2022 02:44:17 UTC] PHP Notice:  Undefined variable: bairro in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/editar_cliente.php on line 175
+[04-May-2022 02:44:17 UTC] PHP Notice:  Undefined variable: clienteftID in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/editar_cliente.php on line 181
+[04-May-2022 02:44:17 UTC] PHP Notice:  Undefined variable: lista_cft in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/editar_cliente.php on line 182
+[04-May-2022 02:44:17 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, null given in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/editar_cliente.php on line 182
+[04-May-2022 02:44:17 UTC] PHP Notice:  Undefined variable: endereco in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/editar_cliente.php on line 208
+[04-May-2022 02:44:17 UTC] PHP Notice:  Undefined variable: cep in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/editar_cliente.php on line 215
+[04-May-2022 02:44:17 UTC] PHP Notice:  Undefined variable: informacao_bancaria in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/editar_cliente.php on line 227
+[04-May-2022 02:44:17 UTC] PHP Notice:  Undefined variable: conta_agencia in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/editar_cliente.php on line 234
+[04-May-2022 02:44:17 UTC] PHP Notice:  Undefined variable: pix in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/editar_cliente.php on line 240
+[04-May-2022 02:44:39 UTC] PHP Warning:  include(../classes/cliente/cadastro_cliente.php): failed to open stream: No such file or directory in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/cadastro_cliente.php on line 8
+[04-May-2022 02:44:39 UTC] PHP Warning:  include(): Failed opening '../classes/cliente/cadastro_cliente.php' for inclusion (include_path='.:/opt/alt/php74/usr/share/pear') in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/cadastro_cliente.php on line 8
+[04-May-2022 02:44:39 UTC] PHP Notice:  Undefined variable: lista_estados in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/cadastro_cliente.php on line 80
+[04-May-2022 02:44:39 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, null given in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/cadastro_cliente.php on line 80
+[04-May-2022 02:44:39 UTC] PHP Notice:  Undefined variable: lista_cft in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/cadastro_cliente.php on line 188
+[04-May-2022 02:44:39 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, null given in /home/e4vokoclkhu2/public_html/marvolt/cdcliente/cadastro_cliente.php on line 188
+[04-May-2022 02:47:37 UTC] PHP Notice:  Trying to access array offset on value of type null in /home/e4vokoclkhu2/public_html/marvolt/classes/cliente/cadastro_cliente.php on line 90
+[04-May-2022 02:47:52 UTC] PHP Notice:  Trying to access array offset on value of type null in /home/e4vokoclkhu2/public_html/marvolt/classes/cliente/editar_cliente.php on line 145
+[04-May-2022 02:47:52 UTC] PHP Notice:  Trying to access array offset on value of type null in /home/e4vokoclkhu2/public_html/marvolt/classes/cliente/editar_cliente.php on line 146
+[04-May-2022 02:47:52 UTC] PHP Notice:  Trying to access array offset on value of type null in /home/e4vokoclkhu2/public_html/marvolt/classes/cliente/editar_cliente.php on line 147
+[04-May-2022 02:47:52 UTC] PHP Notice:  Trying to access array offset on value of type null in /home/e4vokoclkhu2/public_html/marvolt/classes/cliente/editar_cliente.php on line 148
+[04-May-2022 02:47:52 UTC] PHP Notice:  Trying to access array offset on value of type null in /home/e4vokoclkhu2/public_html/marvolt/classes/cliente/editar_cliente.php on line 149
+[04-May-2022 02:47:52 UTC] PHP Notice:  Trying to access array offset on value of type null in /home/e4vokoclkhu2/public_html/marvolt/classes/cliente/editar_cliente.php on line 150
+[04-May-2022 02:47:52 UTC] PHP Notice:  Trying to access array offset on value of type null in /home/e4vokoclkhu2/public_html/marvolt/classes/cliente/editar_cliente.php on line 151
+[04-May-2022 02:47:52 UTC] PHP Notice:  Trying to access array offset on value of type null in /home/e4vokoclkhu2/public_html/marvolt/classes/cliente/editar_cliente.php on line 152
+[04-May-2022 02:47:52 UTC] PHP Notice:  Trying to access array offset on value of type null in /home/e4vokoclkhu2/public_html/marvolt/classes/cliente/editar_cliente.php on line 153
+[04-May-2022 02:47:52 UTC] PHP Notice:  Trying to access array offset on value of type null in /home/e4vokoclkhu2/public_html/marvolt/classes/cliente/editar_cliente.php on line 154
+[04-May-2022 02:47:52 UTC] PHP Notice:  Trying to access array offset on value of type null in /home/e4vokoclkhu2/public_html/marvolt/classes/cliente/editar_cliente.php on line 155
+[04-May-2022 02:47:52 UTC] PHP Notice:  Trying to access array offset on value of type null in /home/e4vokoclkhu2/public_html/marvolt/classes/cliente/editar_cliente.php on line 156
+[04-May-2022 02:47:52 UTC] PHP Notice:  Trying to access array offset on value of type null in /home/e4vokoclkhu2/public_html/marvolt/classes/cliente/editar_cliente.php on line 157
+[04-May-2022 02:47:52 UTC] PHP Notice:  Trying to access array offset on value of type null in /home/e4vokoclkhu2/public_html/marvolt/classes/cliente/editar_cliente.php on line 158
+[04-May-2022 02:47:52 UTC] PHP Notice:  Trying to access array offset on value of type null in /home/e4vokoclkhu2/public_html/marvolt/classes/cliente/editar_cliente.php on line 159
+[04-May-2022 02:47:52 UTC] PHP Notice:  Trying to access array offset on value of type null in /home/e4vokoclkhu2/public_html/marvolt/classes/cliente/editar_cliente.php on line 160
+[04-May-2022 02:47:52 UTC] PHP Notice:  Trying to access array offset on value of type null in /home/e4vokoclkhu2/public_html/marvolt/classes/cliente/editar_cliente.php on line 161
+[04-May-2022 03:59:40 UTC] PHP Notice:  Trying to access array offset on value of type null in /home/e4vokoclkhu2/public_html/marvolt/classes/cliente/cadastro_cliente.php on line 104
+[04-May-2022 14:03:23 UTC] PHP Notice:  Trying to access array offset on value of type null in /home/e4vokoclkhu2/public_html/marvolt/classes/cliente/cadastro_cliente.php on line 104
+[04-May-2022 14:15:50 UTC] PHP Notice:  Trying to access array offset on value of type null in /home/e4vokoclkhu2/public_html/marvolt/classes/cliente/cadastro_cliente.php on line 104
