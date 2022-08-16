@@ -8,7 +8,7 @@ if(!$lista_categoria){
  }
 
  
-$select = "SELECT * from tb_subcategoria";
+$select = "SELECT s.cl_id, s.cl_descricao, c.cl_descricao as categoria_descricao from tb_subcategoria as s inner join tb_categoria as c on c.cl_id = s.cl_categoria";
 $lista_subcategoria = mysqli_query($conecta,$select);
 if(!$lista_subcategoria){
     die("Falaha no banco de dados");

@@ -14,9 +14,14 @@ include "/../classes/subcategoria/pagina.php";
 }elseif(isset($_GET['produto'])) {
     $b_id = $_GET['produto'];
     $b_desc = $_GET['desc']; //titulo do produto
-
     include "crud_categoria.php";
     include "/../classes/produto/pagina.php";
-    }
+
+}elseif(isset($_GET['buscar'])or isset($_GET['pagina'])){
+ 
+
+    include "crud_categoria.php";
+    include "/../classes/buscar/pagina.php";
+}
 }
 ?>

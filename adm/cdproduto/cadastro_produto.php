@@ -233,7 +233,7 @@ alertify.success("Produto cadastrado com sucesso");
                                     
                                     ?>
                                     <option value="<?php echo utf8_encode($linha_subcategoria["cl_id"]);?>">
-                                        <?php echo utf8_encode($linha_subcategoria["cl_descricao"]);?>
+                                        <?php echo utf8_encode($linha_subcategoria["cl_descricao"]." - ".$linha_subcategoria["categoria_descricao"]);?>
                                     </option>
                                     <?php
    
@@ -241,14 +241,14 @@ alertify.success("Produto cadastrado com sucesso");
                                         if($subcategoria==$subcategoriaPrincipal){
                                         ?> <option value="<?php echo utf8_encode($linha_subcategoria["cl_id"]);?>"
                                         selected>
-                                        <?php echo  utf8_encode($linha_subcategoria["cl_descricao"]);?>
+                                        <?php echo  utf8_encode($linha_subcategoria["cl_descricao"]." - ".$linha_subcategoria["categoria_descricao"]);?>
                                     </option>
                                     <?php
                                     }else{
     
                                 ?>
                                     <option value="<?php echo utf8_encode($linha_subcategoria["cl_id"]);?>">
-                                        <?php echo utf8_encode($linha_subcategoria["cl_descricao"]);?>
+                                        <?php echo utf8_encode($linha_subcategoria["cl_descricao"]." - ".$linha_subcategoria["categoria_descricao"]);?>
                                     </option>
                                     <?php
 

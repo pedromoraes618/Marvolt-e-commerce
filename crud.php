@@ -25,3 +25,14 @@ $resultado_categoria = mysqli_query($conecta, $categoria);
 	if(!$resultado_categoria){
 	die("Falha na consulta ao banco de dados || tb_categoria");
 }
+
+
+// if(isset($_GET['buscar'])){
+// 	$select = "SELECT * from tb_produto";
+// 	$resultado_pesquisa = mysqli_query($conecta,$select); 
+// }
+
+// //contar o total de registros
+// $total_registros = mysqli_num_rows($resultado_pesquisa);
+
+// //seta a quantidade de registros por pagina 6

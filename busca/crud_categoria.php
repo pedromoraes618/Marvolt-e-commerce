@@ -93,9 +93,9 @@ die("Falha na consulta ao banco de dados || tb_categoria");
                 
 
 //produtos nos fabricantes
-$select = "SELECT p.cl_titulo,p.cl_descricao,p.cl_imagem,p.cl_modelo,p.cl_codigo,f.cl_descricao as fabricante, e.cl_descricao as embalagem from tb_produto 
-as p inner join tb_fabricante as f on p.cl_fabricante = f.cl_id inner join tb_embalagem as e on e.cl_id = p.cl_embalagem  
-where p.cl_id = $b_id ";
+$select = "SELECT p.cl_titulo,p.cl_descricao,p.cl_imagem,p.cl_modelo,s.cl_descricao as subcategoria, c.cl_descricao as categoria, p.cl_codigo,f.cl_descricao as fabricante, e.cl_descricao as embalagem from tb_produto 
+as p inner join tb_fabricante as f on p.cl_fabricante = f.cl_id inner join tb_embalagem as e on e.cl_id = p.cl_embalagem  inner join tb_categoria as c on c.cl_id = p.cl_categoria  
+inner join tb_subcategoria as s on s.cl_id = p.cl_subcategoria  where p.cl_id = $b_id ";
 $resultado_descr_prod = mysqli_query($conecta, $select);
 if(!$resultado_descr_prod){
 die("Falha na consulta ao banco de dados || tb_produto");
@@ -108,6 +108,8 @@ $b_desc_codigo = $linha['cl_codigo'];
 $b_desc_fabricante = $linha['fabricante'];
 $b_desc_modelo= $linha['cl_modelo'];
 $b_desc_embalagem= $linha['embalagem'];
+$b_desc_categoria = $linha['categoria'];
+$b_desc_subcategoria = $linha['subcategoria'];
 }
 
 if(isset($_GET['subcg'])){
@@ -122,3 +124,15 @@ if(!$resultado_prod){
 die("Falha na consulta ao banco de dados || tb_produto");
 }
 }
+
+
+//query para realizar a busca do produto
+if(isset($_GET['buscar'])){
+    $b_desc_p = $_GET['buscar'];
+    $select = "SELECT p.cl_titulo,p.cl_id,p.cl_descricao,p.cl_imagem,p.cl_modelo,p.cl_codigo,f.cl_descricao as fabricante,p.cl_subcategoria, e.cl_descricao as embalagem  from tb_produto 
+    as p inner join tb_fabricante as f on p.cl_fabricante = f.cl_id inner join tb_embalagem as e on e.cl_id = p.cl_embalagem  
+    where p.cl_titulo LIKE '%{$b_desc_p}%' ORDER BY RAND()  ";
+     $resultado_busca = mysqli_query($conecta, $select);
+
+}
+    

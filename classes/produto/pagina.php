@@ -1,8 +1,15 @@
-<?php 
-?>
-
 <div class="row" id="bloco-desc-prod">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><?php echo  $b_desc_categoria; ?></li>
+            <li class="breadcrumb-item active" aria-current="page"><?php echo  $b_desc_subcategoria; ?></li>
+
+           
+        </ol>
+    </nav>
     <div class="container">
+
         <div class="bloco-1">
             <div class="img">
                 <img src="adm/cdproduto/<?php echo $b_desc_img;?>">
