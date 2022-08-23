@@ -20,3 +20,11 @@ $lista_fabricante = mysqli_query($conecta,$select);
 if(!$lista_fabricante){
     die("Falaha no banco de dados");
  }
+
+
+ $select = "SELECT * from tb_embalagem";
+$lista_embalagem = mysqli_query($conecta,$select);
+if(!$lista_embalagem){
+    die("Falaha no banco de dados");
+ }
+

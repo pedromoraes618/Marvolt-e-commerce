@@ -12,16 +12,18 @@ if($_POST){
     $titulo = ($_POST["campoTitulo"]);
     $descricao = ($_POST["campoDescricao"]);
     $fabricante = ($_POST["campoFabricante"]);
-    $categoria = ($_POST["campoCategoria"]);
     $subcategoria = ($_POST["campoSubCategoria"]);
     $ativo = ($_POST["ativo"]);
     $destaque = ($_POST["destaque"]);
+    $embalagem = $_POST['campoEmbalagem'];
+    $cdg_produto = $_POST['campoCodigoProduto'];
+    $modelo = $_POST['campoModelo'];
     if(isset($_POST['enviar']))
     {
       if($titulo==""){
         ?>
 <script>
-alertify.alert("Favor informar a categoria do produto");
+alertify.alert("Favor informar o Titulo do produto");
 </script>
 
 <?php 
@@ -32,14 +34,7 @@ alertify.alert("Favor informar o fabricante");
 </script>
 
 <?php 
-      }elseif($categoria=="0"){
-          ?>
-<script>
-alertify.alert("Favor informar a categoria");
-</script>
-
-<?php 
-        }elseif($subcategoria=="0"){
+      }elseif($subcategoria=="0"){
             ?>
 <script>
 alertify.alert("Favor informar a Subcategoria do produto");
@@ -47,12 +42,24 @@ alertify.alert("Favor informar a Subcategoria do produto");
 
 <?php 
           }else{
+
+            //pegar o id da categoria
+ $select = "SELECT s.cl_id, s.cl_descricao as subcategoria,s.cl_categoria as id_categoria, c.cl_descricao as categoria_descricao from tb_subcategoria as s inner join 
+ tb_categoria as c on c.cl_id = s.cl_categoria where s.cl_id = $subcategoria";
+ $lista_id_categoria = mysqli_query($conecta,$select);
+ if(!$lista_id_categoria){
+ die("Falaha no banco de dados");
+ }else{
+     $linha = mysqli_fetch_assoc($lista_id_categoria);
+     $id_categoria =$linha['id_categoria'];
+ }
+
          
   //inserindo as informações no banco de dados
     $inserir = "INSERT INTO tb_produto ";
-    $inserir .= "(cl_data_cadastro,cl_descricao,cl_fabricante,cl_categoria,cl_subcategoria,cl_titulo,cl_imagem,cl_destaque,cl_ativo)";
+    $inserir .= "(cl_data_cadastro,cl_descricao,cl_fabricante,cl_categoria,cl_subcategoria,cl_titulo,cl_imagem,cl_destaque,cl_ativo,cl_embalagem,cl_modelo,cl_codigo)";
     $inserir .= " VALUES ";
-    $inserir .= "( '$hoje','$descricao','$fabricante',' $categoria','$subcategoria','$titulo','img_produto/img-padrao.PNG','$destaque','$ativo')";
+    $inserir .= "( '$hoje','$descricao','$fabricante',' $id_categoria','$subcategoria','$titulo','img_produto/img-padrao.PNG','$destaque','$ativo','$embalagem','$modelo','$cdg_produto')";
 
 
     $operacao_inserir = mysqli_query($conecta, $inserir);
@@ -120,10 +127,12 @@ alertify.success("Produto cadastrado com sucesso");
 
                         <tr>
                             <td style="width: 120px;" align=left><b>Titulo:</b></td>
-                            <td align=left><input type="text" size=30 name="campoTitulo"
+                            <td align=left><input type="text" size=56 name="campoTitulo"
                                     value="<?php if(isset($_POST['enviar'])){ echo utf8_encode($titulo);}?>">
                             </td>
                         </tr>
+
+
 
 
                         <tr>
@@ -172,55 +181,10 @@ alertify.success("Produto cadastrado com sucesso");
                             </td>
 
                         </tr>
-                        <tr>
-                            <td align=left><b>Categoria:</b></td>
-                            <td>
-                                <select style="width: 350px; margin-bottom: 5px;" id="campoCategoria"
-                                    name="campoCategoria">
-                                    <option value="0">Selecione</option>
-                                    <?php 
-                                    
-                                    while($linha_categoria  = mysqli_fetch_assoc($lista_categoria)){
-                                        $categoriaPrincipal = utf8_encode($linha_categoria["cl_id"]);
-                                    if(!isset($categoria)){
-                                    
-                                    ?>
-                                    <option value="<?php echo utf8_encode($linha_categoria["cl_id"]);?>">
-                                        <?php echo utf8_encode($linha_categoria["cl_descricao"]);?>
-                                    </option>
-                                    <?php
-   
-                                    }else{
-                                        if($categoria==$categoriaPrincipal){
-                                        ?> <option value="<?php echo utf8_encode($linha_categoria["cl_id"]);?>"
-                                        selected>
-                                        <?php echo utf8_encode($linha_categoria["cl_descricao"]);?>
-                                    </option>
-                                    <?php
-                                    }else{
-    
-                                ?>
-                                    <option value="<?php echo utf8_encode($linha_categoria["cl_id"]);?>">
-                                        <?php echo utf8_encode($linha_categoria["cl_descricao"]);?>
-                                    </option>
-                                    <?php
 
-                                    }
-
-                                    }
-
-                                    }
-                   
-     ?>
-
-                                </select>
-
-                            </td>
-
-                        </tr>
 
                         <tr>
-                            <td align=left><b>Sub Categoria:</b></td>
+                            <td align=left><b>Sub/Categoria:</b></td>
                             <td>
                                 <select style="width: 350px; margin-bottom: 5px;" id="campoSubCategoria"
                                     name="campoSubCategoria">
@@ -228,7 +192,7 @@ alertify.success("Produto cadastrado com sucesso");
                                     <?php 
                                     
                                     while($linha_subcategoria = mysqli_fetch_assoc($lista_subcategoria)){
-                                        $subcategoriaPrincipal = utf8_encode($linha_categoria["cl_id"]);
+                                        $subcategoriaPrincipal = utf8_encode($linha_subcategoria["cl_id"]);
                                     if(!isset($subcategoria)){
                                     
                                     ?>
@@ -264,6 +228,64 @@ alertify.success("Produto cadastrado com sucesso");
 
                             </td>
 
+                        </tr>
+
+                        <tr>
+                            <td align=left><b>Embalagem:</b></td>
+                            <td>
+                                <select style="width: 350px; margin-bottom: 5px;" id="campoEmbalagem"
+                                    name="campoEmbalagem">
+                                    <option value="0">Selecione</option>
+                                    <?php 
+                                    
+                                    while($linha = mysqli_fetch_assoc($lista_embalagem)){
+                                        $subcategoriaPrincipal = utf8_encode($linha["cl_id"]);
+                                    if(!isset($subcategoria)){
+                                    
+                                    ?>
+                                    <option value="<?php echo utf8_encode($linha["cl_id"]);?>">
+                                        <?php echo utf8_encode($linha["cl_descricao"]);?>
+                                    </option>
+                                    <?php
+   
+                                    }else{
+                                        if($subcategoria==$subcategoriaPrincipal){
+                                        ?> <option value="<?php echo utf8_encode($linha["cl_id"]);?>" selected>
+                                        <?php echo  utf8_encode($linha["cl_descricao"]);?>
+                                    </option>
+                                    <?php
+                                    }else{
+    
+                                ?>
+                                    <option value="<?php echo utf8_encode($linha["cl_id"]);?>">
+                                        <?php echo utf8_encode($linha["cl_descricao"]);?>
+                                    </option>
+                                    <?php
+
+                                    }
+
+                                    }
+
+                                    }
+                   
+     ?>
+
+                                </select>
+
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td style="width: 120px;" align=left><b>Código Produto:</b></td>
+                            <td align=left><input type="text" size=40 name="campoCodigoProduto"
+                                    value="<?php if(isset($_POST['enviar'])){ echo utf8_encode($cdg_produto);}?>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 120px;" align=left><b>Modelo:</b></td>
+                            <td align=left><input type="text" size=40 name="campoModelo"
+                                    value="<?php if(isset($_POST['enviar'])){ echo utf8_encode($modelo);}?>">
+                            </td>
                         </tr>
 
                         <tr>

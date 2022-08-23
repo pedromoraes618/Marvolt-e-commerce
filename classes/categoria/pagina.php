@@ -1,6 +1,13 @@
-<?php 
-?>
 <div class="row" id="bloco">
+    <nav class="text-left" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/marvoltect"><i class="fas fa-home"></i> Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a
+                    href="?categoria=<?php echo $b_mapa_id_categoria; ?>"><?php echo utf8_encode(ucfirst(strtolower($b_mapa_descricao_categoria))); ?></a>
+            </li>
+
+        </ol>
+    </nav>
     <div class="tile-bloco">
         <p><?php 
     
@@ -14,8 +21,11 @@
                         $b_id = $linha['cl_id'];
                         ?>
                 <tr>
+
                     <td>
-                        <p> <?php echo $b_subcategoria; ?></p>
+                        <a href="?subcategoria=<?php echo $b_id; ?>">
+                            <p> <?php echo $b_subcategoria; ?></p>
+                        </a>
                     </td>
                     <td style="width:20px">
                         <p>
@@ -23,6 +33,7 @@
                     echo qtd_subcategoria($b_id);
                 ?></p>
                     </td>
+
                 </tr>
                 <?php } ?>
             </table>
@@ -37,10 +48,8 @@
                 if (mysqli_num_rows($resultado_produto_categoria)==0)
                 {
                    ?>
-                <div class="msg-alert">
-                    <p>Nenhum produto encontrado</p>
-                </div>
                 <?php
+                include "/../mensagem/msg_nenhum_produto.php";
                 } else {
               
 						while($linha = mysqli_fetch_assoc($resultado_produto_categoria)){

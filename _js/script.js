@@ -66,8 +66,14 @@ $(document).ready(function() {
                 items: 1
 
             },
-            400: {
+            390:{
                 items: 2
+            },
+            440: {
+                items: 2
+            },
+            900: {
+                items: 4
             },
             1000: {
                 items: 4
@@ -77,6 +83,102 @@ $(document).ready(function() {
 
     });
 
+
+});
+
+$(document).ready(function() {
+    $("#categoria-apresentacao-1").owlCarousel({
+        items: 6,
+        loop: true,
+        margin: 20,
+        autoplay: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            360: {
+                items: 1
+
+            },
+            390:{
+                items: 2
+            },
+            440: {
+                items: 2
+            },
+            900: {
+                items: 4
+            },
+            1000: {
+                items: 4
+            }
+        }
+
+
+    });
+    $("#categoria-apresentacao-2").owlCarousel({
+        items: 6,
+        loop: true,
+        margin: 20,
+        autoplay: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            360: {
+                items: 1
+
+            },
+            390:{
+                items: 2
+            },
+            440: {
+                items: 2
+            },
+            900: {
+                items: 4
+            },
+            1000: {
+                items: 4
+            }
+        }
+
+
+    });
+
+
+});
+
+$(document).ready(function() {
+    $("#categoria-apresentacao-3").owlCarousel({
+        items: 6,
+        loop: true,
+        margin: 20,
+        autoplay: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            360: {
+                items: 1
+
+            },
+            390:{
+                items: 2
+            },
+            440: {
+                items: 2
+            },
+            900: {
+                items: 4
+            },
+            1000: {
+                items: 4
+            }
+        }
+
+
+    });
 
 });
 
@@ -122,8 +224,14 @@ $(document).ready(function() {
                 items: 1
 
             },
-            400: {
+            390:{
                 items: 2
+            },
+            440: {
+                items: 3
+            },
+            900: {
+                items: 4
             },
             1000: {
                 items: 5
@@ -135,3 +243,4 @@ $(document).ready(function() {
 
 
 });
+

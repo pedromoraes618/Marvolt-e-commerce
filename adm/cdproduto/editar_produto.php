@@ -18,15 +18,16 @@ if(isset($_POST['enviar'])){
     $titulo = ($_POST["campoTitulo"]);
     $descricao = ($_POST["campoDescricao"]);
     $fabricante = ($_POST["campoFabricante"]);
-    $categoria = ($_POST["campoCategoria"]);
     $ativo = ($_POST["ativo"]);
     $destaque = ($_POST["destaque"]);
     $subcategoria = ($_POST["campoSubcategoria"]);
-
+    $cdg_produto = $_POST['campoCodigoProduto'];
+    $modelo = $_POST['campoModelo'];
+    $embalagem = $_POST['campoEmbalagem'];
     if($titulo==""){
         ?>
 <script>
-alertify.alert("Favor informar a categoria do produto");
+alertify.alert("Favor informar O Titulo do produto");
 </script>
 
 <?php 
@@ -37,18 +38,37 @@ alertify.alert("Favor informar o fabricante");
 </script>
 
 <?php 
-      }elseif($categoria=="0"){
-          ?>
+      }elseif($embalagem=="0"){
+        ?>
 <script>
-alertify.alert("Favor informar a categoria");
+alertify.alert("Favor informar a embalagem do produto");
 </script>
 
 <?php 
-        }else{
+      }elseif($subcategoria=="0"){
+        ?>
+<script>
+alertify.alert("Favor informar a Subcategoria do produto");
+</script>
+
+<?php 
+      }else{
+//pegar o id da categoria
+ $select = "SELECT s.cl_id, s.cl_descricao as subcategoria,s.cl_categoria as id_categoria, c.cl_descricao as categoria_descricao from tb_subcategoria as s inner join 
+ tb_categoria as c on c.cl_id = s.cl_categoria where s.cl_id = $subcategoria";
+ $lista_id_categoria = mysqli_query($conecta,$select);
+ if(!$lista_id_categoria){
+ die("Falaha no banco de dados");
+ }else{
+     $linha = mysqli_fetch_assoc($lista_id_categoria);
+     $id_categoria =$linha['id_categoria'];
+ }
+
 
 //update as informações no banco de dados
-$update = "UPDATE tb_produto set cl_titulo = '{$titulo}',cl_descricao = '{$descricao}',cl_fabricante = '{$fabricante}',cl_categoria = '{$categoria}'
-,cl_ativo = '{$ativo}', cl_destaque = '{$destaque}',cl_subcategoria = '{$subcategoria}' where cl_id = {$codProduto} ";
+$update = "UPDATE tb_produto set cl_titulo = '{$titulo}',cl_descricao = '{$descricao}',cl_fabricante = '{$fabricante}',cl_categoria = '{$id_categoria}'
+,cl_ativo = '{$ativo}', cl_destaque = '{$destaque}',cl_subcategoria = '{$subcategoria}',cl_modelo = '{$modelo}',cl_codigo = '{$cdg_produto}',cl_embalagem = '{$embalagem}'
+where cl_id = {$codProduto} ";
 $operacao_update_produto = mysqli_query($conecta, $update);
 if(!$operacao_update_produto){
     die("Erro no banco de dados || tb_produto || update");
@@ -83,6 +103,9 @@ include "funcao.php";
         $b_ativo = ($linha["cl_ativo"]);
         $b_destaque = ($linha["cl_destaque"]);
         $b_subcategoria = ($linha["cl_subcategoria"]);
+        $b_cdg_produto = $linha['cl_codigo'];
+        $b_modelo = $linha['cl_modelo'];
+        $b_embalagem = $linha['cl_embalagem'];
         
 }
     
@@ -127,7 +150,7 @@ include "funcao.php";
 
                         <tr>
                             <td style="width: 120px;" align=left><b>Titulo:</b></td>
-                            <td align=left><input type="text" size=30 name="campoTitulo" value="<?php if(isset($_POST['enviar'])){echo $titulo;
+                            <td align=left><input type="text" size=58 name="campoTitulo" value="<?php if(isset($_POST['enviar'])){echo $titulo;
                                     }else{
                                         echo $b_titulo;
                                     }?>">
@@ -172,44 +195,9 @@ include "funcao.php";
                             </td>
 
                         </tr>
+
                         <tr>
-                            <td align=left><b>Categoria:</b></td>
-                            <td>
-                                <select style="width: 390px; margin-bottom: 5px;" id="campoCategoria"
-                                    name="campoCategoria">
-                                    <option value="0">Selecione</option>
-                                    <?php 
-                                    while($linha_categoria  = mysqli_fetch_assoc($lista_categoria)){
-                                        $categoriaPrincipal = utf8_encode($linha_categoria["cl_id"]);
-                                        if($categoriaPrincipal==$b_categoria){
-                                        ?> <option value="<?php echo utf8_encode($linha_categoria["cl_id"]);?>"
-                                        selected>
-                                        <?php echo utf8_encode($linha_categoria["cl_descricao"]);?>
-                                    </option>
-                                    <?php
-                                    }else{
-    
-                                ?>
-                                    <option value="<?php echo utf8_encode($linha_categoria["cl_id"]);?>">
-                                        <?php echo utf8_encode($linha_categoria["cl_descricao"]);?>
-                                    </option>
-                                    <?php
-
-                                    }
-
-                                    }
-
-                                    
-                   
-     ?>
-
-                                </select>
-
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td align=left><b>Sub categoria:</b></td>
+                            <td align=left><b>Sub/Categoria:</b></td>
                             <td>
                                 <select style="width: 390px; margin-bottom: 5px;" id="campoSubcategoria"
                                     name="campoSubcategoria">
@@ -238,8 +226,53 @@ include "funcao.php";
                             </td>
 
                         </tr>
+                        <tr>
+                            <td align=left><b>Embalagem:</b></td>
+                            <td>
+                                <select style="width: 390px; margin-bottom: 5px;" id="campoEmbalagem"
+                                    name="campoEmbalagem">
+                                    <option value="0">Selecione</option>
+                                    <?php 
+                                    while($linha  = mysqli_fetch_assoc($lista_embalagem)){
+                                        $embalagePrincipal = utf8_encode($linha["cl_id"]);
+                                        if($embalagePrincipal==$b_embalagem){
+                                        ?> <option value="<?php echo utf8_encode($linha["cl_id"]);?>" selected>
+                                        <?php echo utf8_encode($linha["cl_descricao"]);?>
+                                    </option>
+                                    <?php
+                                    }else{
+    
+                                ?>
+                                    <option value="<?php echo utf8_encode($linha["cl_id"]);?>">
+                                        <?php echo utf8_encode($linha["cl_descricao"]);?>
+                                    </option>
+                                    <?php
+                                    }
+                                    }
+                                            ?>
+                                </select>
+
+                            </td>
+
+                        </tr>
 
 
+                        <tr>
+                            <td style="width: 120px;" align=left><b>Código Produto:</b></td>
+                            <td align=left><input type="text" size=40 name="campoCodigoProduto" value="<?php if(isset($_POST['enviar'])){ echo utf8_encode($cdg_produto);
+                            }
+                                    else{
+                                        echo $b_cdg_produto;
+                                    }?>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 120px;" align=left><b>Modelo:</b></td>
+                            <td align=left><input type="text" size=40 name="campoModelo" value="<?php if(isset($_POST['enviar'])){ echo utf8_encode($modelo);}else{
+                                        echo $b_modelo;
+                                    }?>">
+                            </td>
+                        </tr>
                         <tr>
                             <td style="width: 120px;"><b>Descricao:<b></td>
                             <td><textarea rows=4 cols=60 name="campoDescricao" id="observacao"><?php if(isset($_POST['enviar'])){echo $descricao;

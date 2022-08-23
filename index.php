@@ -21,42 +21,31 @@ include "crud.php";
     <link rel="stylesheet" href="lib/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="lib/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css">
     <link rel="shortcut icon" type="imagex/png" href="img/marvolt.ico">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.rtl.min.css" />
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.rtl.min.css" />
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.rtl.min.css" />
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.rtl.min.css" />
+
 </head>
 
 <body>
     <div class="container">
         <div class="row" id="top-1">
-            <div class="secition-top">
-                <div class="top-1-1" id="movelmenu">
-                    <section class="top-1-1-1">
-                        <div class="col logo-marvolt-top-1">
-                            <img src="img/LogoPreto.png">
-                        </div>
-                        <div class="col menu-cliente">
-                            <p>(98) 988814696 | Cliente | Cadastrar <i class="fa-solid fa-user"></i></p>
-                        </div>
-                    </section>
-                </div>
-                <form method="get">
-                    <div class="top-1-2">
-                        <section class="top-1-1-2">
-                            <div class="col logo-marvolt">
-                                <a href="/marvoltect"> <img src="img/LogoPreto.png">
-                                </a>
-                            </div>
-                            <div class="col input-pesquisa">
-                                <input type="text" name="buscar" placeholder="O que você procura?"> <button
-                                    type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                            </div>
-                            <div class="carrinho-compras">
-                                <i class="fa-solid fa-cart-shopping"></i>
-                            </div>
-                        </section>
-                    </div>
-                    <?php 
-                 include "menu.php";
-               ?>
-            </div>
+            <?php 
+        //incluir o topo
+         include "topo.php";
+         ?>
         </div>
 
         <div class="bloco-central">
@@ -65,7 +54,7 @@ include "crud.php";
             if(!$_GET){ 
              include "incial.php";
             }else{
-                include "busca/pesquisa.php";
+            include "busca/pesquisa.php";
             }
     
             ?>
@@ -73,6 +62,32 @@ include "crud.php";
         </div>
         </form>
         <?php 
+        if(!$_GET){
+        ?>
+        <div class="row" id="email">
+            <div class="container">
+                <div class="titulo">
+                    <p>Cadastre-se para receber nossas ofertas!</p>
+                </div>
+                <div class="formulario">
+                    <form method="POST" class="form" action="https://api.staticforms.xyz/submit" id="enviar">
+                        <input type="hidden" name="accessKey" value="f4e33596-cae1-4728-8d33-85043c1d0e17">
+                        <!-- Required -->
+                        <input type="hidden" name="redirectTo" value="index.php"> <!-- Optional -->
+
+                        <input type="text" name="name" id="name" placeholder="Nome">
+                        <input type="text" name="email" id="email_formulario" placeholder="E-mail">
+
+                        <button class="button_enivar" onclick="sendEmail()" type="submit">enviar</button>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <?php 
+        }
        include "footer.php";
        ?>
 
@@ -84,12 +99,54 @@ include "crud.php";
     <script src="_js/script.js"></script>
     <script src="_js/vanilla-tilt.js"></script>
     <script src="lib/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
-
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script src="_js/script.js"></script>
 
 </body>
 
 </html>
+
+<script>
+//funcção para enviar o email
+var nome = document.getElementById("name");
+var email = document.getElementById("email_formulario");
+
+$(document).ready(function() {
+    $("#enviar").submit(function(e) {
+        e.preventDefault(); //evito o submit do form ao apetar o enter..
+        var formulario = $(this);
+        if (nome.value == "") {
+            alertify.alert("Favor preencher o campo nome")
+        } else if (email.value == "") {
+            alertify.alert("Favor preencher o campo email");
+        } else {
+            var retorno = enviar(formulario);
+            alertify.success("Cadastro realizado!");
+            nome.value = "";
+            email.value = "";
+        }
+
+    });
+});
+
+
+function enviar(dados) {
+    $.ajax({
+        type: 'POST',
+        data: dados.serialize(),
+        async: false,
+        url: "https://api.staticforms.xyz/submit"
+    }).then(sucesso, falha)
+
+    function sucesso(data) {
+
+    }
+
+    function falha(data) {
+        console.log("erro")
+    }
+}
+</script>
 
 <?php
     // Fechar conexao

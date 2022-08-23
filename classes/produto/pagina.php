@@ -1,11 +1,15 @@
-<div class="row" id="bloco-desc-prod">
+<div class="row" id="bloco-desc-prod" >
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><?php echo  $b_desc_categoria; ?></li>
-            <li class="breadcrumb-item active" aria-current="page"><?php echo  $b_desc_subcategoria; ?></li>
-
-           
+        <ol class="breadcrumb" style="margin-bottom:0px;">
+            <li class="breadcrumb-item"><a href="/marvoltect"><i class="fas fa-home"></i> Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a
+                    href="?categoria=<?php echo $b_id_categoria; ?>"><?php echo  ucfirst(strtolower($b_desc_categoria)); ?></a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page"><a
+                    href="?subcategoria=<?php echo $b_id_subcategoria;?>">
+                    <?php echo (ucfirst(utf8_encode(strtolower($b_desc_subcategoria)))); ?></a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+                    <?php echo  ucfirst(strtolower($b_desc_titulo)); ?></a></li>
         </ol>
     </nav>
     <div class="container">
@@ -57,6 +61,7 @@
         </div>
 
     </div>
+    <hr>
     <div class="container-3">
 
         <div class="titulo-prod">
