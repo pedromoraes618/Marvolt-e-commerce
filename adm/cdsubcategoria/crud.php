@@ -1,7 +1,7 @@
 <?php 
 
 
-$select = "SELECT * from tb_categoria";
+$select = "SELECT * from tb_categoria order by cl_descricao asc";
 $lista_categoria = mysqli_query($conecta,$select);
 if(!$lista_categoria){
     die("Falaha no banco de dados");
@@ -27,4 +27,7 @@ $lista_embalagem = mysqli_query($conecta,$select);
 if(!$lista_embalagem){
     die("Falaha no banco de dados");
  }
+
+ 
+ 
 

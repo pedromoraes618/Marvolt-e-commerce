@@ -5,8 +5,13 @@
             <li class="breadcrumb-item active" aria-current="page"><a
                     href="?categoria=<?php echo $b_mapa_id_categoria; ?>"><?php echo utf8_encode(ucfirst(strtolower($b_mapa_descricao_categoria))); ?></a>
             </li>
-
+            <div class="back">
+                <a href="JavaScript: window.history.back();">
+                    <i class="fa-solid fa-circle-arrow-left"></i>
+                    Voltar</a>
+            </div>
         </ol>
+
     </nav>
     <div class="tile-bloco">
         <p><?php 

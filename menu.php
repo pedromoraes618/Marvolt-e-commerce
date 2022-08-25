@@ -5,7 +5,7 @@
             <ul>
                 <?php
                         while($linha = mysqli_fetch_assoc($resultado_categoria)){
-                            $b_categoria = utf8_encode($linha['cl_descricao']);
+                            $b_categoria = ($linha['cl_descricao']);
                             $b_id = $linha['cl_id'];
                         
                             ?>
@@ -21,7 +21,7 @@
 
                                         while($linha = mysqli_fetch_assoc($resultado_subcategoria)){
                                             $b_id= utf8_encode($linha['cl_id']);
-                                        $b_descricao= utf8_encode($linha['cl_descricao']);
+                                        $b_descricao= ($linha['cl_descricao']);
                                         ?>
                         <li>
                             <a href="?subcategoria=<?php echo $b_id ?>"><?php echo $b_descricao;  ?></a>

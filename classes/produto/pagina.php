@@ -87,6 +87,7 @@
                             <a
                                 href="?produto=<?php echo $b_id; ?>&desc=<?php echo $b_titulo;?>&subcg=<?php echo $b_subcategoria ?>"><img
                                     class="img-responsive" src="adm/cdproduto/<?php echo $b_imagem;?>"></a>
+                                    
                             <div class="info">
                                 <div class="destaque-card-titulo">
                                     <p><a

@@ -73,7 +73,7 @@ $resultado = mysqli_query($conecta, $produtos);
                         <td>
                             <p>Descrição</p>
                         </td>
-                        <td>
+                        <td align="center">
                             <p>Categoria</p>
                         </td>
                         <td>
@@ -99,7 +99,7 @@ if(isset($_GET["produto"])){
         $b_id = $linha["cl_id"];
         $b_imagem = ($linha["cl_imagem"]);
         $b_titulo = ($linha["cl_titulo"]);
-        $b_descricao = ($linha["cl_descricao"]);
+        $b_descricao = (($linha["cl_descricao"]));
         $b_fabricante = ($linha["as_descricao_fabricante"]);
         $b_categoria = ($linha["as_descricao_categoria"]);
         $b_ativo = ($linha["cl_ativo"]);
@@ -113,20 +113,20 @@ if(isset($_GET["produto"])){
                             <font size="3"><?php echo $b_id;?> </font>
                         </td>
 
-                        <td style="width: 200px;">
+                        <td style="width: 100px;">
                             <p>
                                 <font size="2"><img src="<?php echo $b_imagem; ?>"> </font>
                             </p>
                         </td>
-                        <td style="width: 200px;">
+                        <td style="width: 250px;">
                             <font size="2"><?php echo $b_titulo;?></font>
                         </td>
 
                         <td style="width: 500px;">
-                            <font size="2"><?php echo $b_descricao;?> </font>
+                            <font size="2"><?php echo substr(($b_descricao),0,80)." .....";?> </font>
                         </td>
-                        <td style="width: 200px;">
-                            <font size="2"><?php echo $b_categoria;?> </font>
+                        <td align="center" style="width: 200px;">
+                            <font size="2"><?php echo utf8_encode($b_categoria);?> </font>
                         </td>
                         <td style="width: 100px;">
                             <font size="2"><?php echo $b_fabricante;?> </font>

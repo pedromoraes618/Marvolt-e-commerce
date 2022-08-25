@@ -12,6 +12,27 @@ echo ".";
 if(isset($_GET["codigo"])){
     $codProduto = $_GET["codigo"];
 }
+
+
+//remover
+if(isset($_POST['btnRemoverProd'])){
+    $select = "DELETE from tb_produto  where cl_id = $codProduto ";
+    $delete = mysqli_query($conecta, $select);
+    if(!$delete){
+        die("Falha na consulta ao banco de dados || tb_produto delete ");
+    }else{
+        ?>
+<script>
+alertify.error("Produto removido com sucesso");
+</script>
+
+<?php 
+    }
+}
+
+
+
+
 //variaveis 
 if(isset($_POST['enviar'])){
     $hoje = date('Y-m-d'); 
@@ -20,7 +41,7 @@ if(isset($_POST['enviar'])){
     $fabricante = ($_POST["campoFabricante"]);
     $ativo = ($_POST["ativo"]);
     $destaque = ($_POST["destaque"]);
-    $subcategoria = ($_POST["campoSubcategoria"]);
+    $subcategoria = ($_POST["campoSubCategoria"]);
     $cdg_produto = $_POST['campoCodigoProduto'];
     $modelo = $_POST['campoModelo'];
     $embalagem = $_POST['campoEmbalagem'];
@@ -110,6 +131,7 @@ include "funcao.php";
 }
     
     
+
 ?>
 
 <!doctype html>
@@ -124,63 +146,60 @@ include "funcao.php";
 
     <link href="../_css/tela_cadastro_editar.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <?php 
+    include("../classes/select2/select2_link.php")
+    ?>
 </head>
 
 <body>
     <main>
-        <form action="" method="post">
 
-            <table style="margin-right:100px;">
-                <div id="titulo">
-                    </p>Dadodos do produto</p>
-                </div>
 
-            </table>
-            <div style="margin:0 auto; width:1400px;display:flex;  ">
-                <div style="width: 700px;  ">
-                    <table style="float:left; width:300px; ">
-                        <tr>
-                            <td style="width: 120px;" align="left">Código:</td>
-                            <td align=left><input readonly type="text" size="10" id="cammpoProdutoID"
-                                    name="cammpoProdutoID" value="<?php echo $b_id; ?>"> </td>
-                        </tr>
-                    </table>
+        <table style="margin-right:100px;">
+            <div id="titulo">
+                </p>Dados do produto</p>
+            </div>
 
-                    <table style="float:left;">
+        </table>
 
-                        <tr>
-                            <td style="width: 120px;" align=left><b>Titulo:</b></td>
-                            <td align=left><input type="text" size=58 name="campoTitulo" value="<?php if(isset($_POST['enviar'])){echo $titulo;
+        <div class="" style="display:flex; margin:0 auto;">
+            <form action="" method="post" style="margin:0 auto;">
+                <div class="bloco-dados" style="width: 80%;">
+                    <div class="form-group ">
+                        <label for="campoCodigo">Código</label>
+                        <input type="text" size="10" style="width:20%;" readonly class="form-control" id="campoCodigo"
+                            placeholder="" value="<?php echo $b_id; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="campoTitulo">Titulo *</label>
+                        <input type="text" class="form-control" name="campoTitulo" id="campoTitulo" value="<?php if(isset($_POST['enviar'])){echo $titulo;
                                     }else{
                                         echo $b_titulo;
                                     }?>">
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td align=left><b>Fabricante:</b></td>
-                            <td>
-                                <select style="width: 390px; margin-bottom: 5px;" id="campoFabricante"
-                                    name="campoFabricante">
-                                    <option value="0">Selecione</option>
-                                    <?php 
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="campoFabricante">Fabricante*</label>
+                            <select class="form-control" id="campoFabricante" name="campoFabricante">
+                                <option value="0">Selecione</option>
+                                <?php 
                                     
                                     while($linha_fabricante  = mysqli_fetch_assoc($lista_fabricante)){
                                         $fabricantePrincipal = utf8_encode($linha_fabricante["cl_id"]);
         
                                         if($b_fabricante==$fabricantePrincipal){
                                         ?> <option value="<?php echo utf8_encode($linha_fabricante["cl_id"]);?>"
-                                        selected>
-                                        <?php echo utf8_encode($linha_fabricante["cl_descricao"]);?>
-                                    </option>
-                                    <?php
+                                    selected>
+                                    <?php echo utf8_encode($linha_fabricante["cl_descricao"]);?>
+                                </option>
+                                <?php
                                     }else{
     
                                 ?>
-                                    <option value="<?php echo utf8_encode($linha_fabricante["cl_id"]);?>">
-                                        <?php echo utf8_encode($linha_fabricante["cl_descricao"]);?>
-                                    </option>
-                                    <?php
+                                <option value="<?php echo utf8_encode($linha_fabricante["cl_id"]);?>">
+                                    <?php echo utf8_encode($linha_fabricante["cl_descricao"]);?>
+                                </option>
+                                <?php
 
                                     }
 
@@ -190,178 +209,161 @@ include "funcao.php";
                    
      ?>
 
-                                </select>
-
-                            </td>
-
-                        </tr>
-
-                        <tr>
-                            <td align=left><b>Sub/Categoria:</b></td>
-                            <td>
-                                <select style="width: 390px; margin-bottom: 5px;" id="campoSubcategoria"
-                                    name="campoSubcategoria">
-                                    <option value="0">Selecione</option>
-                                    <?php 
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="campoSubCategoria">Sub/Categoria *</label>
+                            <select class="form-control" id="campoSubCategoria" name="campoSubCategoria">
+                                <option value="0">Selecione</option>
+                                <?php 
                                     while($linha_subcategoria  = mysqli_fetch_assoc($lista_subcategoria)){
                                         $subcategoriaPrincipal = utf8_encode($linha_subcategoria["cl_id"]);
                                         if($subcategoriaPrincipal==$b_subcategoria){
                                         ?> <option value="<?php echo utf8_encode($linha_subcategoria["cl_id"]);?>"
-                                        selected>
-                                        <?php echo utf8_encode($linha_subcategoria["cl_descricao"]." - ".$linha_subcategoria["categoria_descricao"]);?>
-                                    </option>
-                                    <?php
+                                    selected>
+                                    <?php echo utf8_encode($linha_subcategoria["cl_descricao"]." - ".$linha_subcategoria["categoria_descricao"]);?>
+                                </option>
+                                <?php
                                     }else{
     
                                 ?>
-                                    <option value="<?php echo utf8_encode($linha_subcategoria["cl_id"]);?>">
-                                        <?php echo utf8_encode($linha_subcategoria["cl_descricao"]." - ".$linha_subcategoria["categoria_descricao"]);?>
-                                    </option>
-                                    <?php
+                                <option value="<?php echo utf8_encode($linha_subcategoria["cl_id"]);?>">
+                                    <?php echo utf8_encode($linha_subcategoria["cl_descricao"]." - ".$linha_subcategoria["categoria_descricao"]);?>
+                                </option>
+                                <?php
                                     }
                                     }
                                             ?>
-                                </select>
+                            </select>
 
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td align=left><b>Embalagem:</b></td>
-                            <td>
-                                <select style="width: 390px; margin-bottom: 5px;" id="campoEmbalagem"
-                                    name="campoEmbalagem">
-                                    <option value="0">Selecione</option>
-                                    <?php 
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="campoEmbalagem">Embalagem *</label>
+                            <select class="form-control" id="campoEmbalagem" name="campoEmbalagem">
+                                <option value="0">Selecione</option>
+                                <?php 
                                     while($linha  = mysqli_fetch_assoc($lista_embalagem)){
                                         $embalagePrincipal = utf8_encode($linha["cl_id"]);
                                         if($embalagePrincipal==$b_embalagem){
                                         ?> <option value="<?php echo utf8_encode($linha["cl_id"]);?>" selected>
-                                        <?php echo utf8_encode($linha["cl_descricao"]);?>
-                                    </option>
-                                    <?php
+                                    <?php echo utf8_encode($linha["cl_descricao"]);?>
+                                </option>
+                                <?php
                                     }else{
     
                                 ?>
-                                    <option value="<?php echo utf8_encode($linha["cl_id"]);?>">
-                                        <?php echo utf8_encode($linha["cl_descricao"]);?>
-                                    </option>
-                                    <?php
+                                <option value="<?php echo utf8_encode($linha["cl_id"]);?>">
+                                    <?php echo utf8_encode($linha["cl_descricao"]);?>
+                                </option>
+                                <?php
                                     }
                                     }
                                             ?>
-                                </select>
+                            </select>
+                        </div>
+                    </div>
 
-                            </td>
-
-                        </tr>
-
-
-                        <tr>
-                            <td style="width: 120px;" align=left><b>Código Produto:</b></td>
-                            <td align=left><input type="text" size=40 name="campoCodigoProduto" value="<?php if(isset($_POST['enviar'])){ echo utf8_encode($cdg_produto);
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="campoCodigoProduto">Código Produto:</label>
+                            <input type="text" class="form-control col" size=40 name="campoCodigoProduto" value="<?php if(isset($_POST['enviar'])){ echo utf8_encode($cdg_produto);
                             }
                                     else{
                                         echo $b_cdg_produto;
                                     }?>">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="width: 120px;" align=left><b>Modelo:</b></td>
-                            <td align=left><input type="text" size=40 name="campoModelo" value="<?php if(isset($_POST['enviar'])){ echo utf8_encode($modelo);}else{
+                        </div>
+
+                        <div class="form-group">
+                            <label for="campoCodigoProduto">Modelo</label>
+                            <input type="text" name="campoModelo" class="form-control col" value="<?php if(isset($_POST['enviar'])){ echo utf8_encode($modelo);}else{
                                         echo $b_modelo;
                                     }?>">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="width: 120px;"><b>Descricao:<b></td>
-                            <td><textarea rows=4 cols=60 name="campoDescricao" id="observacao"><?php if(isset($_POST['enviar'])){echo $descricao;
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="validationTextarea">Descrição</label>
+                        <textarea class="form-control" id="campoDescricao" name="campoDescricao"
+                            placeholder="Informe a descrição do produto"><?php if(isset($_POST['enviar'])){echo $descricao;
                                     }else{
                                         echo $b_descricao;
                                     }?></textarea>
-                            </td>
-                        </tr>
-                    </table>
-                    <table style="float: left; width:100%; margin-right:50px; margin-top:15px;">
-                        <tr>
-                            <td style="width: 120px;"> <b>Ativo:</b></td>
-                            <td> <input type="radio" id="ativo" name="ativo" <?php if($b_ativo == 1){
-                            ?> checked <?php
-                            };
-                            ?> value="1"> Sim
-                                <input type="radio" id="ativo" name="ativo" <?php if($b_ativo == 0){
-                            ?> checked <?php
-                            };
-                            ?> value="0"> Não
-                            </td>
-                        </tr>
-                    </table>
-                    <table style="float: left; margin-top:15px;">
-                        <tr>
-                            <td style="width: 120px;"> <b>Destaque:</b></td>
-                            <td> <input type="radio" id="destaque" name="destaque" <?php if($b_destaque == 1){
-                            ?> checked <?php
-                            };
-                            ?> value="1"> Sim
-                                <input type="radio" id="destaque" name="destaque" <?php if($b_destaque == 0){
-                            ?> checked <?php
-                            };
-                            ?> value="0"> Não
-                            </td>
-                        </tr>
 
-                    </table>
+                    </div>
 
 
 
+                    <div class="form-group">
+                        <label style="margin-right:10px ;">Ativo</label>
 
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="customRadioInline1" name="ativo" checked value="1"
+                                class="custom-control-input">
+                            <label class="custom-control-label" for="customRadioInline1">Sim</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="customRadioInline2" name="ativo" value="0"
+                                class="custom-control-input">
+                            <label class="custom-control-label" for="customRadioInline2">Não</label>
+                        </div>
+                    </div>
 
-                    <table style="float: left;">
-                        <tr>
-                            <div id="botoes">
-                                <input type="submit" name=enviar value="Alterar" class="btn btn-info btn-sm"
-                                    onClick="return confirm('Confirmar alteração do produto?');"></input></td>
+                    <div class="form-group">
+                        <label style="margin-right:10px ;">Destaque</label>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="customRadioInline3" name="destaque" checked value="1"
+                                class="custom-control-input">
+                            <label class="custom-control-label" for="customRadioInline3">Sim</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="customRadioInline4" checked name="destaque" value="0"
+                                class="custom-control-input">
+                            <label class="custom-control-label" for="customRadioInline4">Não</label>
+                        </div>
+                    </div>
 
+                    <div class="form-group row" id="btn-row">
+                        <input type="submit" name=enviar value="Incluir" class="btn btn-info btn-sm"
+                            onClick="return confirm('Confirmar a alteração do produto?');"></input>
 
-                                <button type="button" name="btnfechar"
-                                    onclick="window.opener.location.reload();fechar(); "
-                                    class="btn btn-secondary">Voltar</button>
+                        <button type="button" name="btnfechar" onclick="window.opener.location.reload();fechar(); "
+                            class="btn btn-secondary">Voltar</button>
+
+                        <input type="submit" onClick="return confirm('Deseja Remover essa Produto??');" name="btnRemoverProd"
+                            value="Remover" class="btn btn-danger btn-sm"></input>
+
+                    </div>
+                </div>
+            </form>
+            <div style=" margin:0 auto;">
+                <form action="" name="enviar_formulario" class="enviar_formulario" method="POST"
+                    enctype="multipart/form-data">
+                    <table id="divisaoTabela">
+                        <td>
+                            <div id="imgProdutos" style="width:380px;border:1px solid;padding:20px;">
+                                <img src=<?php echo $img;?> style="text-align:center;" width="100%">
+                                <p
+                                    style="color:black;text-align:center;margin-top:20px; margin-bottom:0px; font-weight:500px">
+                                    <?php echo strtoupper($b_titulo);?></p>
+                                <input type="file" style="margin-top:50px" name="arquivo" id="file">
+                                <ul>
+                                    <li><input type="submit" value="Upload" id="upload" class="btn-btn-info"
+                                            name="enviar_formulario"></li>
+                                    <li> <input type="submit" value="Excluir" id="excluirImg" class="btn btn-danger"
+                                            name="excluirImg"></li>
+
+                                </ul>
 
                             </div>
-                        </tr>
+                        </td>
+
                     </table>
-                </div>
 
-        </form>
-
-        <div style="width: 700px; ">
-            <form action="" name="enviar_formulario" method="POST" enctype="multipart/form-data">
-                <table id="divisaoTabela">
-                    <td>
-                        <div id="imgProdutos" style="width:380px;border:1px solid;padding:20px;">
-                            <img src=<?php echo $img;?> style="text-align:center;" width="100%">
-                            <p
-                                style="color:black;text-align:center;margin-top:20px; margin-bottom:0px; font-weight:500px">
-                                <?php echo strtoupper($b_titulo);?></p>
-                            <input type="file" style="margin-top:50px" name="arquivo" id="file">
-                            <ul>
-                                <li><input type="submit" value="Upload" id="upload" class="btn-btn-info"
-                                        name="enviar_formulario"></li>
-                                <li> <input type="submit" value="Excluir" id="excluirImg" class="btn btn-danger"
-                                        name="excluirImg"></li>
-
-                            </ul>
-
-                        </div>
-                    </td>
-
-                </table>
-
-            </form>
+                </form>
 
 
-        </div>
-
+            </div>
         </div>
 
 
@@ -370,6 +372,7 @@ include "funcao.php";
 
 
 </body>
+<?php include '../classes/select2/select2_java.php'; ?>
 
 
 <script>

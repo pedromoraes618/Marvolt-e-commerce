@@ -42,67 +42,22 @@
                 <li><a>Produto<i class="fa-solid fa-arrow-down"></i></a>
                     <ul>
                         <li><a href="../../../marvoltect/adm/cdproduto/consulta_produto.php">Produto</a></li>
+                        <li><a href="../../../marvoltect/adm/cdproduto/consulta_produto.php">Fabricante</a></li>
+                        <li><a href="../../../marvoltect/adm/cdproduto/consulta_produto.php">Embalagem</a></li>
+
 
                     </ul>
                 </li>
              
                
-                <li><a>Cotação<i class="fa-solid fa-arrow-down"></i></a>
+                <li><a>Menu<i class="fa-solid fa-arrow-down"></i></a>
                     <ul>
-                        <li><a href="../../../marvoltect/cotacao/consulta_cotacao.php">Cotação</a></li>
-                        <li><a href="../../../marvoltect/cotacao/relatorioEmpresa.php">Relatório / Empresa</a></li>
+                        <li><a href="../../../marvoltect/adm/cdcategoria/consulta_categoria.php">Categoria</a></li>
+                        <li><a href="../../../marvoltect/adm/cdsubcategoria/consulta_subcategoria.php">Subcategoria</a></li>
 
                     </ul>
                 </li>
     
-
-                <li><a>Pedido de compra<i class="fa-solid fa-arrow-down"></i></a>
-                    <ul>
-                        
-                        <li><a href="../../../marvoltect/pdcompra/consulta_pdcompra.php">Pedido de Compra</a></li>
-                   
-
-                        <li><a href="../../../marvoltect/pdcompra/consulta_pdcompra_produtos.php">Check Produtos</a></li>
-                    </ul>
-
-                </li>
-               
-                <li><a>Nota fiscal<i class="fa-solid fa-arrow-down"></i></a>
-                    <ul>
-                        <li><a href="../../../marvoltect/nota_fiscal/consulta_nota_fiscal.php">NFE Entrada</a></li>
-                        <li><a href="../../../marvoltect/nota_fiscal/consulta_nota_fiscal_saida.php">NFE Saida</a></li>
-
-                    </ul>
-                </li>
-         
-
-             
-                <li><a>Financeiro<i class="fa-solid fa-arrow-down"></i></a>
-                    <ul>
-                        <li><a href="../../../marvoltect/adm/financeiro/consulta_financeiro.php">Lançar no Financeiro</a></li>
-                        <li><a href="../../../marvoltect/financeiro/caixa.php">Caixa</a></li>
-                        <li><a href="../../../marvoltect/financeiro/relatorio_apagar_receber.php">Relatórios Pagamentos e
-                                Recebimentos</a></li>
-                    </ul>
-                </li>
-
-            
-                <li><a>Faturamento<i class="fa-solid fa-arrow-down"></i></a>
-                    <ul>
-                        <li><a href="../../../marvoltect/faturamento/relatorio_faturamento.php">Relatório / Faturamento</a>
-                        </li>
-
-                    </ul>
-                </li>
-             
-
-                <li><a>Patrimônio<i class="fa-solid fa-arrow-down"></i></a>
-                    <ul>
-                        <li><a href="../../../marvoltect/patrimonio/consulta_patrimonio.php">Consultar</a>
-                        </li>
-
-                    </ul>
-                </li>
 
 
 

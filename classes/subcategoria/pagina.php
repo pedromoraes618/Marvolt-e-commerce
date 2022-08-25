@@ -3,10 +3,20 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/marvoltect"><i class="fas fa-home"></i> Home</a></li>
             <li class="breadcrumb-item active" aria-current="page"><a
+                    href="?subcategoria=<?php echo $b_mapa_id_categoria ; ?>"><?php echo utf8_encode(ucfirst(strtolower($b_mapa_descricao_categoria))); ?></a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page"><a
                     href="?subcategoria=<?php echo $b_mapa_id_subcategoria ; ?>"><?php echo utf8_encode(ucfirst(strtolower($b_mapa_descricao_subcategoria))); ?></a>
             </li>
+            <div  class="back">
+                <a href="JavaScript: window.history.back();">
+                    <i class="fa-solid fa-circle-arrow-left"></i>
+                    Voltar</a>
+            </div>
         </ol>
+
     </nav>
+
     <div class="tile-bloco">
         <p><?php
         echo titulo_subcategoria($b_id);  ?></p>
@@ -16,7 +26,6 @@
         <div class="bloco-1">
             <table>
                 <?php
-                
                 while ($linha = mysqli_fetch_assoc($resultado_produto_f)) {
                        $b_fabricante = utf8_encode($linha['inner_fabricante']);
                        $b_id_f = $linha['inner_id_fabricante'];

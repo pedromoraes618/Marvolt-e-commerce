@@ -86,6 +86,20 @@
 		padding: 50px;
 	  
 	 }
+
+	 /*center-fornecedores*/
+		#fornecedor-1 {
+		width: 70%;
+
+		}
+	#fornecedor-1 .card img {
+	padding: 40px;
+
+}
+
+		
+
+
 }
 
 
@@ -159,6 +173,11 @@
 	#about-carousel-prod .card .add-carrinho {
 		top:330px;
 	}
+	#fornecedor-1 .card img {
+		padding: 20px;
+	
+	}
+	
 	
 }
 
@@ -445,14 +464,8 @@ li.over ul {
 
 /*center-fornecedores*/
 #fornecedor-1 {
-
-
-
-	width: 70%;
-	margin: 30px auto;
+	margin: 20px auto;
 	max-width: 1300px;
-	
-
 }
 
 
@@ -489,10 +502,6 @@ li.over ul {
 
 }
 
-#fornecedor-1 .card img {
-	padding: 40px;
-
-}
 
 
 
@@ -572,15 +581,24 @@ text-decoration: none;
 #about-carousel .destaque-card-titulo{
 	position: absolute;
 	top: 200px;
+	padding: 0 5px;
 	
-	
+}
+
+#about-carousel .info{
+padding:10px;  
+height: 100%;
+padding-top: 0px;
+padding-left: 0px;
+padding-right: 0px;
+
 }
 
 #about-carousel .info ul{
 	position: absolute;
 	top: 270px;
 	list-style: none;
-	
+	padding: 0 5px;
 }
 #about-carousel .info ul li{
 	margin-bottom: 0px;
@@ -611,15 +629,8 @@ text-decoration: none;
 
 }
 
-.info{
-padding:10px;  
-height: 100%;
-padding-top: 0px;
 
 
-
-
-}
 .destaque-card-titulo {
  margin-top: 5px;
  position: absolute;
@@ -649,6 +660,7 @@ padding-top: 0px;
 	position: absolute;
 	top: 270px;
 	list-style: none;
+	padding: 0 5px;
 }
 .card-diversos .info ul li{
 	margin-bottom: 0px;
@@ -686,7 +698,7 @@ font-size: 10px;
 	font-size: 17px;
 	text-align: center;
 	background-color: var(--yellow);
-    width:92%;
+    width:100%;
 	padding: 2%;
 	color: #373737;
 	
@@ -699,6 +711,15 @@ font-size: 10px;
 
 }
 
+
+/* geral */
+.content .destaque-card-titulo{
+	padding: 0 5px;
+}
+
+.content .info ul{
+	padding: 0px 5px;
+}
 
 
 .botao-contao {
@@ -1209,9 +1230,8 @@ margin-bottom: -2px;
 	width: 100%;
 	margin-bottom: 50px;
 	margin-left: 0px;
-
+	padding-right: 0px;
 }
-
 
 /* card produtos relacionados */
 /*center card*/
@@ -1225,8 +1245,6 @@ margin-bottom: -2px;
 	animation: moveToleft 0.7s 1s forwards;
     border: 1px solid #acacac;
     margin: 0px;
-
- 
 }
 
 #about-carousel-prod .card img {
@@ -1235,6 +1253,7 @@ margin-bottom: -2px;
 	height: 150px;
 	border-bottom:1px solid rgba(143, 143, 143, 0.21) ;
 	margin: 0 auto;
+	padding: 20px;
 
 }
 
@@ -1274,7 +1293,7 @@ margin-bottom: -2px;
 	font-size: 17px;
 	text-align: center;
 	background-color: var(--yellow);
-	width:90%;
+	width:100%;
 	padding: 1%;
 	color: #373737;
 
@@ -1334,8 +1353,8 @@ margin-bottom: -2px;
 	padding-bottom: 50px;
 	font-size:14.5px ;
 	font-weight: 500;
-	color: #acacac;
-	letter-spacing: 0.8px;
+	color: #9b9b9b;
+	
 
 
 }
@@ -1440,4 +1459,20 @@ categoria inicial tele incial */
 
 #email .container .button_enivar:hover{
 	transform: scale(1.1);
+}
+
+/* botao voltar */
+.back{
+	float:right;
+}
+.back i{
+	color: var(--yellow);
+	font-size: 1.2em;
+
+}
+
+.back a{
+	color:#6d6d6d;
+	font-size: 1.2em;
+	font-weight: 500;
 }

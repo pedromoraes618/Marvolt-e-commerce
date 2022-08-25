@@ -81,7 +81,7 @@ $produtos = "SELECT p.cl_data_cadastro,p.cl_destaque,p.cl_ativo,p.cl_id,p.cl_cat
 p.cl_titulo, p.cl_imagem, p.cl_destaque from tb_produto as 
 p inner join tb_fabricante as f on f.cl_id = p.cl_fabricante inner join tb_categoria as c on c.cl_id = p.cl_categoria inner join tb_embalagem as e on e.cl_id = p.cl_embalagem where cl_subcategoria =  $b_id ";
 $resultado_produto_subcategoria = mysqli_query($conecta, $produtos);
-if(!$resultado_produto_categoria){
+if(!$resultado_produto_subcategoria){
 die("Falha na consulta ao banco de dados || tb_produto com inner join tb_fabricante");
 	}
 
@@ -215,7 +215,7 @@ $b_mapa_id_categoria = ($linha['cl_id']);
 }
 
 //subcategoria mapa 
-$select = "SELECT cl_id, cl_descricao from tb_subcategoria where cl_id = $b_id ";
+$select = "SELECT s.cl_id, s.cl_descricao, c.cl_descricao as categoria, c.cl_id as id_categoria  from tb_subcategoria as s inner join tb_categoria as c on s.cl_categoria = c.cl_id where s.cl_id = $b_id ";
 $resultado_mapa_subcategoria = mysqli_query($conecta, $select);
 if(!$resultado_mapa_subcategoria){
 die("Falha na consulta ao banco de dados || tb_produto");
@@ -223,4 +223,6 @@ die("Falha na consulta ao banco de dados || tb_produto");
 $linha = mysqli_fetch_assoc($resultado_mapa_subcategoria);
 $b_mapa_descricao_subcategoria = ($linha['cl_descricao']);
 $b_mapa_id_subcategoria = ($linha['cl_id']);
+$b_mapa_descricao_categoria = $linha['categoria'];
+$b_mapa_id_categoria = $linha['id_categoria'];
 }

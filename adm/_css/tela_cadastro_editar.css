@@ -79,10 +79,11 @@ tr{
   display: table-row;
   vertical-align: inherit;
   border-color: inherit;
-  
-
-
 }
+table .select{
+  height:40px;
+}
+
 
 td{
   display: table-cell;
@@ -96,7 +97,7 @@ td{
 input[type="text"],input[type="email"]{
   margin-right: 20px;
   margin-bottom:9px;
-  margin-top: 9px;
+  margin-top: 0px;
   outline:none;
   box-shadow: 0px 0px 5px 0px #898989;
   border:none;
@@ -336,4 +337,38 @@ tr td input{
 .myFont{
   font-size:13px;
 
+
+}
+
+#btn-row{
+margin-left: 0px;
+margin-top: 30px;
+}
+
+.form-group{
+
+ padding-bottom: 0px;
+
+}
+
+.bloco-dados{
+  margin: 0 auto;
+  width: 60%;
+  padding: 20px;
+  -webkit-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75);
+
+}
+
+.enviar_formulario{
+  padding: 0px;
+
+  width:fit-content;
+  margin: 0 auto;
+}
+
+#campoDescricao{
+  height: 100px;
+  font-size:13px
 }
