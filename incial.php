@@ -6,7 +6,7 @@
                 <div class="card">
                     <div class="content">
                         <a target="_blank">
-                            <div class="item"><img src="img/fornecedores/weq.PNG"></div>
+                            <img src="img/fornecedores/weg-logo.svg">
                         </a>
                     </div>
 
@@ -16,7 +16,7 @@
                 <div class="card">
                     <div class="content">
                         <a target="_blank">
-                            <div class="item"><img src="img/fornecedores/fphilips.PNG"></div>
+                            <img src="img/fornecedores/philips-logo.png">
                         </a>
                     </div>
 
@@ -26,7 +26,7 @@
             <div class="item">
                 <div class="card">
                     <div class="content">
-                        <a target="_blank"><img src="img/fornecedores/ffamac.PNG"></a>
+                        <a target="_blank"><img src="img/fornecedores/logo-famac.png"></a>
                     </div>
 
                 </div>
@@ -34,15 +34,14 @@
             <div class="item">
                 <div class="card">
                     <div class="content">
-                        <a title="Ir para o site" target="_blank"><img src="img/fornecedores/fsermat.PNG"></a>
+                        <a title="Ir para o site" target="_blank"><img src="img/fornecedores/logo-fsermat.png"></a>
                     </div>
-
                 </div>
             </div>
             <div class="item">
                 <div class="card">
                     <div class="content">
-                        <a target="_blank"><img src="img/fornecedores/fhp.PNG"></a>
+                        <a target="_blank"><img src="img/fornecedores/hp-logo.svg"></a>
                     </div>
 
                 </div>
@@ -55,8 +54,6 @@
     </div>
 </div>
 <div class="row" id="center-1">
-
-
     <div class="center-1-1">
         <div class="texto-center">
             <h3>Destaques</h3>
@@ -74,13 +71,15 @@
                     $b_embalagem = ($linha["embalagem"]);
                     $b_codigo = ($linha["cl_codigo"]);
                     $b_subcategoria = ($linha["cl_subcategoria"]);
+                    $b_disponivel = ($linha["cl_disponivel"]);
+                    $b_valor = ($linha["cl_valor"]);
                 ?>
             <div class="item">
-                <div class="card">
-                    <?php
+
+                <?php
                     include "classes/card/card-carousel.php"
                     ?>
-                </div>
+
             </div>
             <?php }?>
         </div>
@@ -97,7 +96,7 @@
 <div class="row" id="categoria-incial">
     <div class="baner-1">
         <div class="baner-categoria">
-            <img src="img/baner1.PNG" class="img-responsive" width="90%">
+            <img src="img/baner1.png" class="img-responsive">
         </div>
         <div id="about-carousel" class="about-carousel">
             <div id="categoria-apresentacao-1" class="owl-carousel owl-them">
@@ -110,13 +109,15 @@
                     $b_embalagem = ($linha["embalagem"]);
                     $b_codigo = ($linha["cl_codigo"]);
                     $b_subcategoria = ($linha["cl_subcategoria"]);
+                    $b_disponivel = ($linha["cl_disponivel"]);
+                    $b_valor = ($linha["cl_valor"]);
                 ?>
                 <div class="item">
-                    <div class="card">
-                        <?php
+
+                    <?php
                     include "classes/card/card-carousel.php"
                     ?>
-                    </div>
+
                 </div>
                 <?php }?>
             </div>
@@ -125,7 +126,7 @@
     </div>
     <div class="baner-2">
         <div class="baner-categoria">
-            <img src="img/baner2.PNG" class="img-responsive" width="90%">
+            <img src="img/baner2.png" class="img-responsive">
         </div>
         <div id="about-carousel" class="about-carousel">
             <div id="categoria-apresentacao-2" class="owl-carousel owl-them">
@@ -138,23 +139,80 @@
                     $b_embalagem = ($linha["embalagem"]);
                     $b_codigo = ($linha["cl_codigo"]);
                     $b_subcategoria = ($linha["cl_subcategoria"]);
+                    $b_disponivel = ($linha["cl_disponivel"]);
+                    $b_valor = ($linha["cl_valor"]);
                 ?>
                 <div class="item">
-                    <div class="card">
-                        <?php
+
+                    <?php
                     include "classes/card/card-carousel.php"
                     ?>
-                    </div>
+
                 </div>
                 <?php }?>
             </div>
         </div>
+
+
 
     </div>
 
 
 
 
+</div>
+
+<div class="row" id="center-3">
+    <div class="center-3-1">
+        <div class="card-categoria">
+            <div class="img">
+                <a href="">
+                    <img src="img/ferramentas.jpg">
+                </a>
+            </div>
+            <div class="titulo">
+                <p>
+                    Ferramentas
+                </p>
+            </div>
+        </div>
+        <div class="card-categoria">
+            <div class="img">
+                <a href="">
+                    <img src="img/ti.jpg">
+                </a>
+            </div>
+            <div class="titulo">
+                <p>
+                    Tecnologia
+                </p>
+            </div>
+        </div>
+        <div class="card-categoria">
+            <div class="img">
+                <a href="">
+                    <img src="img/inner-page-cabeamento-eletrico-img.jpg">
+                </a>
+            </div>
+            <div class="titulo">
+                <p>
+                    Elétrico
+                </p>
+            </div>
+        </div>
+        <div class="card-categoria">
+            <div class="img">
+                <a href="">
+                    <img src="img/hidraulico.jpg">
+                </a>
+            </div>
+            <div class="titulo">
+                <p>
+                    Hidraulico
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <hr>
@@ -176,6 +234,8 @@
                             $b_embalagem = ($linha["embalagem"]);
                             $b_codigo = ($linha["cl_codigo"]);
                             $b_subcategoria = ($linha["cl_subcategoria"]);
+                            $b_disponivel = ($linha["cl_disponivel"]);
+                            $b_valor = ($linha["cl_valor"]);
 						?>
             <?php 
             include "classes/card/card.php";    
@@ -185,3 +245,4 @@
 
     </div>
 </div>
+

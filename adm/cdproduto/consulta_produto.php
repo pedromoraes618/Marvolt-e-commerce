@@ -4,11 +4,11 @@ require_once("../conexao/conexao.php");
 
 //consulta produto
 if(isset($_GET["produto"])){
-$nome_produto = $_GET["produto"];
+$pesquisa = $_GET["produto"];
 $produtos = "SELECT p.cl_data_cadastro,p.cl_destaque,p.cl_ativo,p.cl_id,p.cl_categoria, p.cl_descricao, c.cl_descricao as as_descricao_categoria, f.cl_descricao as as_descricao_fabricante, p.cl_fabricante, 
 p.cl_titulo, p.cl_imagem, p.cl_destaque from tb_produto as 
 p inner join tb_fabricante as f on f.cl_id = p.cl_fabricante inner join tb_categoria as c on c.cl_id = p.cl_categoria
-WHERE p.cl_titulo LIKE '%{$nome_produto}%' ";
+WHERE p.cl_titulo LIKE '%{$pesquisa}%' or p.cl_id = '%($pesquisa)%' ";
 
 $resultado = mysqli_query($conecta, $produtos);
     if(!$resultado){
@@ -44,11 +44,11 @@ $resultado = mysqli_query($conecta, $produtos);
             <a
                 onclick="window.open('cadastro_produto.php', 
 'Titulo da Janela', 'STATUS=NO, TOOLBAR=NO, LOCATION=NO, DIRECTORIES=NO, RESISABLE=NO, SCROLLBARS=YES, TOP=10, LEFT=10, WIDTH=1500, HEIGHT=900');">
-                <input type="submit" style="width:140px" name="cadastrar_produto" value="Adicionar Produto">
+                <input type="submit" style="width:140px" name="cadastrar_produto" value="Adicionar">
             </a>
             <form action="consulta_produto.php" method="get">
                 <input type="text" name="produto" placeholder="Pesquisa / Titulo / Código " value="<?php if(isset($_GET['produto'])){
-                    echo $nome_produto;
+                    echo $pesquisa;
                 }?>">
                 <input type="image" name="pesquisa" src="https://img.icons8.com/ios/50/000000/search-more.png" />
             </form>

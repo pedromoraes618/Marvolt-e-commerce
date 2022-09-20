@@ -3,7 +3,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/marvoltect"><i class="fas fa-home"></i> Home</a></li>
             <li class="breadcrumb-item active" aria-current="page"><a
-                    href="?categoria=<?php echo $b_mapa_id_categoria; ?>"><?php echo utf8_encode(ucfirst(strtolower($b_mapa_descricao_categoria))); ?></a>
+                    href="?categoria=<?php echo $b_mapa_id_categoria; ?>"><?php echo ((($b_mapa_descricao_categoria))); ?></a>
             </li>
             <div class="back">
                 <a href="JavaScript: window.history.back();">
@@ -13,48 +13,51 @@
         </ol>
 
     </nav>
+
+
     <div class="tile-bloco">
-        <p><?php 
-    
-        echo categoria($b_id); ?></p>
-    </div>
-    <div class="container">
-        <div class="bloco-1">
-            <table>
-                <?php while ($linha = mysqli_fetch_assoc($resultado_subcategoria)) {
-                        $b_subcategoria = utf8_encode($linha['cl_descricao']);
+        <div class="container">
+       <?php 
+       include "menu_filtro_categoria.php";
+       ?>
+      
+
+            <div class="bloco-1">
+                <p><?php echo categoria($b_id); ?></p>
+                <table>
+                    <?php while ($linha = mysqli_fetch_assoc($resultado_subcategoria)) {
+                        $b_subcategoria = ($linha['cl_descricao']);
                         $b_id = $linha['cl_id'];
                         ?>
-                <tr>
-
-                    <td>
-                        <a href="?subcategoria=<?php echo $b_id; ?>">
-                            <p> <?php echo $b_subcategoria; ?></p>
-                        </a>
-                    </td>
-                    <td style="width:20px">
-                        <p>
-                            <?php 
-                    echo qtd_subcategoria($b_id);
+                    <tr>
+                        <td>
+                            <a href="?subcategoria=<?php echo $b_id; ?>">
+                                <p> <?php  echo $b_subcategoria; ?></p>
+                            </a>
+                        </td>
+                        <td style="width:20px">
+                            <p>
+                                <?php 
+                 echo qtd_subcategoria($b_id);
                 ?></p>
-                    </td>
+                        </td>
 
-                </tr>
-                <?php } ?>
-            </table>
+                    </tr>
+                    <?php } ?>
+                </table>
 
-        </div>
+            </div>
 
 
-        <div class="bloco-2">
-            <div class="about-card">
+            <div class="bloco-2">
+                <div class="about-card">
 
-                <?php 
+                    <?php 
                 if (mysqli_num_rows($resultado_produto_categoria)==0)
                 {
                    ?>
-                <?php
-                include "/../mensagem/msg_nenhum_produto.php";
+                    <?php
+                include "classes/mensagem/msg_nenhum_produto.php";
                 } else {
               
 						while($linha = mysqli_fetch_assoc($resultado_produto_categoria)){
@@ -68,15 +71,18 @@
 							$destaque = ($linha["cl_destaque"]);
                             $b_embalagem = ($linha["embalagem"]);
                             $b_codigo = ($linha["cl_codigo"]);
+                            $b_disponivel = ($linha["cl_disponivel"]);
+                            $b_valor = ($linha["cl_valor"]);
 						?>
 
-                <?php 
-            include "/../card/card.php";    
+                    <?php 
+            include "classes/card/card.php";    
             } 
                 }?>
+                </div>
             </div>
-        </div>
 
+        </div>
     </div>
 </div>
-<?php ?>
+

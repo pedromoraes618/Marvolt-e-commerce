@@ -41,7 +41,7 @@ alertify.success("Categoria cadastrada com sucesso");
 <?php
     }
 
-    $descricao = "";
+    $categoria = "";
 
   }
   
@@ -65,7 +65,7 @@ alertify.success("Categoria cadastrada com sucesso");
     <link href="../_css/tela_cadastro_editar.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <?php 
-    include("../classes/select2/select2_link.php")
+    include("../classes/select2/select2_link.php");
     ?>
 </head>
 
@@ -88,10 +88,12 @@ alertify.success("Categoria cadastrada com sucesso");
                 </div>
                 <div class="form-group">
                     <label for="campoCategoria">Categoria *</label>
-                    <input type="text" class="form-control" name="campoCategoria" id="campoCategoria"
+                    <input type="text" class="form-control" name="campoCategoria" id=""
                         placeholder="Informe o nome da categoria"
                         value="<?php if(isset($_POST['enviar'])){ echo utf8_encode($categoria);}?>">
                 </div>
+
+
 
                 <div class="form-group row" id="btn-row">
                     <input type="submit" name=enviar value="Incluir" class="btn btn-info btn-sm"
@@ -99,18 +101,14 @@ alertify.success("Categoria cadastrada com sucesso");
 
                     <button type="button" name="btnfechar" onclick="window.opener.location.reload();fechar(); "
                         class="btn btn-secondary">Voltar</button>
-
                 </div>
             </div>
         </form>
 
-
-
     </main>
-
-
 </body>
-<?php include '../classes/select2/select2_java.php'; ?>
+
+<?php    include("../classes/select2/select2_java.php");?>
 
 <script>
 function fechar() {

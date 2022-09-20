@@ -1,4 +1,4 @@
-<div class="top-1-3">
+
     <section class="top-1-1-3">
         <div class="col nav-menu">
 
@@ -7,7 +7,6 @@
                         while($linha = mysqli_fetch_assoc($resultado_categoria)){
                             $b_categoria = ($linha['cl_descricao']);
                             $b_id = $linha['cl_id'];
-                        
                             ?>
 
                 <li><a href="?categoria=<?php echo $b_id ?>"><?php echo $b_categoria; ?></a>
@@ -33,4 +32,3 @@
             </ul>
         </div>
     </section>
-</div>

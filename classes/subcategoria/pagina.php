@@ -3,12 +3,13 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/marvoltect"><i class="fas fa-home"></i> Home</a></li>
             <li class="breadcrumb-item active" aria-current="page"><a
-                    href="?subcategoria=<?php echo $b_mapa_id_categoria ; ?>"><?php echo utf8_encode(ucfirst(strtolower($b_mapa_descricao_categoria))); ?></a>
+                    href="?categoria=<?php echo $b_mapa_id_categoria_sub ; ?>"><?php echo ((($b_mapa_descricao_categoria_sub))); ?></a>
+
             </li>
             <li class="breadcrumb-item active" aria-current="page"><a
-                    href="?subcategoria=<?php echo $b_mapa_id_subcategoria ; ?>"><?php echo utf8_encode(ucfirst(strtolower($b_mapa_descricao_subcategoria))); ?></a>
+                    href="?subcategoria=<?php echo $b_mapa_id_subcategoria ; ?>"><?php echo ((($b_mapa_descricao_subcategoria))); ?></a>
             </li>
-            <div  class="back">
+            <div class="back">
                 <a href="JavaScript: window.history.back();">
                     <i class="fa-solid fa-circle-arrow-left"></i>
                     Voltar</a>
@@ -18,47 +19,50 @@
     </nav>
 
     <div class="tile-bloco">
-        <p><?php
+        <div class="container">
+            <?php 
+       include "menu_filtro_subcategoria.php";
+       ?>
+
+            <div class="bloco-1">
+                <p><?php
         echo titulo_subcategoria($b_id);  ?></p>
-    </div>
-    <p style="font-size:0.8em;margin-left:5px; font: weight 500px; color:darkgrey">Fabricantes</p>
-    <div class="container">
-        <div class="bloco-1">
-            <table>
-                <?php
+
+                <table>
+                    <?php
                 while ($linha = mysqli_fetch_assoc($resultado_produto_f)) {
                        $b_fabricante = utf8_encode($linha['inner_fabricante']);
                        $b_id_f = $linha['inner_id_fabricante'];
                         ?>
-                <tr>
-                    <td>
-                        <a href="?fabricante=<?php echo $b_id_f; ?>">
-                            <p> <?php echo $b_fabricante; ?></p>
-                        </a>
-                    </td>
-                    <td style="width:20px">
-                        <p>
-                            <?php 
+                    <tr>
+                        <td>
+                            <a href="?fabricante=<?php echo $b_id_f; ?>">
+                                <p> <?php echo $b_fabricante; ?></p>
+                            </a>
+                        </td>
+                        <td style="width:20px">
+                            <p>
+                                <?php 
                  echo qtd_fabricante($b_id_f,$b_id);
                 ?></p>
-                    </td>
-                </tr>
-                <?php } ?>
-            </table>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </table>
 
-        </div>
+            </div>
 
 
-        <div class="bloco-2">
-            <div class="about-card">
+            <div class="bloco-2">
+                <div class="about-card">
 
-                <?php 
+                    <?php 
                 if (mysqli_num_rows($resultado_produto_subcategoria)==0)
                 {
                    ?>
 
-                <?php
-                 include "/../mensagem/msg_nenhum_produto.php";
+                    <?php
+                 include "classes/mensagem/msg_nenhum_produto.php";
                 } else {
 						while($linha = mysqli_fetch_assoc($resultado_produto_subcategoria)){
 							$b_id = $linha["cl_id"];
@@ -72,17 +76,20 @@
 							$destaque = ($linha["cl_destaque"]);
                             $b_embalagem = ($linha["embalagem"]);
                             $b_codigo = ($linha["cl_codigo"]);
+                            $b_disponivel = ($linha["cl_disponivel"]);
+                            $b_valor = ($linha["cl_valor"]);
                             
 						?>
 
 
-                <?php
-                  include "/../card/card.php";    
+                    <?php
+                  include "classes/card/card.php";    
                 } 
                 }?>
+                </div>
             </div>
+
         </div>
 
     </div>
-
 </div>

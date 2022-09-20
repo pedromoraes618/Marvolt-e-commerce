@@ -84,7 +84,7 @@ alertify.success("Subcategoria cadastrada com sucesso");
 
             <table style="margin-right:100px;">
                 <div id="titulo">
-                    </p>Dadodos da Subcategorria</p>
+                    </p>Dados da Subcategorria</p>
                 </div>
 
             </table>
@@ -108,18 +108,18 @@ alertify.success("Subcategoria cadastrada com sucesso");
                         <option value="0">Selecione</option>
                         <?php 
                                     while($linha_categoria  = mysqli_fetch_assoc($lista_categoria)){
-                                        $categoriaPrincipal = utf8_encode($linha_categoria["cl_id"]);
+                                        $categoriaPrincipal = ($linha_categoria["cl_id"]);
                                         if($categoriaPrincipal==$b_categoria){
-                                        ?> <option value="<?php echo utf8_encode($linha_categoria["cl_id"]);?>"
+                                        ?> <option value="<?php echo ($linha_categoria["cl_id"]);?>"
                             selected>
-                            <?php echo utf8_encode($linha_categoria["cl_descricao"]);?>
+                            <?php echo ($linha_categoria["cl_descricao"]);?>
                         </option>
                         <?php
                                     }else{
     
                                 ?>
-                        <option value="<?php echo utf8_encode($linha_categoria["cl_id"]);?>">
-                            <?php echo utf8_encode($linha_categoria["cl_descricao"]);?>
+                        <option value="<?php echo ($linha_categoria["cl_id"]);?>">
+                            <?php echo ($linha_categoria["cl_descricao"]);?>
                         </option>
                         <?php
                                     }
@@ -130,7 +130,7 @@ alertify.success("Subcategoria cadastrada com sucesso");
                 </div>
                 <div class="form-group row" id="btn-row">
                     <input type="submit" name=enviar value="Incluir" class="btn btn-info btn-sm"
-                        onClick="return confirm('Confirma o cadastro da Categoria?');"></input>
+                        onClick="return confirm('Confirma o cadastro da Subcategoria?');"></input>
 
                     <button type="button" name="btnfechar" onclick="window.opener.location.reload();fechar(); "
                         class="btn btn-secondary">Voltar</button>

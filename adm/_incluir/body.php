@@ -42,8 +42,8 @@
                 <li><a>Produto<i class="fa-solid fa-arrow-down"></i></a>
                     <ul>
                         <li><a href="../../../marvoltect/adm/cdproduto/consulta_produto.php">Produto</a></li>
-                        <li><a href="../../../marvoltect/adm/cdproduto/consulta_produto.php">Fabricante</a></li>
-                        <li><a href="../../../marvoltect/adm/cdproduto/consulta_produto.php">Embalagem</a></li>
+                        <li><a href="../../../marvoltect/adm/cdfabricante/consulta_fabricante.php">Fabricante</a></li>
+                        <li><a href="../../../marvoltect/adm/cdembalagem/consulta_embalagem.php">Embalagem</a></li>
 
 
                     </ul>

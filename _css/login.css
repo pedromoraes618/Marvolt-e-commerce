@@ -1,0 +1,295 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700&display=swap');
+
+body{
+margin:0;
+font-family:'noto sans',sans-serif;
+overflow: hidden;
+box-sizing: border-box;
+background: rgba(252, 172, 3, 0.55);
+background: -webkit-linear-gradient(0deg, rgba(252, 172, 3, 0.55) 0%, #fcac1e 100%);
+background: linear-gradient(0deg, rgba(252, 172, 3, 0.55) 0%, #fcac1e 100%);
+}
+/* 
+animacao */
+@keyframes moveToTop {
+	0% {
+		transform: translateY(100px);
+	}
+
+	100% {
+		transform: translateY(0);
+		opacity: 0.8;
+	}
+}
+
+@keyframes moveToleft {
+	0% {
+		transform: translatex(100px);
+	}
+
+	100% {
+		transform: translatex(0);
+		opacity: 1;
+	}
+}
+
+
+@media screen and (min-width:1000px) {
+.card-login {
+
+}
+
+.main-login{
+padding: 10%;
+}
+
+.login-left{
+width: 50vw;
+height: 100vh;
+}
+
+.login-right{
+width: 50vw;
+height: 100vh;
+}
+
+.card-login .formulario-top h3{
+font-size:2vw;
+}
+.login-left .left-login-img{
+width: 33vw;
+}
+
+}
+
+/* telas  */
+@media screen and (max-width:950px) {
+    .main-login{
+        
+         }
+         .login-left h1{
+             display: none;
+         }
+         .login-left{
+             width: 40%;
+             height: auto;
+             margin: 0 auto;
+         }
+         .login-right{
+             width: 40%;
+             height: auto;
+             margin-top: 20px;
+             margin: 0 auto;
+           
+         }
+         .card-login{
+             width: 100%;
+           
+         }
+         .card-login .formulario-top h3{
+       
+             font-size:4vw;
+            
+         }
+         .login-left .left-login-img{
+             width: 50vw;
+         
+         }
+}
+
+@media  screen and (max-width:600px) {
+	.main-login{
+   flex-direction: column;
+	}
+    .login-left h1{
+        display: none;
+    }
+    .login-left{
+        width: 100%;
+        height: auto;
+    }
+    .login-right{
+        width: 100%;
+        height: auto;
+        margin-top: 20px;
+   
+    }
+    .card-login{
+
+        width: 100%;
+    }
+    .card-login .formulario-top h3{
+  
+        font-size:4vw;
+       
+    }
+    .login-left .left-login-img{
+        width: 50vw;
+        
+    
+    }
+}
+
+.main-login{
+    width: 100vw;
+    height: 100vh;
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+ 
+}
+
+.login-left{
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+.login-left .left-login-img{
+    animation: moveToleft  0.7s 0.1s forwards;
+    opacity: 0;
+}
+.login-left > h1{
+    font-size: 1.8vw;
+    filter: saturate(20%);
+	filter: drop-shadow(0px 1px 100px rgb(246, 246, 34));
+    color: #262626;
+    font-weight: 600;
+    float: left;
+    opacity: 0;
+    animation: moveToTop 0.7s 0.1s forwards;
+
+}
+
+
+.login-right{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.card-login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px 40px;
+    background-color: #f3f3f3;
+	border-radius: 15px;
+    box-shadow: 0px 10px 40px #faec2756;
+    
+    
+    
+}
+.card-login .formulario{
+
+    width: 100%;
+}
+.card-login .formulario-top{
+    text-align: center;padding-bottom: 20px;
+}
+
+.card-login .formulario-top h3{
+    font-size: 1.5em;
+    font-weight: 600;
+    margin: 0;
+    filter: saturate(20%);
+	filter: drop-shadow(0px 1px 100px rgb(246, 246, 34));
+    color: #b8b8b8;
+
+
+   
+}
+
+#formulario_login{
+  
+
+}
+.formulario form input{
+    border: 0px;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    background-color:unset;
+    color: rgb(18, 18, 18);
+    
+    
+    }
+    .input-group{
+
+ 
+    }
+    .formulario form input::placeholder{
+        color: rgb(174, 174, 174);
+    font-weight: 500;
+    }
+    .formulario form input:focus{
+    border-bottom: 1px solid;
+    box-shadow: inset 0 -1px 0;
+    background-color:unset;
+    color: rgb(111, 111, 111);
+    
+    }
+    
+    .formulario form .input-group-text{
+    background-color:unset;
+    border: 0px;
+    color: rgb(94, 94, 94);
+    }
+    
+ 
+    .formulario form button{
+    border-radius:25px;
+    width: 100%;
+    margin-top: 10%;
+    background-color:#d1ca36;
+    border: 0px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    font-size: 0.8em;
+    }
+    
+    .formulario form button:hover{
+        background-color:rgb(192, 194, 37);
+    }
+    .formulario .form-check{
+        color: white;
+        cursor:pointer;
+        margin-left: 10px;
+     color: rgb(173, 173, 173);
+     font-size: 0.8em;
+        
+ }
+
+
+ .sub-form a{
+text-decoration: none;
+color: #838383;
+font-size: 0.8em;
+ }
+
+ .sub-form .senha-esqueci p{
+    margin-top: 8px;
+
+ }
+
+ .sub-form .cadastrar p{
+    text-align: center;
+    font-size: 0.8em;
+    color: #838383;
+ }
+
+ .sub-form .cadastrar a{
+    font-size: 1.3em;
+    color: #d1ca36;
+    font-weight: 600;
+ }
+
+ #hidden{
+   display: none;
+ }

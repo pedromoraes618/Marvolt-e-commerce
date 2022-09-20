@@ -21,7 +21,6 @@ $('.logo-marvolt-top-1').css({
 });
 
 
-
 $(window).scroll(function() {
 
     if ($(window).scrollTop() == 0 | $(window).scrollTop() == "") {
@@ -35,6 +34,10 @@ $(window).scroll(function() {
             'transition': 'opacity 50ms ease-in'
 
         });
+
+
+
+
     } else {
         $('.logo-marvolt').css({
 
@@ -49,6 +52,8 @@ $(window).scroll(function() {
             'transition': 'opacity 50ms ease-in'
 
         });
+
+
     }
 });
 
@@ -58,21 +63,18 @@ $(document).ready(function() {
         loop: true,
         margin: 20,
         autoplay: true,
+        nav: false,
         responsive: {
             0: {
                 items: 1
-            },
-            360: {
-                items: 1
-
             },
             390:{
                 items: 2
             },
             440: {
-                items: 2
+                items: 3
             },
-            900: {
+            700: {
                 items: 4
             },
             1000: {
@@ -96,17 +98,13 @@ $(document).ready(function() {
             0: {
                 items: 1
             },
-            360: {
-                items: 1
-
-            },
             390:{
                 items: 2
             },
             440: {
-                items: 2
+                items: 3
             },
-            900: {
+            700: {
                 items: 4
             },
             1000: {
@@ -125,17 +123,13 @@ $(document).ready(function() {
             0: {
                 items: 1
             },
-            360: {
-                items: 1
-
-            },
             390:{
                 items: 2
             },
             440: {
-                items: 2
+                items: 3
             },
-            900: {
+            700: {
                 items: 4
             },
             1000: {
@@ -159,17 +153,13 @@ $(document).ready(function() {
             0: {
                 items: 1
             },
-            360: {
-                items: 1
-
-            },
             390:{
                 items: 2
             },
             440: {
-                items: 2
+                items: 3
             },
-            900: {
+            700: {
                 items: 4
             },
             1000: {
@@ -195,6 +185,12 @@ $(document).ready(function() {
             360: {
                 items: 2
             },
+            440: {
+                items: 3
+            },
+            700: {
+                items: 4
+            },
             1000: {
                 items: 5
             }
@@ -213,8 +209,7 @@ $(document).ready(function() {
     $("#carousel-prod").owlCarousel({
         items: 6,
         loop: true,
-        margin: 20,
-
+        margin: 10,
         autoplay: true,
         responsive: {
             0: {
@@ -227,7 +222,7 @@ $(document).ready(function() {
             390:{
                 items: 2
             },
-            440: {
+            500: {
                 items: 3
             },
             900: {
@@ -244,3 +239,6 @@ $(document).ready(function() {
 
 });
 
+function loading(){
+    document.getElementsByClassName("loader")[0].style.display = "none"
+ }

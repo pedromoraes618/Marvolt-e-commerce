@@ -28,3 +28,10 @@ if(!$lista_embalagem){
     die("Falaha no banco de dados");
  }
 
+ $select = "SELECT * from tb order by cl_descricao asc ";
+ $lista_embalagem = mysqli_query($conecta,$select);
+ if(!$lista_embalagem){
+     die("Falaha no banco de dados");
+  }
+ 
+ 

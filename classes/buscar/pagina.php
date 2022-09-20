@@ -7,6 +7,9 @@
         echo $b_desc_p; ?></p>
     </div>
     <div class="container">
+    <?php 
+       include "menu_filtro_buscar.php";
+       ?>
         <div class="bloco-1">
             <table>
                 <?php while ($linha = mysqli_fetch_assoc($resultado_lista_categoria)) {
@@ -16,7 +19,7 @@
 
                 <tr>
                     <td>
-                        
+
                         <a href="?categoria=<?php echo $b_id; ?>&buscar=<?php echo $b_desc_p; ?>">
                             <p> <?php echo ($b_categoria); ?></p>
                         </a>
@@ -41,7 +44,7 @@
                 die("Falha na consulta ao banco de dados ");
                 }
                 while ($linha = mysqli_fetch_assoc($resultado_lista_subcategoria)) {
-                                $b_subcategoria = utf8_encode($linha['subcategoria']);
+                                $b_subcategoria = ($linha['subcategoria']);
                                 $b_id = utf8_encode($linha['id_subcategoria']);
                                 ?>
                 <tr>
@@ -83,7 +86,7 @@
                    ?>
 
                 <?php
-              include "/../mensagem/msg_nenhum_produto.php";
+              include "classes/mensagem/msg_nenhum_produto.php";
                 } else {
               
 						while($linha = mysqli_fetch_assoc($resultado_buscas)){
@@ -97,7 +100,7 @@
 						?>
 
                 <?php 
-            include "/../card/card.php";    
+            include "classes/card/card.php";    
             } 
                 }?>
             </div>
@@ -164,4 +167,3 @@
 
     </div>
 </div>
-<?php ?>

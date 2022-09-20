@@ -153,18 +153,18 @@ alertify.success("Dados alterado com sucesso");
                         <option value="0">Selecione</option>
                         <?php 
                                     while($linha_categoria  = mysqli_fetch_assoc($lista_categoria)){
-                                        $categoriaPrincipal = utf8_encode($linha_categoria["cl_id"]);
+                                        $categoriaPrincipal = ($linha_categoria["cl_id"]);
                                         if($categoriaPrincipal==$b_categoria){
-                                        ?> <option value="<?php echo utf8_encode($linha_categoria["cl_id"]);?>"
+                                        ?> <option value="<?php echo ($linha_categoria["cl_id"]);?>"
                             selected>
-                            <?php echo utf8_encode($linha_categoria["cl_descricao"]);?>
+                            <?php echo ($linha_categoria["cl_descricao"]);?>
                         </option>
                         <?php
                                     }else{
     
                                 ?>
-                        <option value="<?php echo utf8_encode($linha_categoria["cl_id"]);?>">
-                            <?php echo utf8_encode($linha_categoria["cl_descricao"]);?>
+                        <option value="<?php echo ($linha_categoria["cl_id"]);?>">
+                            <?php echo ($linha_categoria["cl_descricao"]);?>
                         </option>
                         <?php
                                     }

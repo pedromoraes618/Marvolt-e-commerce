@@ -40,7 +40,7 @@ $resultado_select = mysqli_query($conecta, $select);
             <a
                 onclick="window.open('cadastro_categoria.php', 
 'Titulo da Janela', 'STATUS=NO, TOOLBAR=NO, LOCATION=NO, DIRECTORIES=NO, RESISABLE=NO, SCROLLBARS=YES, TOP=10, LEFT=10, WIDTH=1500, HEIGHT=900');">
-                <input type="submit" style="width:140px" name="cadastrar_produto" value="Adicionar Produto">
+                <input type="submit" style="width:140px" name="cadastrar_produto" value="Adicionar">
             </a>
             <form action="" method="get">
                 <input type="text" name="pesquisa" placeholder="Pesquisa / Categoria / Código " value="<?php if(isset($_GET['pesquisa'])){
