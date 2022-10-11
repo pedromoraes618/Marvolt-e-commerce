@@ -36,6 +36,16 @@ include "classes/subcategoria/pagina.php";
     }elseif(isset($_GET['logincr'])){
         include "crud_categoria.php";
         include "classes/carrinho/card_login.php";
+    }elseif(isset($_GET['fecharpd'])){
+        include "crud_categoria.php";
+        include "classes/carrinho/fechar_solicitacao.php";
+   
+    }elseif(isset($_GET['cnf_pedido'])){
+        include "crud_categoria.php";
+        include "classes/carrinho/confirmar_pedido.php";
+   
+    }elseif(isset($_GET['cds'])){
+        include "classes/solicitacoes/pagina.php";
     }
 //elseif(isset($_GET['enviar_pedido'])){
 //     include "crud_categoria.php";

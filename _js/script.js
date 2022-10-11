@@ -242,3 +242,20 @@ $(document).ready(function() {
 function loading(){
     document.getElementsByClassName("loader")[0].style.display = "none"
  }
+
+
+
+
+
+$("#mostrar_senha").click(function() {
+    var senha = document.getElementById("senha");
+    if (senha.type == "password") {
+        senha.type = "text";
+
+    } else {
+        senha.type = "password";
+    }
+})
+
+
+

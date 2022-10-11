@@ -4,37 +4,40 @@ include("conexao/conexao.php");
 
 
 
-if(isset($_SESSION["user_portal"])){
-	if($_SESSION["user_portal"]){
-		 $id_user = $_SESSION["user_portal"];
-		 $select = "SELECT cl_usuario, cl_id from tb_cliente where cl_id = {$id_user}";
-		 $lista_cliente = mysqli_query($conecta,$select);
-		 if (!$lista_cliente){
-			 die ("Falha no banco de dados");
-		 }
-		 $linha = mysqli_fetch_assoc($lista_cliente);
-		 $b_cliente = $linha['cl_usuario'];
-	 ?>
-<?php    
-	 }
+// if(isset($_SESSION["user_portal"])){
+// 	if($_SESSION["user_portal"]){
+// 		 $id_user = $_SESSION["user_portal"];
+// 		 $select = "SELECT cl_usuario, cl_id from tb_cliente where cl_id = {$id_user}";
+// 		 $lista_cliente = mysqli_query($conecta,$select);
+// 		 if (!$lista_cliente){
+// 			 die ("Falha no banco de dados");
+// 		 }
+// 		 $linha = mysqli_fetch_assoc($lista_cliente);
 
-     //pegar a sessao do carrinho do cliente
-$select = "SELECT max(cl_sessao) as sessao from tb_carrinho where cl_cliente = $b_id_cliente";
-$resultado_carrinho_sessao = mysqli_query($conecta, $select);
-if(!$resultado_carrinho_sessao){
-    include "classes/erro/504.php";
-}else{
-  $linha = mysqli_fetch_assoc($resultado_carrinho_sessao);
-  $sessao = $linha['sessao'];
-  //se a sessao for inciado com "" a variavel sessao recebe 0 como valor
-  if($sessao == ""){
-   $sessao = 0;
-  }
-}
+//          $b_cliente_id = $linha['cl_id'];
+    
+         
+// 	 
+ 
+// 	 }
+
+//      //pegar a sessao do carrinho do cliente
+// $select = "SELECT max(cl_sessao) as sessao from tb_carrinho where cl_cliente = $b_id_cliente";
+// $resultado_carrinho_sessao = mysqli_query($conecta, $select);
+// if(!$resultado_carrinho_sessao){
+//     include "classes/erro/504.php";
+// }else{
+//   $linha = mysqli_fetch_assoc($resultado_carrinho_sessao);
+//   $sessao = $linha['sessao'];
+//   //se a sessao for inciado com "" a variavel sessao recebe 0 como valor
+//   if($sessao == ""){
+//    $sessao = 0;
+//   }
+// }
 
 
    
-}
+// }
 
 
 $hoje = date('Y-m-d');
@@ -111,7 +114,7 @@ function qtd_subcategoria_2($b_id,$b_desc_p){
 }
 
 //consulta produtos filtrado por categoria
-$produtos = "SELECT p.cl_data_cadastro,p.cl_destaque,p.cl_ativo,p.cl_id,p.cl_categoria,p.cl_disponivel,p.cl_valor, p.cl_descricao,p.cl_codigo, e.cl_descricao as embalagem, c.cl_descricao as as_descricao_categoria, f.cl_descricao as as_descricao_fabricante, p.cl_fabricante, 
+$produtos = "SELECT p.cl_data_cadastro,p.cl_destaque,cl_subcategoria,p.cl_ativo,p.cl_id,p.cl_categoria,p.cl_disponivel,p.cl_valor, p.cl_descricao,p.cl_codigo, e.cl_descricao as embalagem, c.cl_descricao as as_descricao_categoria, f.cl_descricao as as_descricao_fabricante, p.cl_fabricante, 
 p.cl_titulo, p.cl_imagem, p.cl_destaque from tb_produto as 
 p inner join tb_fabricante as f on f.cl_id = p.cl_fabricante inner join tb_categoria as c on c.cl_id = p.cl_categoria  inner join tb_embalagem as e on e.cl_id = p.cl_embalagem   where cl_categoria =  $b_id and cl_ativo = '1'";
 $resultado_produto_categoria = mysqli_query($conecta, $produtos);
@@ -286,29 +289,7 @@ $b_mapa_descricao_categoria_sub = ($linha['categoria']);
 $b_mapa_id_categoria_sub = ($linha['cl_categoria']);
 }
 
-//avaliacao formulario via javascript
-if(isset($_POST['descricao_avaliacao'])){
-    $retorno = array();
-    $hoje = date('y-m-d');
-    $descricao = utf8_decode($_POST['descricao_avaliacao']);
-    $titulo = $_POST['titulo_avaliacao'];
-    $id_cliente = $_POST['id_cliente_avaliacao'];
-    $id_produto = $_POST['id_produto_avaliacao'];
-  
-    $insert = "INSERT INTO tb_avaliacao ";
-    $insert .= "(cl_data,cl_cliente,cl_titulo,cl_produtoID,cl_descricao)";
-    $insert .= " VALUES ";
-    $insert .= "('$hoje','$id_cliente','$titulo','$id_produto','$descricao' )";
-    $operacao_insert = mysqli_query($conecta, $insert);
-    if($operacao_insert){
-       $retornar["sucesso"] = "true";
-    
-      }else{
-        $retornar["sucesso"] = "false";
-         }   
-    echo json_encode($retornar);
 
-}
 
 //query avaliacao
 $select = "SELECT a.cl_data,a.cl_cliente,a.cl_titulo,cl_produtoID,a.cl_descricao,c.cl_usuario as usuario from tb_avaliacao as a inner join tb_cliente as c on a.cl_cliente = c.cl_id where cl_produtoID = '$b_id_produto' ";
@@ -318,3 +299,25 @@ die("Falha na consulta ao banco de dados || tb_produto");
 }
 
 
+if(isset($_GET['incfor'])){
+    if(!empty($_GET['id'])){
+        $id_prod = $_GET['id'];
+//consultar tabela produto // controle - add_info_prod.php
+$select = "SELECT f.cl_descricao as fabricante, c.cl_quantidade as quantidade, c.cl_produto_cor as cor,c.cl_produto_tamanho as tamanho, c.cl_produto_obs as obs, c.cl_sessao, c.cl_id, p.cl_titulo as titulo, p.cl_imagem as imagem from tb_carrinho as c
+inner join tb_produto as p on p.cl_id = c.cl_produtoID inner join tb_fabricante as f on f.cl_id = p.cl_fabricante  where c.cl_id = $id_prod ";
+$resultado_prod_infor = mysqli_query($conecta, $select);
+if(!$resultado_prod_infor){
+   include "classes/erro/504.php";
+}else{
+    $linha = mysqli_fetch_assoc($resultado_prod_infor);
+    $img = $linha['imagem'];
+    $titulo = $linha['titulo'];
+    $cor = $linha['cor'];
+    $tamanho = $linha['tamanho'];
+    $obs = $linha['obs'];
+    $quantidade = $linha['quantidade'];
+}
+    }else{
+        include "classes/erro/404.php";
+    }
+}

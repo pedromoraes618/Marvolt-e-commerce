@@ -4,74 +4,12 @@ include "lib/alertify/alert.php";
 include "funcao/script.php";
 //adicionar a variavel de sessão
 session_start();
-echo "<p id='hidden'>,</p>";
-//funcao para verificar se o email já foi cadastrado anteriomente
-function consultarEmail($email){
-    include "conexao/conexao.php";
-    $select = "SELECT count(*) as quantidade from tb_cliente where cl_email = '$email' " ; 
-    $operacao_verificar_email = mysqli_query($conecta,$select);
-    if($operacao_verificar_email){
-     $linha = mysqli_fetch_assoc($operacao_verificar_email);
-     $resultado = $linha['quantidade'];
-    }else{
-        die("erro banco de dados tb_clientes cl_email");
-    }
-    return $resultado;
-}
-//cadastrar usuario
-if(isset($_POST["usuario"])){
-    $usuario =  $_POST["usuario"];
-    $email =  $_POST["email"];
-    $senha =  $_POST["senha"];
-    $tipo = $_POST["tipo_cliente"];
-    $senha = base64_encode($senha);
-    if($email == ""){
-        ?>
-<script>
-alertify.alert("O campo Email não foi preenchido");
-</script>
-<?php
-    }elseif($usuario ==""){
-        ?>
-<script>
-alertify.alert("O campo Usuário não foi preenchido");
-</script>
-<?php
-    }elseif($senha ==""){
-        ?>
-<script>
-alertify.alert("O campo Senha não foi preenchido");
-</script>
-<?php
-    }elseif(consultarEmail($email)>0){
-        ?>
-<script>
-alertify.alert("Esse Email já foi cadastrado")
-</script>
-<?php
-    }else{
-    $inserir = "INSERT INTO tb_cliente ";
-    $inserir .= "(cl_data_cadastro,cl_usuario,cl_senha,cl_tipo_cliente,cl_email)";
-    $inserir .= " VALUES ";
-    $inserir .= "('$hoje','$usuario','$senha','$tipo','$email' )";
-    $operacao_inserir = mysqli_query($conecta, $inserir);
-    if(!$operacao_inserir){
-        die("Erro banco de dados tb_cliente");
-    }else{
-        ?>
-<script>
-alertify.success("Cadastro realizado com sucesso");
-</script>
-<?php
-   $email ="";
-   $senha = "";
-   $usuario ="";
-   $tipo = "0";
-    }
-}
 
-   
-}
+
+//consulta categoria query para estados
+$select = "SELECT * from tb_estados";
+$resultado_estados = mysqli_query($conecta, $select);
+
 
 ?>
 <html>
@@ -85,137 +23,277 @@ alertify.success("Cadastro realizado com sucesso");
     <link href="_css/login.css" rel="stylesheet">
     <meta name="author" content="Desenvolvedor Pedro moraes -+5598988814696">
     <meta property="og:title" content="Marvolt localizada em são do maranhão" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://kit.fontawesome.com/e8ff50f1be.js" crossorigin="anonymous"></script>
     <script src="https://smtpjs.com/v3/smtp.js"></script>
     <title>Marvolt</title>
-    <link rel="stylesheet" href="lib/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="lib/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css">
     <link rel="shortcut icon" type="imagex/png" href="img/marvolt.ico">
 </head>
 
-<body style="">
+<body>
 
-    <div class="main-login">
+    <div class="main-cadastro">
+        <div class="bloco-1">
+            <div class="tab">
+                <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'juridica')"><i
+                        class="fa-solid fa-building"></i> Pessoa juridica</button>
+                <button class="tablinks" onclick="openCity(event, 'fisica')"><i class="fa-solid fa-user"></i> Pessoa
+                    fisica</button>
 
-        <div class="login-left">
-            <h1>Você merece o que há de melhor<br>Cadastre-se para conhecer os melhores produtos </h1>
-            <img src="img/People flying-rafiki.svg" alt="imagem" class="left-login-img">
 
-        </div>
+            </div>
 
-        <div class="login-right">
-            <div class="card-login">
-                <div class="formulario">
-                    <div class="formulario-top">
-
-                        <h3>Cadastre-se</h3>
-                    </div>
-                    <form id="formulario_cadastro" method="POST">
-                        <div class="form-group">
-                            <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text"><i class="fa-solid fa-user"></i></div>
+            <!-- Tab content -->
+            <div id="juridica" class="tabcontent">
+                <p>Campos obrigatorios *</p>
+                <div id="form-cadastro">
+                    <form id="formulario_cadastro_cliente">
+                        <div class="group-left" id="grupo-opcao">
+                            <div class="group-input">
+                                <div class="input">
+                                    <input type="text" id="razao_social" name="razao_social"
+                                        placeholder="* Razão social">
+                                    <input type="text" id="nome_fantasia" name="nome_fantasia"
+                                        placeholder="* Nome fantasia">
+                                    <input type="text" id="cnpj" name="cnpj" data-mask="00.000.000/0000-00"
+                                        placeholder="* Cnpj">
                                 </div>
-                                <input type="text" class="form-control" name="email" id="email" value="<?php 
-                                if($_POST){
-                                    echo $email;
-                                }
-                                ?>" placeholder="E-mail">
                             </div>
+                            <div class="group-input">
+                                <div class="input">
+                                    <input type="text" id="inscricao_municipal" name="inscricao_municipal"
+                                        onkeypress="return onlynumber();" placeholder="Inscrição Municiapl">
+                                    <input type="text" id="inscricao_estadual" name="inscricao_estadual"
+                                        onkeypress="return onlynumber();" id="insc_estadual"
+                                        placeholder="* Inscrição estadual">
+
+                                    <label><input type="checkbox" name="isento" id="isento" value="isneto"
+                                            onclick="Isento()">Isento</label>
+                                </div>
+                            </div>
+                            <div class="group-input">
+                                <div class="input">
+                                    <input type="text" id="telefone" name="telefone" data-mask="(00) 00000-0000"
+                                        placeholder="* Seu telefone">
+                                    <input type="text" id="outro_telefone" name="outro_telefone"
+                                        data-mask="(00) 00000-0000" placeholder=" Outro telefone">
+                                    <input type="text" id="telefone_fixo" name="telefone_fixo"
+                                        data-mask="(00) 00000-0000" placeholder=" Telefone fixo">
+                                </div>
+                            </div>
+                            <div class="group-input">
+                                <div class="input">
+                                    <input type="text" id="bairro" name="bairro" placeholder="* Bairro">
+                                    <input type="text" id="endereco" name="endereco" placeholder="* Endereço">
+                                    <input type="text" id="numero" name="numero" onkeypress="return onlynumber();"
+                                        placeholder="* Número">
+                                </div>
+                            </div>
+                            <div class="group-input">
+                                <div class="input">
+                                    <select style="width:195px" name="estado" id="estado">
+                                        <option value="0">Estados</option>
+                                        <?php while($linha = mysqli_fetch_assoc($resultado_estados)){?>
+                                        <option value="<?php echo ($linha["cl_id"]);?>">
+                                            <?php echo utf8_encode($linha["cl_nome"]);?>
+                                        </option>
+                                        <?php }?>
+                                    </select>
+
+                                    <input type="text" id="cidade" name="cidade" placeholder="* Cidade">
+                                </div>
+                            </div>
+
+
+
+
                         </div>
-                        <div class="form-group">
-                            <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text"><i class="fa-solid fa-user"></i></div>
-                                </div>
-                                <input type="text" class="form-control" name="usuario" id="usuario" value="<?php 
-                                if($_POST){
-                                    echo $usuario;
-                                }
-                                ?>" placeholder="Usuário">
+                        <div class="group-right" id="grupo-opcao">
+                            <div class="group-input">
+                                Sobre a sua conta
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text"><i class="fa-solid fa-lock"></i></div>
+                            <hr>
+                            <div class="group-input">
+                                <div class="input">
+                                    <input type="text" onblur="btn_ativo()" id="email" name="email"
+                                        placeholder="* Email">
                                 </div>
-                                <input type="password" class="form-control" name="senha" id="senha" value="<?php 
-                                if($_POST){
-                                    echo $senha;
-                                }
-                                ?>" placeholder="Senha">
                             </div>
-                        </div>
+                            <div class="group-input">
+                                <div class="input">
+                                    <input type="password" onblur="btn_ativo()" id="senha" name="senha"
+                                        placeholder="* Senha">
+                                    <i id="mostrar_senha" class="fa-solid fa-eye"></i>
+                                </div>
+                            </div>
+                            <div class="group-input">
+                                <div class="input">
+                                    <label class="obg"><input type="checkbox" id="receber_email" name="receber_email"
+                                            value="1">Quero
+                                        receber por
+                                        email ofertas
+                                        e novidades</label>
+                                </div>
+                            </div>
+                            <div class="group-input">
+                                <div class="input">
+                                    <label class="obg"><input type="checkbox" id="privacidade" name="privacidade"
+                                            value="1">* Concordo
+                                        com
+                                        o uso
+                                        dos meus dados para
+                                        compra e experiência no site
+                                        conforme a Poítica de Privacidade</label>
+                                </div>
+                            </div>
+                            <div class="group-input">
+                                <div class="input">
+                                    <button type="submit" disabled id="btn_cadastrar"
+                                        class="btn btn-primary">Cadastrar</button>
+                                </div>
 
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="tipo_cliente" id="tipo_cliente" <?php 
-                                if($_POST){
-                                if($tipo == "0"){
-                                    ?> checked <?php
-                                }
-                            }else{
-                                ?>
-                                checked
-                                <?php
-                            }
-                                ?> value="0">
-                                <label class="form-check-label" for="exampleRadios1">
-                                    Pessoa fisica
-                                </label>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="tipo_cliente" id="tipo_cliente" <?php 
-                                  if($_POST){
-                                if($tipo == "1"){
-                                    ?> checked <?php
-                                }
-                            }?> value="1">
-                                <label class="form-check-label" for="exampleRadios2">
-                                    Pessoa jurídica
-                                </label>
-                            </div>
+
                         </div>
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck2"
-                                    onclick="mostrarOcultarSenha()">
-                                <label class="form-check-label" for="invalidCheck2">
-                                    Mostrar senha
-                                </label>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Cadastrar</button>
-                            <div class="sub-form">
-                                <div class="senha-esqueci">
-                                    <a href="">
-                                        <p>Apos ser feito o login é necessario <br> completar o cadastro</p>
-                                    </a>
-                                </div>
-                                <hr>
-                                <div class="cadastrar">
-                                    <p>Entre na marvolt! <a href="login.php">Login</a></p>
-                                </div>
-                            </div>
                     </form>
+                </div>
+
+
+                <div class="login_ir">
+                    <p class="ir_login">Ir para a tela de <a href="login.php">login</a></p>
                 </div>
             </div>
 
+
+            <div id="fisica" class="tabcontent">
+                <p>Campos obrigatorios *</p>
+                <div id="form-cadastro">
+                    <form id="formulario_cadastro_cliente">
+                        <div class="group-left" id="grupo-opcao">
+                            <div class="group-input">
+                                <div class="input">
+                                    <input type="text" id="razao_social" name="razao_social"
+                                        placeholder="* Razão social">
+                                    <input type="text" id="nome_fantasia" name="nome_fantasia"
+                                        placeholder="* Nome fantasia">
+                                    <input type="text" id="cnpj" name="cnpj" data-mask="00.000.000/0000-00"
+                                        placeholder="* Cnpj">
+                                </div>
+                            </div>
+                            <div class="group-input">
+                                <div class="input">
+                                    <input type="text" id="inscricao_municipal" name="inscricao_municipal"
+                                        onkeypress="return onlynumber();" placeholder="Inscrição Municiapl">
+                                    <input type="text" id="inscricao_estadual" name="inscricao_estadual"
+                                        onkeypress="return onlynumber();" id="insc_estadual"
+                                        placeholder="* Inscrição estadual">
+
+                                    <label><input type="checkbox" name="isento" id="isento" value="isneto"
+                                            onclick="Isento()">Isento</label>
+                                </div>
+                            </div>
+                            <div class="group-input">
+                                <div class="input">
+                                    <input type="text" id="telefone" name="telefone" data-mask="(00) 00000-0000"
+                                        placeholder="* Seu telefone">
+                                    <input type="text" id="outro_telefone" name="outro_telefone"
+                                        data-mask="(00) 00000-0000" placeholder=" Outro telefone">
+                                    <input type="text" id="telefone_fixo" name="telefone_fixo"
+                                        data-mask="(00) 00000-0000" placeholder=" Telefone fixo">
+                                </div>
+                            </div>
+                            <div class="group-input">
+                                <div class="input">
+                                    <input type="text" id="bairro" name="bairro" placeholder="* Bairro">
+                                    <input type="text" id="endereco" name="endereco" placeholder="* Endereço">
+                                    <input type="text" id="numero" name="numero" onkeypress="return onlynumber();"
+                                        placeholder="* Número">
+                                </div>
+                            </div>
+                            <div class="group-input">
+                                <div class="input">
+                                    <select style="width:195px" name="estado" id="estado">
+                                        <option value="0">Estados</option>
+                                        <?php while($linha = mysqli_fetch_assoc($resultado_estados)){?>
+                                        <option value="<?php echo ($linha["cl_id"]);?>">
+                                            <?php echo utf8_encode($linha["cl_nome"]);?>
+                                        </option>
+                                        <?php }?>
+                                    </select>
+
+                                    <input type="text" id="cidade" name="cidade" placeholder="* Cidade">
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                        <div class="group-right" id="grupo-opcao">
+                            <div class="group-input">
+                                Sobre a sua conta
+                            </div>
+                            <hr>
+                            <div class="group-input">
+                                <div class="input">
+                                    <input type="text" onblur="btn_ativo()" id="email" name="email"
+                                        placeholder="* Email">
+                                </div>
+                            </div>
+                            <div class="group-input">
+                                <div class="input">
+                                    <input type="password" onblur="btn_ativo()" id="senha" name="senha"
+                                        placeholder="* Senha">
+                                    <i id="mostrar_senha" class="fa-solid fa-eye"></i>
+                                </div>
+                            </div>
+                            <div class="group-input">
+                                <div class="input">
+                                    <label class="obg"><input type="checkbox" id="receber_email" name="receber_email"
+                                            value="1">Quero
+                                        receber por
+                                        email ofertas
+                                        e novidades</label>
+                                </div>
+                            </div>
+                            <div class="group-input">
+                                <div class="input">
+                                    <label class="obg"><input type="checkbox" id="privacidade" name="privacidade"
+                                            value="1">* Concordo
+                                        com
+                                        o uso
+                                        dos meus dados para
+                                        compra e experiência no site
+                                        conforme a Poítica de Privacidade</label>
+                                </div>
+                            </div>
+                            <div class="group-input">
+                                <div class="input">
+                                    <button type="submit" disabled id="btn_cadastrar"
+                                        class="btn btn-primary">Cadastrar</button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="login_ir">
+                    <p class="ir_login">Ir para a tela de <a href="login.php">login</a></p>
+                </div>
+            </div>
         </div>
     </div>
     </div>
-
+    </div>
 
 
 
 
     <script src="_js/jquery.js"></script>
+    <script src="_js/jquery.mask.js"></script>
     <script src="_js/bootstrap.min.js"></script>
-    <script src="_js/script.js"></script>
-    <script src="_js/vanilla-tilt.js"></script>
-    <script src="lib/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-    <script src="_js/script.js"></script>
     <script src="_js/alertify.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
         integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous">
@@ -224,98 +302,153 @@ alertify.success("Cadastro realizado com sucesso");
         integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous">
     </script>
 
+    <?php include 'funcao/funcaojavascript.jar'; ?>
 </body>
 
 </html>
 
+<script>
+function openCity(evt, cityName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+document.getElementById("defaultOpen").click();
+</script>
 
 <script>
-function mostrarOcultarSenha() {
-    var senha = document.getElementById("senha");
+function variaveis() {
+    let razao_social = document.getElementById("senha")
+    let nome_fantasia = document.getElementById("nome_fantasia")
+    let cnpj = document.getElementById("cnpj")
+    let inscricao_municipal = document.getElementById("inscricao_municipal")
+    let inscricao_estadual = document.getElementById("inscricao_estadual")
+    let telefone = document.getElementById("telefone")
+    let outro_telefone = document.getElementById("outro_telefone")
+    let telefone_fixo = document.getElementById("telefone_fixo")
+    let bairro = document.getElementById("bairro")
+    let endereco = document.getElementById("endereco")
+    let numero = document.getElementById("numero")
+    let estado = document.getElementById("estado")
+    let cidade = document.getElementById("cidade")
+    let email = document.getElementById("email")
+    let senha = document.getElementById("senha")
+    let isento = document.getElementById("isento")
+    let receber_email = document.getElementById("receber_email")
+    let privacidade = document.getElementById("privacidade")
+}
+
+function btn_ativo() {
+
+    if (email.value != "" & senha.value != "") {
+        btn_cadastrar.removeAttribute("disabled", "disabled");
+    } else {
+        btn_cadastrar.setAttribute("disabled", "disabled");
+    }
+
+
+}
+
+function Isento() {
+
+    if (inscricao_estadual.hasAttribute("readonly")) {
+        inscricao_estadual.removeAttribute("readonly", "readonly");
+
+    } else {
+        inscricao_estadual.setAttribute("readonly", "readonly");
+        inscricao_estadual.value = "";
+    }
+}
+</script>
+
+<script>
+$("#mostrar_senha").click(function() {
+
     if (senha.type == "password") {
         senha.type = "text";
 
     } else {
         senha.type = "password";
     }
+})
+</script>
+
+<script>
+$(document).ready(function() {
+    $("#formulario_cadastro_cliente").submit(function(e) {
+        e.preventDefault();
+        var formulario = $(this);
+        var retorno = cadastro_cliente(formulario)
+
+    })
+
+})
+
+function cadastro_cliente(dados) {
+    $.ajax({
+        type: "POST",
+        data: dados.serialize(),
+        url: "crud.php",
+        async: false
+    }).then(sucesso, falha);
+
+    function sucesso(data) {
+        $mensagem = $.parseJSON(data)["mensagem"];
+        $sucesso = $.parseJSON(data)["sucesso"];
+
+        if ($sucesso) {
+            Swal.fire(
+                'Cadastro realizado com sucesso!',
+                'Entre com o seu login',
+                'success'
+            )
+
+            razao_social.value = "";
+            nome_fantasia.value = "";
+            cnpj.value = "";
+            inscricao_municipal.value = "";
+            inscricao_estadual.value = "";
+            telefone.value = "";
+            outro_telefone.value = "";
+            telefone_fixo.value = "";
+            bairro.value = "";
+            endereco.value = "";
+            numero.value = "";
+            estado.value = 0;
+            cidade.value = "";
+            email.value = "";
+            senha.value = "";
+            isento.checked = false
+            receber_email.checked = false
+            privacidade.checked = false
+
+        } else {
+            alertify.alert($mensagem)
+        }
+    }
+
+    function falha() {
+        console.log("erro");
+    }
 
 }
-
-// //receber
-// $(document).ready(function() {
-//     $("#formulario_cadastro").submit(function(e) {
-//         e.preventDefault();
-//         var campoUsuario = document.getElementById("usuario");
-//         var campoSenha = document.getElementById("senha");
-//         var campoEmail = document.getElementById("email");
-//         var campotipo = document.getElementById("tipo_cliente").value;
-//         var formulario = $(this);
-
-//         if (campoUsuario.value == "") {
-//             alertify.alert("Favor preencher o campo Usuario")
-//         } else if (campoSenha.value == "") {
-//             alertify.alert("Favor preencher o campo Senha")
-//         } else if (campoEmail.value == "") {
-//             alertify.alert("Favor preencher o campo Email")
-//         } else {
-//             var retorno = cadastar(formulario);
-//             alertify.success("Cadastro realizado com sucesso")
-//             campoUsuario.value = "";
-//             campoSenha.value = "";
-//             campoEmail.value = "";
-//         }
-//     })
-// })
-
-
-
-// function cadastar(dados) {
-//     $.ajax({
-//         type: "POST",
-//         data: dados.serialize(),
-//         async: false,
-//         url: "crud.php"
-//     }).done(function(data) {
-//         //   $retorno = $.parseJSON(data)["mensagem"];
-//         //   console.log($retorno);
-//         // if ($retorno) {
-//         //     console.log("Te")
-//         // } else {
-//         //     console.log("Erro banco de dados")
-//         // }
-
-//     })
-// }
-
+</script>
 
 
 <?php
     mysqli_close($conecta);
-?>
-
-
-
-// $.post('crud.php', function(retornar) {
-//             $user = $.parseJSON(retornar)["user"];
-//             $senha = $.parseJSON(retornar)["senha"];
-//             $sessao = $.parseJSON(retornar)["sessao"];
-//             alertify.alert($senha);
-
-//             if (campoUsuario == $user && campoSenha == $senha) {
-//                 location.href = "index.php";
-
-//             } else if (campoUsuario != $user) {
-//                 alertify.alert("Usuario incorreto");
-//             } else if (campoSenha != $senha) {
-//                 alertify.alert("Senha incorreto");
-//             } else {
-//                 alertify.alert("Login incorreto");
-//             }
-
-//         })
-</script>
-
-<?php
-    // Fechar conexao
- //   mysqli_close($conecta);
 ?>

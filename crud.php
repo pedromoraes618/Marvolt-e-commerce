@@ -2,21 +2,25 @@
 include("conexao/conexao.php");
 //consulta produto aba filtro destaque  query id 1
 
-if(isset($_SESSION["user_portal"])){
+if(isset($_SESSION["user_cliente_portal"])){
 
-	if($_SESSION["user_portal"]){
-		 $id_user = $_SESSION["user_portal"];
-		 $select = "SELECT cl_usuario, cl_id from tb_cliente where cl_id = {$id_user}";
+	if($_SESSION["user_cliente_portal"]){
+		 $id_user = $_SESSION["user_cliente_portal"];
+		 $select = "SELECT * from tb_cliente where cl_id = {$id_user}";
 		 $lista_cliente = mysqli_query($conecta,$select);
 		 if (!$lista_cliente){
 			 die ("Falha no banco de dados");
 		 }
 		 $linha = mysqli_fetch_assoc($lista_cliente);
-		 $b_cliente = $linha['cl_usuario'];
+		 $b_cliente = $linha['cl_nome_fantasia'];
 		 $b_id_cliente= $linha['cl_id'];
+		 $b_cliente_nome_fantasia = $linha['cl_nome_fantasia'];
+         $b_cliente_cnpj = $linha['cl_cnpj'];
+         $b_cliente_telefone = $linha['cl_telefone'];
+         $b_cliente_email = $linha['cl_email'];
 	 ?>
 <?php    
-	 }
+	
 	 //pegar a sessao do carrinho do cliente
 $select = "SELECT max(cl_sessao) as sessao from tb_carrinho where cl_cliente = $b_id_cliente";
 $resultado_carrinho_sessao = mysqli_query($conecta, $select);
@@ -39,7 +43,7 @@ if(!$resultado_qtd_carrinho){
 }else{
 $linha = mysqli_fetch_assoc($resultado_qtd_carrinho);
 $qtd_carrinho = $linha['qtd_prod'];
-
+}
 }
 
    
@@ -112,12 +116,392 @@ die("Falha na consulta ao banco de dados || tb_categoria query id 6");
 }
 
 
+/*cadastro de cliente*/
+//funcao para verificar se o email já foi cadastrado anteriomente
+function consultarEmail($email){
+    include "conexao/conexao.php";
+    $select = "SELECT count(*) as quantidade from tb_cliente where cl_email = '$email' " ; 
+    $operacao_verificar_email = mysqli_query($conecta,$select);
+    if($operacao_verificar_email){
+     $linha = mysqli_fetch_assoc($operacao_verificar_email);
+     $resultado = $linha['quantidade'];
+    }else{
+        die("erro banco de dados tb_clientes cl_email");
+    }
+    return $resultado;
+}
+
+//cadastrar cliente
+if(isset($_POST["inscricao_estadual"])){
+	$hoje = date('Y-m-d');
+	$retorno = array();
+    $razao_social =  $_POST["razao_social"];
+    $nome_fantasia =  $_POST["nome_fantasia"];
+    $cnpj = $_POST["cnpj"];
+	$inscricao_municipal = $_POST["inscricao_municipal"];
+	$inscricao_estadual = $_POST["inscricao_estadual"];
+	$telefone = $_POST["telefone"];
+	$outro_telefone = $_POST["outro_telefone"];
+	$telefone_fixo = $_POST["telefone_fixo"];
+	$bairro = $_POST["bairro"];
+	$endereco = $_POST["endereco"];
+	$numero = $_POST["numero"];
+	$estado = $_POST["estado"];
+	$cidade = $_POST["cidade"];
+	$email = $_POST["email"];
+	$senha = $_POST["senha"];
+	
+	//se a empresa for isento
+	if(!isset($_POST['isento'])){
+		$isento = 0; //0 para não isento
+	}else{
+		$isento = 1;//1 para isento
+	}
+
+	if(!isset($_POST['privacidade'])){
+		$privacidade = 0; // não defindo
+	}else{
+		$privacidade = 1;//1 defindio *obrigatorio
+	}
+
+	if(!isset($_POST['receber_email'])){
+		$receber_email = 0; // não receber email
+	}else{
+		$receber_email = 1;//1 receber email opcional
+	}
+
+	//tipo de cliente 0 jurido 1 fisico
+	
 
 
-if(isset($_POST["titulo_avaliacao"])) {
+     $senha = base64_encode($senha);
+    if($razao_social == ""){
+			$retorno["mensagem"] = "O campo Razão social não foi preenchido";
+		}elseif($nome_fantasia ==""){
+			$retorno["mensagem"] = "O campo Nome fantasia não foi preenchido";
+		}elseif($cnpj ==""){
+			$retorno["mensagem"] = "O campo Cnpj não foi preenchido";
+		}elseif($isento == 0 && $inscricao_estadual ==""){
+			$retorno["mensagem"] = "O campo Inscrição Estadual não foi preenchido";
+		}elseif($telefone ==""){
+			$retorno["mensagem"] = "O campo Telefone não foi preenchido";
+		}elseif($bairro ==""){
+			$retorno["mensagem"] = "O campo Bairro não foi preenchido";
+		}elseif($endereco ==""){
+			$retorno["mensagem"] = "O campo Endereço não foi preenchido";
+		}elseif($numero ==""){
+			$retorno["mensagem"] = "O campo Número não foi preenchido";
+		}elseif($numero ==""){
+			$retorno["mensagem"] = "O campo Número não foi preenchido";
+		}elseif($estado ==0){
+			$retorno["mensagem"] = "O estado não foi selecionado";
+		}elseif($cidade ==""){
+			$retorno["mensagem"] = "O campo Cidade não foi preenchido";
+			//validação do email
+		}elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+			$retorno["mensagem"] = "Email invalido";
+		}elseif($privacidade == 0){
+			$retorno["mensagem"] = "É necessario aceitar os termos de política e privacidade do site";
+		}elseif(consultarEmail($email)>0){
+			$retorno["mensagem"] = "Esse email já foi cadastrado";
+		}else{
+
+	
+
+	$inserir = "INSERT INTO tb_cliente ";
+	$inserir .= "(cl_data_cadastro,cl_razao_social,cl_nome_fantasia,cl_cnpj,cl_inscricao_estadual,cl_inscricao_municipal,cl_logadouro,cl_numero,
+	cl_bairro,cl_telefone,cl_outro_telefone,cl_telefone_fixo,cl_estadoID,cl_cidade,cl_email,cl_tipo_cliente,cl_senha,cl_isento,cl_rcb_email,cl_privacidade)";
+	$inserir .= " VALUES ";
+	$inserir .= "('$hoje','$razao_social','$nome_fantasia','$cnpj','$inscricao_estadual','$inscricao_municipal','$endereco','$numero','$bairro','$telefone','$outro_telefone',
+	'$telefone_fixo','$estado','$cidade','$email' ,'0' ,'$senha','$isento','$privacidade','$receber_email')";
+	$operacao_inserir = mysqli_query($conecta, $inserir);
+	if($operacao_inserir){
+	$retorno["sucesso"] = true;
+	}else{
+	$retorno["sucesso"] = false;
+	}
+}
+	
+echo json_encode($retorno);
+   
+} 
+
+
+
+/*Salvar a avaliacao no banco de dados */
+if(isset($_POST['descricao_avaliacao'])){
     $retorno = array();
-    $retorno["mensagem"] = "favor informe o nome";
-      
-    
+    $hoje = date('y-m-d');
+    $descricao = utf8_decode($_POST['descricao_avaliacao']);
+    $titulo = $_POST['titulo_avaliacao'];
+    $id_cliente = $_POST['id_cliente_avaliacao'];
+    $id_produto = $_POST['id_produto_avaliacao'];
+	if($titulo ==""){
+		$retorno["mensagem"] = "Não foi informado o Titulo";
+	}elseif($descricao == ""){
+		$retorno["mensagem"] = "Não foi informado a descrição";
+	}else{
+  
+		$insert = "INSERT INTO tb_avaliacao ";
+		$insert .= "(cl_data,cl_cliente,cl_titulo,cl_produtoID,cl_descricao)";
+		$insert .= " VALUES ";
+		$insert .= "('$hoje','$id_cliente','$titulo','$id_produto','$descricao' )";
+		
+		$operacao_insert = mysqli_query($conecta, $insert);
+		if($operacao_insert){
+			$retorno["sucesso"] = true;
+			$retorno["mensagem"] = "Obrigado por avaliar nosso produto";
+		}else{
+			$retorno["sucesso"] = false;
+		}   
+	}
     echo json_encode($retorno);
+}
+
+
+/*Salvar as informacoes dos produto do carrinho no banco de dados */
+if(isset($_POST['cor_prod'])){
+	$retornar = array();
+    $cor_prod = $_POST['cor_prod'];
+    $tamanho_prod = $_POST['tamanho_prod'];
+    $obs_prod = $_POST['observacao_prod'];
+    $quantidade = $_POST['quantidade_prod'];
+	$id_prod = $_POST['id_produto'];
+	
+	if($quantidade == ""){
+		$retornar["mensagem_1"] = "Favor informe o campo quantidade";
+	}else{
+		
+    $alterar = "UPDATE tb_carrinho set cl_produto_cor = '{$cor_prod}', cl_produto_tamanho = '{$tamanho_prod}',cl_produto_obs = '{$obs_prod}',cl_quantidade='{$quantidade}' where cl_id = $id_prod";
+    $operacao_inserir = mysqli_query($conecta, $alterar);
+        if($operacao_inserir){
+			$retornar["sucesso"] = true;
+        }else{
+			$retornar["sucesso"] = false;
+		}
+    }
+	echo json_encode($retornar);
+}
+
+
+  if(isset($_POST['data_entrega_finalizar_pedido'])){
+    // $sessao = $sessao + 1;
+    // $inserir = "INSERT INTO tb_carrinho ";
+    // $inserir .= "(cl_data,cl_cliente,cl_produtoID,cl_sessao)";
+    // $inserir .= " VALUES ";
+    // $inserir .= "('$hoje','$b_id_cliente','fechado','$sessao' )";
+    // $operacao_fechar_pedido = mysqli_query($conecta, $inserir);
+    // if(!$operacao_fechar_pedido){
+    // include "classes/erro/504.php";
+    // }    
+	$hoje = date('y-m-d');
+	$retornar = array();
+	$cliente = $_POST['cliente'];
+	$sessao = $_POST['sessao'];
+	$frete = $_POST['frete'];
+	$forma_pagamento = $_POST['tipo_pagamento'];
+	$data_entrega = $_POST['data_entrega_finalizar_pedido'];
+	if($forma_pagamento == 0){
+		$retornar["mensagem"] = "Favor informe a Expectativa de Forma de pagamemto";
+	}elseif($frete == 0){
+		$retornar["mensagem"] = "Favor informea a Expectativa do Tipo do frete";
+	}elseif($data_entrega == ""){
+		$retornar["mensagem"] = "Favor informe a Expectativa de data de entrega";
+	}else{
+		//explodir para o formato de data banco de dados xxxx-xx-xx
+		$div1 = explode("/",$_POST['data_entrega_finalizar_pedido']);
+		$data_entrega = $div1[2]."-".$div1[1]."-".$div1[0];
+
+		//verificar se já existe um numero de pedido igual
+		$codigo = rand(5000,5000000000000);
+	
+		 
+		$insert = "INSERT INTO tb_pedido";
+		$insert .= "(cl_cliente,cl_sessao,cl_entrega,cl_frete,cl_forma_pagamento,cl_codigo)";
+		$insert .= " VALUES ";
+		$insert .= "('$cliente','$sessao','$data_entrega','$frete','$forma_pagamento','$codigo' )";
+		$operacao_fechar_pedido = mysqli_query($conecta, $insert);
+		if($operacao_fechar_pedido){
+			$retornar["sucesso"] = true;
+			$retornar["codigo_pedido"] = $codigo;
+		}else{
+			$retornar["sucesso"] = false;
+		}
+
+
+		$sessao = $sessao + 1;
+		$inserir = "INSERT INTO tb_carrinho ";
+		$inserir .= "(cl_data,cl_cliente,cl_produtoID,cl_sessao)";
+		$inserir .= " VALUES ";
+		$inserir .= "('$hoje','$cliente','fechado','$sessao' )";
+		$operacao_fechar_pedido = mysqli_query($conecta, $inserir);
+	    if($operacao_fechar_pedido){
+	
+	 	 }
+	  
+	}
+	echo json_encode($retornar);
+
+    }
+
+
+	
+//login
+if(isset($_POST["email_login"])){
+	$retorno = array();
+    $email =  $_POST["email_login"];
+    $senha =  $_POST["senha"];
+   
+	if($email =="" && $senha ==""){
+	$retorno["mensagem"] = "Favor informe o Email e senha";
+
+	}elseif($senha==""){
+	$retorno["mensagem"] = "Campo Senha não preenchido";
+
+	}elseif($email ==""){
+	$retorno["mensagem"] = "Campo Email não preenchido";
+
+	}else{
+
+    $login = "SELECT * FROM tb_cliente WHERE  cl_email = '$email' or cl_cnpj = '$email' or cl_cpf = '$email'  ";
+    $acesso = mysqli_query($conecta, $login);
+
+    if( !$acesso ){
+	$retorno["sucesso"] = false;
+    }else{
+
+	$retorno["sucesso"] = true;
+    $linha = mysqli_fetch_assoc($acesso);
+    $b_email = $linha['cl_email'];
+	$b_cpf = $linha['cl_cpf'];
+	$b_cnpj = $linha['cl_cnpj'];
+	
+    $b_senha = $linha['cl_senha'];
+    $b_senha = base64_decode($b_senha);
+
+		if (($b_email == $email or $b_cpf == $email or $b_cnpj == $email) and $b_senha == $senha){
+		$_SESSION["user_cliente_portal"] = time(10000000);
+		$_SESSION["user_cliente_portal"] = $linha["cl_id"];
+		$retorno["loginOk"] = true;
+		}else{
+			$retorno["loginOk"] = false;
+		}
+	}
+ }
+ echo json_encode($retorno);
+   
+}
+
+
+//verificar se o produto é recorrente na empresa - 1 para sim ou 0 para não
+if(isset($_POST["prodR"])){
+    $retornar = array();
+    $codigo = $_POST["prodR"];
+    //delete as informações no banco de dados
+    $update = "UPDATE tb_carrinho set cl_recorrente = 1 where cl_id = $codigo";
+    $resultado_recorrente = mysqli_query($conecta, $update);
+    if($resultado_recorrente){
+    $retornar["sucesso"] = true;
+        
+    }else{
+        $retornar["sucesso"] = false;
+    }
+
+  echo json_encode($retornar);
+}elseif(isset($_POST['prodN'])){
+	$retornar = array();
+    $codigo = $_POST["prodN"];
+    //delete as informações no banco de dados
+    $update = "UPDATE tb_carrinho set cl_recorrente = 0 where cl_id = $codigo";
+    $resultado_recorrente = mysqli_query($conecta, $update);
+    if($resultado_recorrente){
+    $retornar["sucesso"] = true;
+        
+    }else{
+        $retornar["sucesso"] = false;
+    }
+
+  echo json_encode($retornar);
+}
+
+
+
+
+if(isset($_POST['acao'])){
+	$hoje = date('Y-m-d');
+	$retornar = array();
+	$acao = $_POST['acao'];
+
+	// //adicionar produto no carrinho 
+	//funcao para verificar se é o mesmo produto que está sendo adicionado duas vez/ se for não realizar o insert no banco de dados
+function verificaProd($cliente,$sessao,$id_prod){
+	include "conexao/conexao.php";
+	//pegar se o usuario está adicionado o mesmo produto a mesma sessao
+		//Sera adicionado o produto apenas se o id for diferente dos produto já adicionados na mesma sessao
+		$select = "SELECT count(*) as qtd from tb_carrinho where cl_cliente = '$cliente' and cl_sessao = '$sessao' and cl_produtoID = '$id_prod'";
+		$resultado_produto_sessao = mysqli_query($conecta, $select);
+		if(!$resultado_produto_sessao){
+		include "classes/erro/504.php";
+		}else{
+		$linha = mysqli_fetch_assoc($resultado_produto_sessao);
+		$qtd_prod = $linha['qtd'];
+		return $qtd_prod;
+		}
+}
+//funcao para verificar a quantidade de produtos no carrinho
+function vericarQtdProd($clienteID,$sessao){
+	include "conexao/conexao.php";
+	$select = "SELECT sum(cl_quantidade) as qtd_prod from tb_carrinho where cl_cliente = $clienteID and cl_sessao = $sessao and cl_produtoID > 0 ";
+	$resultado_qtd_carrinho = mysqli_query($conecta, $select);
+	if($resultado_qtd_carrinho){
+	$linha = mysqli_fetch_assoc($resultado_qtd_carrinho);
+	$qtd_carrinho = $linha['qtd_prod'];
+	return $qtd_carrinho;
+
+	}
+}
+
+
+	if(($acao == "add")){
+		$id_prod = $_POST['id'];
+		$clienteID = $_POST['cliente'];
+		$sessao = $_POST['sessao'];
+
+
+			if(verificaProd($clienteID,$sessao,$id_prod) == 0 ){
+			$inserir = "INSERT INTO tb_carrinho";
+			$inserir .= "(cl_data,cl_cliente,cl_produtoID,cl_sessao,cl_quantidade)";
+			$inserir .= " VALUES ";
+			$inserir .= "('$hoje','$clienteID','$id_prod','$sessao',1)";
+			$operacao_inserir = mysqli_query($conecta, $inserir);
+
+		
+				if($operacao_inserir){
+					$retornar["sucesso"] = true;
+					$retornar["car"] = vericarQtdProd($clienteID,$sessao);
+			
+				}else{
+					$retornar["sucesso"] = false;
+				}
+		
+			}else{
+				$retornar["mensagem"] = true;
+			}
+		}elseif($acao =="del"){
+			$id_prod = $_POST['id'];
+			$clienteID = $_POST['cliente'];
+			$sessao = $_POST['sessao'];
+		
+				$delete = "DELETE FROM tb_carrinho where cl_id = $id_prod and cl_cliente = $clienteID and cl_sessao = $sessao ";
+				$operacao_delete = mysqli_query($conecta, $delete);
+				if($operacao_delete){
+					$retornar["sucessoDel"] = true;
+					$retornar["car"] = vericarQtdProd($clienteID,$sessao);
+				}else{
+					$retornar["sucessoDel"] = false;
+				}
+		}
+	echo json_encode($retornar);
+	
+            
 }

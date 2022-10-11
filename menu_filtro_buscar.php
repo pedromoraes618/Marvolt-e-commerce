@@ -13,7 +13,7 @@
             <p><?php echo titulo_subcategoria($b_id);   ?></p>
 
             <?php   while ($linha = mysqli_fetch_assoc($resultado_lista_categoria_filtro)) {
-                 $b_categoria = utf8_encode($linha['categoria']);
+                 $b_categoria = ($linha['categoria']);
                  $b_id = utf8_encode($linha['id_categoria']);
                         ?>
             <li>
@@ -24,6 +24,7 @@
                     <p><?php   echo qtd_categoria($b_id,$b_desc_p); ?></p>
                 </div>
                 </li>
+                <hr>
                 <ul>
 
                     <?php 

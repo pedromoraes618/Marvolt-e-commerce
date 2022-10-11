@@ -3,11 +3,16 @@
 body{
 margin:0;
 font-family:'noto sans',sans-serif;
-overflow: hidden;
+
 box-sizing: border-box;
 background: rgba(252, 172, 3, 0.55);
 background: -webkit-linear-gradient(0deg, rgba(252, 172, 3, 0.55) 0%, #fcac1e 100%);
 background: linear-gradient(0deg, rgba(252, 172, 3, 0.55) 0%, #fcac1e 100%);
+}
+
+:root {
+	--yellow: rgba(252, 172, 44);
+  --subtitulo: rgb(56, 56, 56);
 }
 /* 
 animacao */
@@ -44,13 +49,11 @@ padding: 10%;
 }
 
 .login-left{
-width: 50vw;
-height: 100vh;
+margin: 0 auto;
 }
 
 .login-right{
-width: 50vw;
-height: 100vh;
+    margin: 0 auto;
 }
 
 .card-login .formulario-top h3{
@@ -59,45 +62,16 @@ font-size:2vw;
 .login-left .left-login-img{
 width: 33vw;
 }
+#form-cadastro .group-right{
+
+  width: 33vw;
+}
 
 }
 
-/* telas  */
-@media screen and (max-width:950px) {
-    .main-login{
-        
-         }
-         .login-left h1{
-             display: none;
-         }
-         .login-left{
-             width: 40%;
-             height: auto;
-             margin: 0 auto;
-         }
-         .login-right{
-             width: 40%;
-             height: auto;
-             margin-top: 20px;
-             margin: 0 auto;
-           
-         }
-         .card-login{
-             width: 100%;
-           
-         }
-         .card-login .formulario-top h3{
-       
-             font-size:4vw;
-            
-         }
-         .login-left .left-login-img{
-             width: 50vw;
-         
-         }
-}
 
-@media  screen and (max-width:600px) {
+
+@media  screen and (max-width:950px) {
 	.main-login{
    flex-direction: column;
 	}
@@ -117,6 +91,8 @@ width: 33vw;
     .card-login{
 
         width: 100%;
+        padding: 0px;
+      
     }
     .card-login .formulario-top h3{
   
@@ -128,12 +104,11 @@ width: 33vw;
         
     
     }
+  
 }
 
 .main-login{
-    width: 100vw;
-    height: 100vh;
-   
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -189,7 +164,6 @@ width: 33vw;
 }
 .card-login .formulario{
 
-    width: 100%;
 }
 .card-login .formulario-top{
     text-align: center;padding-bottom: 20px;
@@ -208,15 +182,16 @@ width: 33vw;
 }
 
 #formulario_login{
-  
 
 }
+
 .formulario form input{
     border: 0px;
     border-radius: 5px;
     transition: all 0.3s ease-in-out;
     background-color:unset;
     color: rgb(18, 18, 18);
+    font-size: 0.9em;
     
     
     }
@@ -243,20 +218,30 @@ width: 33vw;
     }
     
  
-    .formulario form button{
-    border-radius:25px;
+    .formulario form #btn_login{
+      margin-top: 20px;
+      padding:5px 20px;
+
+      border: 0px;
     width: 100%;
-    margin-top: 10%;
-    background-color:#d1ca36;
-    border: 0px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    font-size: 0.8em;
+    background: var(--yellow);
+
+    }
+    .formulario form #btn_login:disabled{
+      background:#262626;
+    }
+
+    .formulario form #btn_login:hover{
+      background: var(--yellow);
     }
     
-    .formulario form button:hover{
-        background-color:rgb(192, 194, 37);
+    .formulario form #btn_login:focus{
+      box-shadow: none;
+      background: var(--yellow);
     }
+  
+    
+   
     .formulario .form-check{
         color: white;
         cursor:pointer;
@@ -293,3 +278,165 @@ font-size: 0.8em;
  #hidden{
    display: none;
  }
+
+ #mostrar_senha{
+    position: absolute;
+    right: 0px;
+    top: 12px;
+    color: #838383;
+    cursor: pointer;
+    z-index: 5;
+ }
+
+
+ /* Style the tab */
+.bloco-1{
+  padding: 40px 0px;
+}
+.tab {
+    overflow: hidden;
+    width: fit-content;
+    background-color: #ffffff;
+    border-radius: 5px;
+    margin: 0 auto;
+
+   
+  }
+  
+  /* Style the buttons that are used to open the tab content */
+  .tab button {
+    background-color: inherit;
+    float: center;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 10px 8px;
+    transition: 0.3s;
+    font-size: 0.9em;
+    color:#868686;
+  }
+  
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    background-color: #ddd;
+  }
+  
+  /* Create an active/current tablink class */
+  .tab button.active {
+    background-color: rgb(228, 228, 228);
+  }
+  
+  /* Style the tab content */
+  .tabcontent {
+    display: none;
+    padding: 1vw;
+    border: 1px solid #ccc;
+    border-top: none;
+    background-color: white;
+    width:fit-content ;
+    margin: 0 auto;
+  }
+
+  #form-cadastro form{
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  #form-cadastro .group-left{
+    border: 1px solid #b8b8b8;
+    display: block;
+    margin: 5px;
+    border-radius: 5px;
+  }
+  #form-cadastro #grupo-opcao{
+    display: block;
+    padding: 10px;
+  }
+  #form-cadastro .group-right{
+    border: 1px solid #b8b8b8;
+    display: block;
+    margin: 5px;
+    border-radius: 5px;
+    
+  }
+
+  #form-cadastro .group-input{
+    display: flex;
+    flex-wrap: wrap;
+
+  }
+  #form-cadastro .group-input .input{
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    width: 100%;
+    
+}
+  #form-cadastro .group-input .input input,select{
+    display: block;
+    border-radius: 3px;
+    border: 1px solid #b8b8b8;
+    padding: 8px;
+    font-size: 0.9em;
+    margin: 10px;
+    
+  
+  }
+  #form-cadastro .group-input .input #email,#senha{
+    width:50%;
+   
+  }
+
+  #form-cadastro .group-input .input i{
+    position: absolute;
+    right: 50%;
+    z-index: 5;
+    top: 20px;
+  }
+  #form-cadastro .group-input .input label{
+    display: flex;
+    height: fit-content;
+  }
+  
+  #form-cadastro .group-input .input .obg{
+    display: flex;
+    height: fit-content;
+    color: #838383;
+    font-size:0.9em;
+    padding: 0px;
+  }
+
+  #form-cadastro .group-input .input input,select:focus{
+    outline: none;
+  }
+
+  #form-cadastro .group-input .input input::placeholder{
+font-size: 0.8em;
+  }
+
+  #form-cadastro #btn_cadastrar{
+    margin-top: 20px;
+    padding:5px 20px;
+    background: var(--yellow);
+    border: 0px;
+  
+
+  }
+  #form-cadastro #btn_cadastrar:focus{
+
+    box-shadow: none;
+  }
+
+
+  .login_ir{
+   text-align:right;
+   padding: 7px;
+  }
+  .login_ir p{
+    color: #838383;
+  }
+
+.tabcontent p{
+  font-size:0.9em;
+  color:var(--subtitulo);
+}

@@ -1,58 +1,47 @@
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <?php 
 include "conexao/conexao.php";
 include "lib/alertify/alert.php";
+
 //adicionar a variavel de sessão
 session_start();
 echo ',';
 
-if(isset($_POST["usuario"])){
-    $usuario =  $_POST["usuario"];
+
+if(isset($_POST["email_login"])){
+    $email =  $_POST["email_login"];
     $senha =  $_POST["senha"];
    
-        if($usuario =="" && $senha ==""){
-        ?>
-<script>
-alertify.error("Favor informar usuario e senha");
-</script>
-<?php
-    }elseif($senha==""){
-        ?>
-<script>
-alertify.error("Campo Senha não foi preenchido");
-</script>
-<?php
-    }elseif($usuario ==""){
-        ?>
-<script>
-alertify.error("Campo não preenchido");
-</script>
-<?php
- }else{
-
-    $login = "SELECT * FROM tb_cliente WHERE cl_usuario = '{$usuario}' ";
+    $login = "SELECT * FROM tb_cliente WHERE  cl_email = '$email' or cl_cnpj = '$email' or cl_cpf = '$email'  ";
     $acesso = mysqli_query($conecta, $login);
 
     if( !$acesso ){
     die("Falha na consulta ao banco de dados");
     }else{
     $linha = mysqli_fetch_assoc($acesso);
-    $b_usuario = $linha['cl_usuario'];
+    $b_email = $linha['cl_email'];
+	$b_cpf = $linha['cl_cpf'];
+	$b_cnpj = $linha['cl_cnpj'];
+	
     $b_senha = $linha['cl_senha'];
     $b_senha = base64_decode($b_senha);
- 
 
-    if ($b_usuario == $usuario and $b_senha == $senha){
-    $_SESSION["user_portal"] = time(10000000);
-    $_SESSION["user_portal"] = $linha["cl_id"];
+    if (($b_email == $email or $b_cpf == $email or $b_cnpj == $email) and $b_senha == $senha){
+    $_SESSION["user_cliente_portal"] = time(10000000);
+    $_SESSION["user_cliente_portal"] = $linha["cl_id"];
     header("Location: index.php");
     }else{
         ?>
 <script>
-alertify.error("Login sem sucesso");
+Swal.fire(
+    'Dados incorreto',
+    'Verifique se os campos foram prenchidos corretamentes',
+    'question'
+)
 </script>
 <?php
 
-    }
+    
 }
  }
    
@@ -76,9 +65,10 @@ alertify.error("Login sem sucesso");
     <link rel="stylesheet" href="lib/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="lib/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css">
     <link rel="shortcut icon" type="imagex/png" href="img/marvolt.ico">
+
 </head>
 
-<body style="">
+<body>
 
     <div class="main-login">
 
@@ -101,8 +91,10 @@ alertify.error("Login sem sucesso");
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="fa-solid fa-user"></i></div>
                                 </div>
-                                <input type="text" class="form-control" name="usuario" id="usuario"
-                                    placeholder="Usuário">
+                                <input type="text" class="form-control" value="<?php if($_POST){
+                                echo $email;
+                                } ?>" name="email_login" onblur="btn_ativo()" id="email"
+                                    placeholder="Email / cpf / cnpj">
                             </div>
                         </div>
                         <div class="form-group">
@@ -110,18 +102,17 @@ alertify.error("Login sem sucesso");
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="fa-solid fa-lock"></i></div>
                                 </div>
-                                <input type="password" class="form-control" name="senha" id="senha" placeholder="*******">
+                                <input type="password" class="form-control" onblur="btn_ativo()" value="<?php if($_POST){
+                                echo $senha;
+                                } ?>" name="senha" id="senha" placeholder="*******">
+                                <i id="mostrar_senha" class="fa-solid fa-eye"></i>
                             </div>
+
                         </div>
+                        
                         <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck2"
-                                    onclick="mostrarOcultarSenha()">
-                                <label class="form-check-label" for="invalidCheck2">
-                                    Mostrar senha
-                                </label>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Login</button>
+                            <button type="submit" id="btn_login" disabled class="btn btn-primary">Login</button>
+
                             <div class="sub-form">
                                 <div class="senha-esqueci">
                                     <a href="">
@@ -133,7 +124,9 @@ alertify.error("Login sem sucesso");
                                     <p> Novo na Marvolt? <a href="cadastrar.php">Cadastre-se</a></p>
                                 </div>
                             </div>
+                            
                     </form>
+                    
                 </div>
             </div>
 
@@ -141,18 +134,9 @@ alertify.error("Login sem sucesso");
     </div>
     </div>
 
-
-
-
-
     <script src="_js/jquery.js"></script>
-    <script src="_js/bootstrap.min.js"></script>
-    <script src="_js/script.js"></script>
-    <script src="_js/vanilla-tilt.js"></script>
-    <script src="lib/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
+    <script src="_js/jquery.mask.js"></script>
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-    <script src="_js/script.js"></script>
-    <script src="_js/alertify.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
         integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous">
     </script>
@@ -168,40 +152,30 @@ alertify.error("Login sem sucesso");
 ?>
 
 <script>
-function mostrarOcultarSenha() {
-    var senha = document.getElementById("senha");
+let senha = document.getElementById("senha")
+let email = document.getElementById("email")
+let btn_login = document.getElementById("btn_login")
+
+
+function btn_ativo() {
+
+    if (email.value != "" & senha.value != "") {
+        btn_login.removeAttribute("disabled", "disabled");
+    } else {
+        btn_login.setAttribute("disabled", "disabled");
+    }
+}
+
+
+$("#mostrar_senha").click(function() {
+
     if (senha.type == "password") {
         senha.type = "text";
 
     } else {
         senha.type = "password";
     }
-
-}
-
-
-
-
-
-
-// $.post('crud.php', function(retornar) {
-//             $user = $.parseJSON(retornar)["user"];
-//             $senha = $.parseJSON(retornar)["senha"];
-//             $sessao = $.parseJSON(retornar)["sessao"];
-//             alertify.alert($senha);
-
-//             if (campoUsuario == $user && campoSenha == $senha) {
-//                 location.href = "index.php";
-
-//             } else if (campoUsuario != $user) {
-//                 alertify.alert("Usuario incorreto");
-//             } else if (campoSenha != $senha) {
-//                 alertify.alert("Senha incorreto");
-//             } else {
-//                 alertify.alert("Login incorreto");
-//             }
-
-//         })
+})
 </script>
 
 <?php

@@ -1,12 +1,4 @@
-<input id="check" type="checkbox">
-<label for="check" class="bar">
-    <button type="button" id="abrir_menu_mobile">
-        <span id="menu_linha" class="top"></span>
-        <span id="menu_linha" class="middle"></span>
-        <span id="menu_linha" class="bottom"></span>
-    </button>
-
-</label>
+</label><i id="abrir_menu_mobile" class="fa-solid fa-bars"></i>
 <nav class="nav-mobile" id="nav-mobile">
     <div class="titulo">
         <p>Categoria</p><i class="fa-solid fa-layer-group"></i>
@@ -19,7 +11,12 @@
                             $b_categoria = ($linha['cl_descricao']);
                             $b_id = $linha['cl_id'];
                             ?>
-        <li><a href="?categoria=<?php echo $b_id ?>"><?php echo $b_categoria; ?></a> <i class="fa-solid fa-angle-up" id="seta-right"></i>
+        <li>
+            <div class="linha">
+                <a href="?categoria=<?php echo $b_id ?>"><?php echo ucfirst($b_categoria); ?></a> <i
+                    class="fa-solid fa-angle-up" id="seta-right"></i>
+            </div>
+
             <ul>
                 <?php
                                         $subcategoria = "SELECT * FROM tb_subcategoria where  cl_categoria = '$b_id' ";
@@ -33,8 +30,11 @@
                                         $b_descricao= ($linha['cl_descricao']);
                                         ?>
                 <li>
-                    <a href="?subcategoria=<?php echo $b_id ?>"><?php echo $b_descricao;  ?></a>
+                    <div class="linha">
+                        <a href="?subcategoria=<?php echo $b_id ?>"><?php echo $b_descricao;  ?></a>
+                    </div>
                 </li>
+
                 <?php }?>
             </ul>
         </li>

@@ -13,7 +13,7 @@
             <p><?php echo titulo_subcategoria($b_id);   ?></p>
 
             <?php    while ($linha = mysqli_fetch_assoc($resultado_produto_f_filtro)) {
-                       $b_fabricante = utf8_encode($linha['inner_fabricante']);
+                       $b_fabricante = ($linha['inner_fabricante']);
                        $b_id_f = $linha['inner_id_fabricante'];
                         ?>
             <li>

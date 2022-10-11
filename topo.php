@@ -10,11 +10,12 @@
                     <ul>
                         <li>
                             <i class="fa-solid fa-circle-user"></i><?php
-                                if(isset($_SESSION["user_portal"])){
+                                if(isset($_SESSION["user_cliente_portal"])){
                                     ?>
                             <a>
                                 <?php
-                                    echo $b_cliente;
+                                //só o primeiro nome
+                                    echo explode(' ', $b_cliente)[0];;
                                     ?>
                             </a>
                             <?php
@@ -22,14 +23,14 @@
                                     ?>
                             <a href="login.php">
                                 <?php
-                                  echo "Login - Cadastrar";
+                                  echo "Login";
                                   ?>
                             </a>
                             <?php
                                 } ?>
                             <ul>
                                 <?php 
-                                 if(isset($_SESSION["user_portal"])){
+                                 if(isset($_SESSION["user_cliente_portal"])){
                                 ?>
                                 <li><a href="">Meu usuario</a></li>
                                 <hr style="margin-top:0px;margin-bottom:0px">
@@ -71,7 +72,7 @@
                 </div>
                 <div class="carrinho-compras">
                     <?php 
-                              if(isset($_SESSION["user_portal"])){
+                              if(isset($_SESSION["user_cliente_portal"])){
                     ?>
                     <a href="?car">
                         <?php
@@ -102,3 +103,13 @@ echo $qtd_carrinho;
         </div>
 
 </div>
+
+<!-- dados de id e sessao de cliente -->
+<?php 
+   if(isset($_SESSION["user_cliente_portal"])){
+?>
+<input type="hidden" id="cliente" value="<?php echo $b_id_cliente ?>">
+<input type="hidden" id="sessao" value="<?php echo $sessao ?>">
+<?php 
+  }
+?>

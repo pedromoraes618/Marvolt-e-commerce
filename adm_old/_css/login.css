@@ -1,0 +1,182 @@
+/* estilos da pesquisa */
+*{
+font-family: 'Poppins', sans-serif;
+color:rgba(0,0,0,0.8);
+
+}
+:root {
+	--yellow: rgba(252, 172, 44);
+	--black: #373737;
+}
+
+body{
+background-color: var(--yellow);
+overflow: hidden;
+
+}
+
+
+
+main div#janela_principal {
+    width:400px;
+    height: 470px;
+    margin:0px auto 0px;
+    box-shadow: 0px 0px 5px 0px #e2e2e2;
+    padding: 30px;
+    background-color: white;
+    
+   
+}
+
+@keyframes animation{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(0deg);
+    }
+}
+
+main div#janela_principal form {
+    margin:10px auto;
+}
+
+
+
+main div#janela_principal form h2  {
+    font-family: sans-serif;
+    color:rgba(0,0,0,0.5);
+    text-align: center;
+    width:300px;
+    margin: 0px auto;
+    margin-top: 40px;
+    margin-bottom: 50px;
+	border-bottom: 1px solid #e2e2e2;
+}
+
+main div#janela_principal form p {
+
+ margin-bottom: 2px;
+  font-size: 15px;
+}
+
+main div#janela_principal form input[type="text"] {
+    width:375px;
+    padding:10px;
+    border:none;
+    box-shadow: 0px 0px 5px 0px #e2e2e2;
+    border-radius: 0px;
+    display: block;
+    outline: none;
+margin-bottom: 20px;
+
+     
+  
+}
+
+main div#janela_principal form input[type="email"] {
+    width:375px;
+    padding:10px;
+    border:none;
+    box-shadow: 0px 0px 5px 0px #e2e2e2;
+    border-radius: 0px;
+    display: block;
+    outline: none;
+    margin-bottom: 20px;
+}
+
+main div#janela_principal form input[type="password"] {
+    width:375px;
+    padding:10px;
+    border:none;
+    box-shadow: 0px 0px 8px 0px #e2e2e2;
+    border-radius: 0px;
+    display: block;
+    outline: none;
+margin-bottom: 20px;
+}
+
+main div#janela_principal form input[type="submit"] {
+    display: block;
+    width: 395px;
+    padding:10px 20px;
+    margin-top:15px;
+    color: #FFF;
+    border:0;
+    border-radius: 5px;
+    background-color: #6bc1c5;
+    outline: none;
+    cursor: pointer;
+}
+
+main div#janela_principal form input[type="submit"]:hover {
+   letter-spacing: 0.7px;
+   transition: all 0.2s ease;
+}
+
+main div#janela_principal div#footer{
+  width:100%;
+  margin-top: 40px;
+  height: 20px;
+  text-align: center;
+ 
+}
+
+main div#janela_principal div#footer a{
+    text-decoration: none;
+ 
+    display: block;
+  }
+
+main div#janela_principal div#footer p{
+    width: 120px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e2e2e2;
+    margin: 0 auto;
+    display: block;
+    transition: all 0.2s ease-out;
+  }
+  main div#janela_principal div#footer p:hover{
+    letter-spacing: 0.7px;
+    
+    width: 250px;
+    border-bottom: 1px solid #6bc1c5;
+  }
+
+  #materconectado{
+      font-size: 15px;
+  }
+
+
+/* fim do estilo da pesquisa */
+
+main div#janela_principal form select {
+    width:120px;
+    padding:8px;
+  
+    font-size: 12px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    border-radius: 5px;
+    outline: none;
+    margin-bottom: 15px;
+    border:none;
+    box-shadow: 0px 0px 10px 0px #e2e2e2;
+    border-radius: 0px;
+    display: block;
+    outline: none;
+margin-bottom: 20px;
+}
+@font-face {
+    font-family:'ariallight';
+    src: url(../fonte/arial-nova-light.ttf) format('opentype');
+    font-style:normal;
+}
+
+label{
+    font-family: 'ariallight';
+    font-size: 13px;
+}
+
+input[type="checkbox"]{
+width: 10px;
+}

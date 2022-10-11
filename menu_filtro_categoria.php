@@ -13,7 +13,7 @@
             <p><?php echo categoria($b_id); ?></p>
 
             <?php while ($linha = mysqli_fetch_assoc($resultado_subcategoria_mobile)) {
-                        $b_subcategoria = utf8_encode($linha['cl_descricao']);
+                        $b_subcategoria = ($linha['cl_descricao']);
                         $b_id_mobile = $linha['cl_id'];
                          ?>
             <li>

@@ -1,0 +1,152 @@
+<script language="JavaScript" type="text/javascript">
+   function mascaraData(campoData){
+              var data = campoData.value;
+			  if (data.length == 2)
+			  {
+                  data = data + '/';
+				  campoData.value = data;
+				  return true;              
+              }
+              if (data.length == 5){
+                  data = data + '/';
+                  campoData.value = data;
+                  return true;
+              }
+         }
+   function mascaracnpj(campocnpj){
+              var data = campocnpj.value;
+			  if (data.length == 2)
+			  {
+                  data = data + '.';
+				  campocnpj.value = data;
+				  return true;              
+              }
+			  if (data.length == 6)
+			  {
+                  data = data + '.';
+				  campocnpj.value = data;
+				  return true;              
+              }			  
+              if (data.length == 10){
+                  data = data + '/';
+                  campocnpj.value = data;
+                  return true;
+              }
+              if (data.length == 15){
+                  data = data + '-';
+                  campocnpj.value = data;
+                  return true;
+              }			  
+         }		 
+          
+   function onlynumber(evt) {
+    var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode( key );
+    //var regex = /^[0-9.,]+$/;
+    var regex = /^[0-9.]+$/;
+    if( !regex.test(key) ) {
+       theEvent.returnValue = false;
+       if(theEvent.preventDefault) theEvent.preventDefault();
+    }
+ }
+ 
+   function mascaracpf(campocpf){
+              var data = campocpf.value;
+			  if (data.length == 3)
+			  {
+                  data = data + '.';
+				  campocpf.value = data;
+				  return true;              
+              }
+			  if (data.length == 7)
+			  {
+                  data = data + '.';
+				  campocpf.value = data;
+				  return true;              
+              }			  
+              if (data.length == 11){
+                  data = data + '-';
+                  campocpf.value = data;
+                  return true;
+              }
+         }		 		 
+</script>
+<script>
+    function criapdf() {
+        var minhaTabela = document.getElementById('tabela').innerHTML;
+        var style = "<style>";
+        style = style + "table {width: 100%;font: 20px Calibri;}";
+        style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
+        style = style + "padding: 2px 3px;text-align: center;}";
+        style = style + "</style>";
+        // CRIA UM OBJETO WINDOW
+        var win = window.open('', '', 'height=700,width=700');
+        win.document.write('<html><head>');
+        //win.document.write('<title>Empregados</title>');   // <title> CABEÇALHO DO PDF.
+        win.document.write(style);                                     // INCLUI UM ESTILO NA TAB HEAD
+        win.document.write('</head>');
+        win.document.write('<body>');
+        win.document.write(minhaTabela);                          // O CONTEUDO DA TABELA DENTRO DA TAG BODY
+        win.document.write('</body></html>');
+        win.document.close(); 	                                         // FECHA A JANELA
+        win.print();                                                            // IMPRIME O CONTEUDO
+    }
+</script>
+
+<script>
+function sorttable(n,inicio,fim) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("tabdados");
+  switching = true;
+  // Set the sorting direction to ascending:
+  dir = "asc";
+  /* Make a loop that will continue until
+  no switching has been done: */
+  while (switching) {
+    // Start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /* Loop through all table rows (except the
+    first, which contains table headers): */
+    for (i = inicio; i < (rows.length - fim); i++) {
+      // Start by saying there should be no switching:
+      shouldSwitch = false;
+      /* Get the two elements you want to compare,
+      one from current row and one from the next: */
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /* Check if the two rows should switch place,
+      based on the direction, asc or desc: */
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      // Each time a switch is done, increase this count by 1:
+      switchcount ++;
+    } else {
+      /* If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again. */
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+</script>

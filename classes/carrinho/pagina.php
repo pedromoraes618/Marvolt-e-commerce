@@ -1,57 +1,12 @@
 <?php 
 
 
-//funcao para verificar se é o mesmo produto que está sendo adicionado duas vez/ se for não realizar o insert no banco de dados
-function verificaProd($b_id_cliente,$sessao,$id_prod){
-    include "conexao/conexao.php";
-    //pegar se o usuario está adicionado o mesmo produto a mesma sessao
-    $select = "SELECT * from tb_carrinho where cl_cliente = $b_id_cliente and cl_sessao = '$sessao' and cl_produtoID = $id_prod";
-    $resultado_produto_sessao = mysqli_query($conecta, $select);
-    if(!$resultado_produto_sessao){
-        include "classes/erro/504.php";
-    }else{
-    $linha = mysqli_fetch_assoc($resultado_produto_sessao);
-    $id_produto = $linha['cl_produtoID'];
-    return $id_produto;
-    }
-}
 
-if(isset($_GET['acao'])){
-    if(!empty($_GET['id'])){
-        $id_prod = $_GET['id'];
-        //Sera adicionado o produto apenas se o id for diferente dos produto já adicionados na mesma sessao
-        if(verificaProd($b_id_cliente,$sessao,$id_prod) != $id_prod){
-        //adicionar o produto no carrinho
-            if(($_GET['acao'] == "add")){
-            $inserir = "INSERT INTO tb_carrinho ";
-            $inserir .= "(cl_data,cl_cliente,cl_produtoID,cl_sessao,cl_quantidade)";
-            $inserir .= " VALUES ";
-            $inserir .= "('$hoje','$b_id_cliente','$id_prod','$sessao',1)";
-            $operacao_inserir = mysqli_query($conecta, $inserir);
-                if(!$operacao_inserir){
-                    include "classes/erro/504.php";
-                }
-            }
-        }
-
-            if(($_GET['acao'] == "del")){
-               
-                $delete = "DELETE FROM tb_carrinho where cl_id = '$id_prod' and cl_cliente = $b_id_cliente ";
-                $operacao_delete = mysqli_query($conecta, $delete);
-                if(!$operacao_delete){
-                    include "classes/erro/504.php";
-                }
-            }
-    
-    }else{
-    include "classes/erro/404.php";
-    }
-}  
 
 
 
 //consultar tabela produto 
-    $select = "SELECT f.cl_descricao as fabricante,c.cl_quantidade as quantidade, p.cl_titulo as titulo,p.cl_subcategoria as subcategoria, c.cl_sessao, c.cl_id,c.cl_produtoID as id_produto, p.cl_titulo as titulo, p.cl_imagem as imagem from tb_carrinho as c
+    $select = "SELECT f.cl_descricao as fabricante,cl_disponivel,cl_valor, c.cl_quantidade as quantidade, p.cl_titulo as titulo,p.cl_subcategoria as subcategoria, c.cl_sessao, c.cl_id,c.cl_produtoID as id_produto, p.cl_titulo as titulo, p.cl_imagem as imagem from tb_carrinho as c
      inner join tb_produto as p on p.cl_id = c.cl_produtoID inner join tb_fabricante as f on f.cl_id = p.cl_fabricante  where c.cl_cliente = $b_id_cliente and c.cl_sessao = '$sessao'";
     $resultado_carrinho = mysqli_query($conecta, $select);
     if(!$resultado_carrinho){
@@ -93,7 +48,7 @@ $qtd_carrinho = $linha['qtd_prod'];
             <?php 
                   if($qtd_carrinho !=""){
             ?>
-            <div class="produto-carrinho">
+            <div id="produto-carrinho" class="produto-carrinho">
                 <nav>
                     <ul>
 
@@ -108,13 +63,15 @@ while($linha = mysqli_fetch_assoc($resultado_carrinho)){
     $titulo = $linha['titulo'];
     $subcategoria = $linha['subcategoria'];
     $qtd = $linha['quantidade'];
+    $disponivel = $linha['cl_disponivel'];
+    $valor = $linha['cl_valor'];
 ?>
                         <li>
                             <div class="blco-produto">
                                 <div class="img-produtos">
                                     <a
                                         href="?produto=<?php echo $id_produto; ?>&desc=<?php echo $titulo;?>&subcg=<?php echo $subcategoria ?>">
-                                        <img src="<?php echo "adm/cdproduto/".$img;?>">
+                                        <img src="<?php echo "adm/classes/produto/".$img;?>">
                                     </a>
                                 </div>
                                 <div class="bloco-informacao">
@@ -127,19 +84,27 @@ while($linha = mysqli_fetch_assoc($resultado_carrinho)){
                                     <p class="fabricantes"><?php echo $fabricante ?></p>
                                     <p class="qtd">Qtd: <a href="?incfor&id=<?php echo $id ?>"><?php echo $qtd; ?></a>
                                     </p>
+
+                                    <p><?php if($disponivel == 1){
+                                         echo real_format($valor) ; 
+                                      } ?></p>
+
                                     <a href="?incfor&id=<?php echo $id ?>" class="btn-add-informacao">
                                         Incluir Informações
                                     </a>
 
                                     </a>
-                                    <a onclick="return confirm('Tem certeza que deseja remover este produto?')"
-                                        href="?acao=del&id=<?php echo $id ?>">
+                                    <a href="" class="excluir" id_prod_exlr="<?php echo $id; ?>"
+                                       >
+                                        <!-- href="?acao=del&id=-->
                                         Excluir
                                     </a>
                                 </div>
+                                <hr style="width:80%;margin-bottom:5px">
                             </div>
+
                         </li>
-                        <hr>
+
 
                         <?php
 }
@@ -149,12 +114,12 @@ while($linha = mysqli_fetch_assoc($resultado_carrinho)){
                 </nav>
 
                 <div class="fechar-pedido">
-                    <P>Quantidades de itens: <?php echo $qtd_carrinho; ?></P>
+                    <p class="qtd_itens">Quantidades de itens: <?php echo $qtd_carrinho; ?></p>
                     <a href="?fecharpd">
-                        Fechar pedido
+                        Fechar Solicitação
                     </a>
-                    <a href="index.php">
-                        Continuar comprando
+                    <a href="index.php" class="cnt_comprando">
+                        Continuar Comprando
                     </a>
                 </div>
             </div>
@@ -173,3 +138,59 @@ while($linha = mysqli_fetch_assoc($resultado_carrinho)){
         </div>
     </div>
 </div>
+
+<script src="_js/jquery.js"></script>
+<script src="_js/script.js"></script>
+
+<script>
+$('#produto-carrinho ul li a.excluir').click(function(e) {
+    e.preventDefault();
+  
+    let cliente = document.getElementById("cliente").value
+    let sessao = document.getElementById("sessao").value
+    let id_prod = $(this).attr("id_prod_exlr")
+
+    Swal.fire({
+        title: 'Tem certeza?',
+        text: "Deseja remover o produto do carrinho",
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonText: 'Não',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $(this).parent().parent().fadeOut();
+            $.ajax({
+                type: "POST",
+                data: "acao=del&id=" + id_prod + "&cliente=" + cliente + "&sessao=" +
+                    sessao, //recorrente
+                url: "crud.php",
+                async: false
+            }).then(sucesso, falha);
+
+            function sucesso(data) {
+                $sucesso = $.parseJSON(data)["sucessoDel"];
+                $qtdcar = $.parseJSON(data)["car"];
+                if ($sucesso) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Produto removido com sucesso.',
+                        'success'
+                    )
+                    $(".qtd-carrinho").html($qtdcar);
+                    $(".qtd_itens").html("Quantidades de itens: " + $qtdcar);
+
+                }
+            }
+            function falha() {
+                console.log("erro");
+            }
+
+        }
+    })
+
+
+});
+</script>

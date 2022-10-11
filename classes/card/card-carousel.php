@@ -2,7 +2,7 @@
     <div class="content">
         <div class="header">
             <a href="?produto=<?php echo $b_id; ?>&desc=<?php echo $b_titulo;?>&subcg=<?php echo $b_subcategoria ?>"><img
-                    class="img-responsive" src="adm/cdproduto/<?php echo $b_imagem;?>"></a>
+                    class="img-responsive" src="adm/classes/produto/<?php echo $b_imagem;?>"></a>
         </div>
         <div class="info">
             <div class="destaque-card-titulo">
@@ -28,9 +28,9 @@
             </ul>
             <div class="card-footer">
                 <?php
-                if(isset($_SESSION["user_portal"])){
+                if(isset($_SESSION["user_cliente_portal"])){
                  ?>
-                <a href="?acao=add&id=<?php echo $b_id; ?>" class="add-carrinho">
+                <a  id="add_car_log" id_prod="<?php echo $b_id; ?>" class="add-carrinho">
                     <i class="fa-solid fa-cart-plus"></i> Adicionar
                 </a>
                 <?php

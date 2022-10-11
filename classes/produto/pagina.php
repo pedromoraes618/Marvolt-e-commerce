@@ -1,4 +1,9 @@
 <div class="row" id="bloco-desc-prod">
+    <div class="back">
+        <a href="JavaScript: window.history.back();">
+            <i class="fa-solid fa-circle-arrow-left"></i>
+            Voltar</a>
+    </div>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb" style="margin-bottom:0px;">
             <li class="breadcrumb-item"><a href="/marvoltect"><i class="fas fa-home"></i> Home</a></li>
@@ -12,11 +17,12 @@
                 <?php echo  ucfirst(($b_desc_titulo)); ?></a></li>
         </ol>
     </nav>
+
     <div class="container">
 
         <div class="bloco-1">
             <div class="img">
-                <img src="adm/cdproduto/<?php echo $b_desc_img;?>">
+                <img src="adm/classes/produto/<?php echo $b_desc_img;?>">
             </div>
         </div>
 
@@ -46,27 +52,28 @@
                     </li>
                 </ul>
 
-            </div>
-          
-            <?php
-                if(isset($_SESSION["user_portal"])){
+                <?php
+                if(isset($_SESSION["user_cliente_portal"])){
                  ?>
-            <a href="?acao=add&id=<?php echo $b_id; ?>" class="add-carrinho">
-                <div class="add-carrinho-desc">
-                    <i class="fa-solid fa-cart-plus"></i> Adicionar
-                </div>
-            </a>
-            <?php
+                <a id="add_car_log" id_prod="<?php echo $b_id; ?>" class="add-carrinho">
+                    <div class="add-carrinho-desc">
+                        <i class="fa-solid fa-cart-plus"></i> Adicionar
+                    </div>
+                </a>
+                <?php
               }else{
                 ?>
-            <a href="login.php" class="add-carrinho">
-                <div class="add-carrinho-desc">
-                    <i class="fa-solid fa-cart-plus"></i> Entre com o seu login
-                </div>
-            </a>
-            <?php
+                <a href="login.php" class="add-carrinho">
+                    <div class="add-carrinho-desc">
+                        <i class="fa-solid fa-cart-plus"></i> Entre com o seu login
+                    </div>
+                </a>
+                <?php
               }
                  ?>
+
+            </div>
+
 
         </div>
 
@@ -117,7 +124,7 @@
     <div class="container-4">
         <div class="titulo-prod">
             <?php 
-            if(isset($_SESSION["user_portal"])){
+            if(isset($_SESSION["user_cliente_portal"])){
             ?>
             <h3>Deixe a sua avaliação</h3>
             <a href="?addavalicao=<?php echo $b_id_produto; ?>&desc=<?php echo $b_desc_titulo;?>" class="add-avaliacao">

@@ -5,8 +5,10 @@ include("conexao/sessao.php");
 include "crud.php";
 include "funcao/script.php";
 include "lib/alertify/alert.php";
+
 ?>
 <html>
+
 
 
 <head>
@@ -23,7 +25,9 @@ include "lib/alertify/alert.php";
     <link rel="stylesheet" href="lib/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="lib/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css">
     <link rel="shortcut icon" type="imagex/png" href="img/marvolt.ico">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </script>
+
 </head>
 
 <body id="body" onload="loading()">
@@ -72,10 +76,12 @@ include "lib/alertify/alert.php";
                         <button class="button_enivar" onclick="sendEmail()" type="submit">enviar</button>
 
                     </form>
+
                 </div>
             </div>
 
         </div>
+
         <!-- loading -->
         <div class="loader"></div>
 
@@ -119,7 +125,9 @@ include "lib/alertify/alert.php";
     <script src="_js/vanilla-tilt.js"></script>
     <script src="lib/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-
+    <script src="sweetalert2.min.js"></script>
+    <script src="sweetalert2.all.min.js"></script>
+    <?php include 'funcao/funcaojavascript.jar'; ?>
 
 </body>
 
@@ -129,6 +137,8 @@ include "lib/alertify/alert.php";
 //funcção para enviar o email
 var nome = document.getElementById("name");
 var email = document.getElementById("email_formulario");
+
+
 
 $(document).ready(function() {
     $("#enviar").submit(function(e) {
@@ -140,7 +150,11 @@ $(document).ready(function() {
             alertify.alert("Favor preencher o campo email");
         } else {
             var retorno = enviar(formulario);
-            alertify.success("Cadastro realizado com sucesso!");
+            Swal.fire(
+                'Cadastro realizado com sucesso!',
+                'Você será nodificado com os melhores produtos!',
+                'success'
+            )
             nome.value = "";
             email.value = "";
         }
@@ -182,7 +196,7 @@ $(function() {
     // var myButton = document.getElementById('#abrir_filtro');
     // document.documentElement.onclick = function(event) {
     //     if (event.target !== myButton) {
-    
+
     //         $('.menu_filtro nav').css("left", "-50vw");
     //     }
     // }
@@ -193,7 +207,7 @@ $(function() {
         $(".menu-mobile .nav-mobile").css("left", "0vw")
     })
     $('#fechar_menu_mobile').click(function() {
-        $(".menu-mobile .nav-mobile").css("left", "-50vw")
+        $(".menu-mobile .nav-mobile").css("left", "-60vw")
     })
 
 })
@@ -206,6 +220,54 @@ $(function() {
         $('.menu_filtro nav').css("left", "-50vw");
     })
 
+
+
+})
+
+
+//adicinonar produto no carrinho
+$(".info #add_car_log").click(function(e) {
+    var id_produto = $(this).attr("id_prod");
+    let cliente = document.getElementById("cliente").value
+    let sessao = document.getElementById("sessao").value
+    $.ajax({
+        type: "POST",
+        data: "acao=add&id=" + id_produto + "&cliente=" + cliente + "&sessao=" + sessao, //recorrente
+        url: "crud.php",
+        async: false
+    }).then(sucesso, falha);
+
+    function sucesso(data) {
+        $sucesso = $.parseJSON(data)["sucesso"];
+        $mensagem = $.parseJSON(data)["mensagem"];
+        $qtdcar = $.parseJSON(data)["car"];
+        if ($sucesso) {
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Produto adicionado ao carrinho',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            $(".qtd-carrinho").html($qtdcar);
+        } else {
+            if ($mensagem) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'warning',
+                    title: 'O produto já está no carrinho',
+                    showConfirmButton: false,
+                    timer: 1700
+                })
+            }
+
+
+        }
+    }
+
+    function falha() {
+        console.log("erro");
+    }
 
 
 })

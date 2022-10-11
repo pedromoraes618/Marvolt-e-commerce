@@ -17,10 +17,10 @@
 
     <div class="tile-bloco">
         <div class="container">
-       <?php 
+            <?php 
        include "menu_filtro_categoria.php";
        ?>
-      
+
 
             <div class="bloco-1">
                 <p><?php echo categoria($b_id); ?></p>
@@ -67,6 +67,7 @@
 							$b_descricao = ($linha["cl_descricao"]);
 							$b_fabricante = ($linha["as_descricao_fabricante"]);
 							$b_categoria = ($linha["as_descricao_categoria"]);
+                            $b_subcategoria = ($linha["cl_subcategoria"]);
 							$b_ativo = ($linha["cl_ativo"]);
 							$destaque = ($linha["cl_destaque"]);
                             $b_embalagem = ($linha["embalagem"]);
@@ -78,11 +79,15 @@
                     <?php 
             include "classes/card/card.php";    
             } 
+            
                 }?>
+                 
                 </div>
             </div>
 
         </div>
     </div>
 </div>
+
+
 
