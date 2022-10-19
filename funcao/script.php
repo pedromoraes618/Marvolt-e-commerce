@@ -5,8 +5,10 @@ use Sabberworm\CSS\Value\Value;
 $hoje = date('Y-m-d');
 
 function formatDateB($value){
+    if($value!=""){
     $value = date("d/m/Y",strtotime($value));
     return $value;
+    }
 }
 
 function real_format($valor) {

@@ -1,4 +1,4 @@
-</label><i id="abrir_menu_mobile" class="fa-solid fa-bars"></i>
+<i id="abrir_menu_mobile" class="fa-solid fa-bars"></i>
 <nav class="nav-mobile" id="nav-mobile">
     <div class="titulo">
         <p>Categoria</p><i class="fa-solid fa-layer-group"></i>

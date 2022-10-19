@@ -269,8 +269,8 @@ $resultado_estados = mysqli_query($conecta, $select);
                             </div>
                             <div class="group-input">
                                 <div class="input">
-                                    <button type="submit" disabled id="btn_cadastrar"
-                                        class="btn btn-primary">Cadastrar</button>
+                                    <!-- <button type="submit" disabled id="btn_cadastrar"
+                                        class="btn btn-primary">Cadastrar</button> -->
                                 </div>
 
                             </div>

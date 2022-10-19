@@ -135,10 +135,34 @@ include "lib/alertify/alert.php";
 
 <script>
 //funcção para enviar o email
+
+
+$(document).ready(function(e) {
+$('#abrir_menu_mobile').click(function() {
+    
+    $(".menu-mobile .nav-mobile").css("display", "block")
+
+    $(".menu-mobile .nav-mobile").css("left", "0vw")
+})
+$('#fechar_menu_mobile').click(function() {
+  
+    $(".menu-mobile .nav-mobile").css("left", "-60vw")
+})
+
+$('#abrir_filtro').click(function() {
+    $('.menu_filtro nav').css("left", "0vw");
+})
+
+$('#fechar_filtro').click(function() {
+    $('.menu_filtro nav').css("left", "-50vw");
+})
+
+})
+
 var nome = document.getElementById("name");
 var email = document.getElementById("email_formulario");
-
-
+let cliente = document.getElementById("cliente").value
+let sessao = document.getElementById("sessao").value
 
 $(document).ready(function() {
     $("#enviar").submit(function(e) {
@@ -191,38 +215,6 @@ const acceptCookies = () => {
 const btnCookies = document.querySelector('.btn-cookies');
 btnCookies.addEventListener('click', acceptCookies);
 
-$(function() {
-
-    // var myButton = document.getElementById('#abrir_filtro');
-    // document.documentElement.onclick = function(event) {
-    //     if (event.target !== myButton) {
-
-    //         $('.menu_filtro nav').css("left", "-50vw");
-    //     }
-    // }
-
-    $('#abrir_menu_mobile').click(function() {
-        $(".menu-mobile .nav-mobile").css("display", "block")
-
-        $(".menu-mobile .nav-mobile").css("left", "0vw")
-    })
-    $('#fechar_menu_mobile').click(function() {
-        $(".menu-mobile .nav-mobile").css("left", "-60vw")
-    })
-
-})
-$(function() {
-    $('#abrir_filtro').click(function() {
-        $('.menu_filtro nav').css("left", "0vw");
-    })
-
-    $('#fechar_filtro').click(function() {
-        $('.menu_filtro nav').css("left", "-50vw");
-    })
-
-
-
-})
 
 
 //adicinonar produto no carrinho
@@ -271,6 +263,7 @@ $(".info #add_car_log").click(function(e) {
 
 
 })
+
 </script>
 
 

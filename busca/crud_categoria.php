@@ -217,13 +217,14 @@ die("Falha na consulta ao banco de dados || tb_produto");
 
 //query para realizar a busca do produto
 if(isset($_GET['buscar'])){
+    
     if(isset($_GET['pagina'])){
         $pagina =($_GET['pagina']);
         }else{
             $pagina = 1;
         }
-    
-    
+
+
 $b_desc_p = $_GET['buscar'];
 $select = "SELECT p.cl_titulo,p.cl_id,p.cl_descricao,p.cl_imagem,p.cl_modelo,p.cl_codigo,f.cl_descricao as fabricante,p.cl_subcategoria, e.cl_descricao as embalagem  from tb_produto 
 as p inner join tb_fabricante as f on p.cl_fabricante = f.cl_id inner join tb_embalagem as e on e.cl_id = p.cl_embalagem  

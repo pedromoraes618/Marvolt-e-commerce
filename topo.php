@@ -32,7 +32,8 @@
                                 <?php 
                                  if(isset($_SESSION["user_cliente_portal"])){
                                 ?>
-                                <li><a href="">Meu usuario</a></li>
+                                <li><a href="">Meu usuário</a></li>
+                                <li><a href="?slc&cds">Solicitações</a></li>
                                 <hr style="margin-top:0px;margin-bottom:0px">
                                 <li><a href="deslogar.php">Sair</a></li>
                                 <?php 
@@ -65,11 +66,11 @@
 
                 <div class="col input-pesquisa">
                     <div class="cx-pesquisa">
-                        <input type="text" name="buscar" placeholder="O que você procura?">
-                        <button class="img-pesquisar glyphicon glyphicon-search">
-
+                        <input type="text" name="buscar" id="buscar" placeholder="O que você procura?">
+                        <button id="btnBuscar"  class="img-pesquisar glyphicon glyphicon-search">
                     </div>
                 </div>
+
                 <div class="carrinho-compras">
                     <?php 
                               if(isset($_SESSION["user_cliente_portal"])){
@@ -84,8 +85,8 @@
                     ?>
                             <i class="fa-solid fa-cart-shopping"></i>
                             <div class="qtd-carrinho"><?php if(!isset($qtd_carrinho)){
-$qtd_carrinho = 0;
-echo $qtd_carrinho;
+                        $qtd_carrinho = 0;
+                        echo $qtd_carrinho;
                         }else{ echo $qtd_carrinho;} ?></div>
                         </a>
                 </div>
@@ -99,7 +100,7 @@ echo $qtd_carrinho;
             </div>
             <?php 
                  include "menu.php";
-          ?>
+            ?>
         </div>
 
 </div>
@@ -113,3 +114,15 @@ echo $qtd_carrinho;
 <?php 
   }
 ?>
+
+<script src="_js/jquery.js"></script>
+<script>
+var txtBuscar = document.getElementById("buscar");
+$("#btnBuscar").click(function(e){
+    if(txtBuscar.value==""){
+        e.preventDefault()
+    }
+})
+
+
+</script>

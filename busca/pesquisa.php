@@ -44,7 +44,7 @@ include "classes/subcategoria/pagina.php";
         include "crud_categoria.php";
         include "classes/carrinho/confirmar_pedido.php";
    
-    }elseif(isset($_GET['cds'])){
+    }elseif((isset($_GET['cds'])) or (isset($_GET['slc']))){
         include "classes/solicitacoes/pagina.php";
     }
 //elseif(isset($_GET['enviar_pedido'])){

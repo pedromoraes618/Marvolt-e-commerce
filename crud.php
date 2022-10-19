@@ -285,41 +285,36 @@ if(isset($_POST['cor_prod'])){
 
 
   if(isset($_POST['data_entrega_finalizar_pedido'])){
-    // $sessao = $sessao + 1;
-    // $inserir = "INSERT INTO tb_carrinho ";
-    // $inserir .= "(cl_data,cl_cliente,cl_produtoID,cl_sessao)";
-    // $inserir .= " VALUES ";
-    // $inserir .= "('$hoje','$b_id_cliente','fechado','$sessao' )";
-    // $operacao_fechar_pedido = mysqli_query($conecta, $inserir);
-    // if(!$operacao_fechar_pedido){
-    // include "classes/erro/504.php";
-    // }    
-	$hoje = date('y-m-d');
+	$hoje = date('Y-m-d');
 	$retornar = array();
 	$cliente = $_POST['cliente'];
 	$sessao = $_POST['sessao'];
 	$frete = $_POST['frete'];
 	$forma_pagamento = $_POST['tipo_pagamento'];
 	$data_entrega = $_POST['data_entrega_finalizar_pedido'];
-	if($forma_pagamento == 0){
-		$retornar["mensagem"] = "Favor informe a Expectativa de Forma de pagamemto";
-	}elseif($frete == 0){
-		$retornar["mensagem"] = "Favor informea a Expectativa do Tipo do frete";
-	}elseif($data_entrega == ""){
-		$retornar["mensagem"] = "Favor informe a Expectativa de data de entrega";
+
+	if($data_entrega!=""){
+	$div1 = explode("/",$_POST['data_entrega_finalizar_pedido']);
+	$data_entrega_format = $div1[2]."-".$div1[1]."-".$div1[0];
+	}else{
+		$data_entrega_format = $hoje;
+	}
+
+	if($data_entrega_format < $hoje){
+		$retornar["mensagem"] = "Informe uma data posterior a data de hoje";
 	}else{
 		//explodir para o formato de data banco de dados xxxx-xx-xx
+		if($data_entrega!=""){
 		$div1 = explode("/",$_POST['data_entrega_finalizar_pedido']);
 		$data_entrega = $div1[2]."-".$div1[1]."-".$div1[0];
+		}
 
 		//verificar se já existe um numero de pedido igual
 		$codigo = rand(5000,5000000000000);
-	
-		 
 		$insert = "INSERT INTO tb_pedido";
-		$insert .= "(cl_cliente,cl_sessao,cl_entrega,cl_frete,cl_forma_pagamento,cl_codigo)";
+		$insert .= "(cl_data,cl_cliente,cl_sessao,cl_entrega,cl_frete,cl_forma_pagamento,cl_codigo,cl_status)";  //cl_status = 1 para analise, 2 para em negociacao, 3 para finalizado , 4 para cancelado
 		$insert .= " VALUES ";
-		$insert .= "('$cliente','$sessao','$data_entrega','$frete','$forma_pagamento','$codigo' )";
+		$insert .= "('$hoje','$cliente','$sessao','$data_entrega','$frete','$forma_pagamento','$codigo',1 )";
 		$operacao_fechar_pedido = mysqli_query($conecta, $insert);
 		if($operacao_fechar_pedido){
 			$retornar["sucesso"] = true;
@@ -336,13 +331,12 @@ if(isset($_POST['cor_prod'])){
 		$inserir .= "('$hoje','$cliente','fechado','$sessao' )";
 		$operacao_fechar_pedido = mysqli_query($conecta, $inserir);
 	    if($operacao_fechar_pedido){
+	 	 	}
+		}
 	
-	 	 }
-	  
-	}
 	echo json_encode($retornar);
 
-    }
+}
 
 
 	
@@ -504,4 +498,83 @@ function vericarQtdProd($clienteID,$sessao){
 	echo json_encode($retornar);
 	
             
+}
+
+
+//verificar se existe o da solcitação
+if(isset($_POST['cds'])){
+	$retornar = array();
+	$codigo = $_POST['cds'];  //abrivação de cds codigo da solicitacao
+	$select = "SELECT count(*) as qtd from tb_pedido where cl_codigo = $codigo and cl_verifica = 0";
+	$resultado_select_pedido = mysqli_query($conecta, $select);
+	if($resultado_select_pedido){
+		$retornar["sucesso"] = true;
+		$linha = mysqli_fetch_assoc($resultado_select_pedido);
+		$qtd = $linha['qtd'];
+		if($qtd>0){
+			$retornar["verificar"] = true;
+		}else{
+			$retornar["verificar"] =false;
+		}
+		
+	}else{
+		$retornar["sucesso"] = false;
+	}
+	echo json_encode($retornar);
+}
+
+//adicionar 1 para pedidos que foram finalizados
+if(isset($_POST['verifica'])){
+	$codigo = $_POST["verifica"]; //
+	$update = "UPDATE tb_pedido set cl_verifica = 1 where cl_codigo = $codigo"; // irá atualizar para 1 o valor da coluna cl_verfica, coluna que tem como função verifcar se o pedido foi finalizado
+	$operacao_update_verifica = mysqli_query($conecta, $update);
+};
+
+//cancelar a solicitacao
+if(isset($_POST['acaoSl'])){
+	if($_POST['acaoSl']=="cancelar"){
+	$retornar = array();
+	$id_solicitacao = $_POST["idSolicitacao"];
+	//delete as informações no banco de dados
+	$update = "UPDATE tb_pedido set cl_status = 4 where cl_id = $id_solicitacao";
+	$resultado_cancelar_s = mysqli_query($conecta, $update);
+	if($resultado_cancelar_s){
+	$retornar["sucesso"] = true;
+	}else{
+	$retornar["sucesso"] = false;
+	}
+	echo json_encode($retornar);
+	}
+
+}
+
+//Reativar a solicitacao
+if(isset($_POST['acaoSl'])){
+	if($_POST['acaoSl']=="reativar"){
+		$retornar = array();
+		$id_solicitacao = $_POST["idSolicitacao"];
+		//delete as informações no banco de dados
+		$update = "UPDATE tb_pedido set cl_status = 1 where cl_id = $id_solicitacao";
+		$resultado_cancelar_s = mysqli_query($conecta, $update);
+		if($resultado_cancelar_s){
+		$retornar["sucesso"] = true;
+		}else{
+			$retornar["sucesso"] = false;
+		}
+		echo json_encode($retornar);
+	}
+
+}
+
+
+
+//mandar o erro para o log
+if(isset($_POST['erroLog'])){
+	$hoje = date('Y-m-d');
+	$mensagem = $_POST['erroLog'];
+	$inserir = "INSERT INTO tb_log";
+	$inserir .= "(cl_data,cl_descricao)";
+	$inserir .= " VALUES ";
+	$inserir .= "('$hoje','$mensagem')";
+	$operacao_inserir_log = mysqli_query($conecta, $inserir);
 }

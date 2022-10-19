@@ -26,12 +26,12 @@
                     <div class="form-group">
                         <label for="formGroupExampleInput">Cor</label>
                         <input type="text" class="form-control" name="cor_prod" id="cor_prod"
-                            value="<?php echo $cor; ?>" placeholder="Input exemplo">
+                            value="<?php echo $cor; ?>" placeholder="Cor do produto">
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput">Tamanho</label>
                         <input type="text" class="form-control" name="tamanho_prod" id="tamanho_prod"
-                            value="<?php echo $tamanho; ?>" placeholder="Input exemplo">
+                            value="<?php echo $tamanho; ?>" placeholder="Ex. 20X60cm">
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput">Quantidade</label>

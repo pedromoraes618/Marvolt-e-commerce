@@ -175,7 +175,7 @@ $('#produto-carrinho ul li a.excluir').click(function(e) {
                 $qtdcar = $.parseJSON(data)["car"];
                 if ($sucesso) {
                     Swal.fire(
-                        'Deleted!',
+                        'Removido!',
                         'Produto removido com sucesso.',
                         'success'
                     )

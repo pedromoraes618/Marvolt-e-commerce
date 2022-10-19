@@ -4,7 +4,7 @@
 function verificaProd($b_id_cliente,$sessao,$id_prod){
     include "conexao/conexao.php";
     //pegar se o usuario está adicionado o mesmo produto a mesma sessao
-    $select = "SELECT * from tb_carrinho where cl_cliente = $b_id_cliente and cl_sessao = '$sessao' and cl_produtoID = $id_prod";
+    $select = "SELECT * from tb_carrinho where cl_cliente = $b_id_cliente and cl_sessao = '$sessao' and cl_produtoID = '$id_prod'";
     $resultado_produto_sessao = mysqli_query($conecta, $select);
     if(!$resultado_produto_sessao){
         include "classes/erro/504.php";
@@ -16,12 +16,12 @@ function verificaProd($b_id_cliente,$sessao,$id_prod){
 }
 
 //consultar tabela produto 
-    $select = "SELECT f.cl_descricao as fabricante,cl_disponivel,cl_valor,cl_recorrente, c.cl_quantidade as quantidade, p.cl_titulo as titulo,p.cl_subcategoria as subcategoria, c.cl_sessao, c.cl_id,c.cl_produtoID as id_produto, p.cl_titulo as titulo, p.cl_imagem as imagem from tb_carrinho as c
-     inner join tb_produto as p on p.cl_id = c.cl_produtoID inner join tb_fabricante as f on f.cl_id = p.cl_fabricante  where c.cl_cliente = $b_id_cliente and c.cl_sessao = '$sessao'";
-    $resultado_carrinho = mysqli_query($conecta, $select);
-    if(!$resultado_carrinho){
-        include "classes/erro/504.php";
-    }
+$select = "SELECT f.cl_descricao as fabricante,cl_disponivel,cl_valor,cl_recorrente, c.cl_quantidade as quantidade, p.cl_titulo as titulo,p.cl_subcategoria as subcategoria, c.cl_sessao, c.cl_id,c.cl_produtoID as id_produto, p.cl_titulo as titulo, p.cl_imagem as imagem from tb_carrinho as c
+inner join tb_produto as p on p.cl_id = c.cl_produtoID inner join tb_fabricante as f on f.cl_id = p.cl_fabricante  where c.cl_cliente = $b_id_cliente and c.cl_sessao = '$sessao'";
+$resultado_carrinho = mysqli_query($conecta, $select);
+if(!$resultado_carrinho){
+include "classes/erro/504.php";
+}
 
     //pegar q quantidade de produtos que estão no carrinho
 $select = "SELECT sum(cl_quantidade) as qtd_prod from tb_carrinho where cl_cliente = $b_id_cliente and cl_sessao = '$sessao' and cl_produtoID > 0 ";
@@ -58,14 +58,14 @@ if(!$resultado_pagamento){
         <div class="grou-fechar-pedido">
 
             <form id="finalizar_pedido">
-
-                <div class="bloco-carrinho-fechar">
-                    <div class="titulo-carrinho-fechar">
-                        <h3>Fechar solitação de pedido</h3>
-                    </div>
-                    <?php 
+                <?php 
                   if($qtd_carrinho !=""){
             ?>
+                <div class="bloco-carrinho-fechar">
+                    <div class="titulo-carrinho-fechar">
+                        <h3>Fechar solicitação de pedido</h3>
+                    </div>
+
                     <div class="dados-pedido">
                         <div class="titulo">
                             <p>Dados do pedido</p>
@@ -75,16 +75,16 @@ if(!$resultado_pagamento){
                         <div class="form">
                             <div class="form-row">
                                 <div class="input">
-                                    <label for="data_entrega_finalizar_pedido">Expectativa de entrega</label>
+                                    <label for="data_entrega_finalizar_pedido">Expectativa de entrega (Opc)</label>
                                     <input type="text" OnKeyUp="mascaraData(this);" autocomplete="off" maxlength="10"
                                         onkeypress="return onlynumber();" name="data_entrega_finalizar_pedido"
                                         placeholder="xx/xx/xxxx" id="data_entrega_finalizar_pedido">
                                 </div>
 
                                 <div class="input">
-                                    <label for="frete">Expectativa de Frete</label>
+                                    <label for="frete">Expectativa de Frete (Opc)</label>
                                     <select name="frete" id="frete">
-                                        <option value="0">Selecione</option>
+                                        <option value="0">Não definido</option>
                                         <?php while($linha = mysqli_fetch_assoc($resultado_frete)){?>
                                         <option value="<?php echo ($linha["cl_id"]);?>">
                                             <?php echo utf8_encode($linha["cl_descricao"]);?>
@@ -94,9 +94,9 @@ if(!$resultado_pagamento){
                                 </div>
 
                                 <div class="input">
-                                    <label for="tipo_pagamento">Expectativa de Forma pagamento</label>
+                                    <label for="tipo_pagamento">Expectativa de Forma pagamento (Opc)</label>
                                     <select name="tipo_pagamento" id="tipo_pagamento">
-                                        <option value="0">Selecione</option>
+                                        <option value="0">Não definido</option>
                                         <?php while($linha = mysqli_fetch_assoc($resultado_pagamento)){?>
                                         <option value="<?php echo ($linha["cl_id"]);?>">
                                             <?php echo utf8_encode($linha["cl_descricao"]);?>
@@ -195,18 +195,7 @@ while($linha = mysqli_fetch_assoc($resultado_carrinho)){
 
                             </div>
                         </div>
-                        <?php 
-            }else{
 
-                echo "
-                <div class='img-carrinho-vazio'>
-                <img width='100%' src='img/carrinho-vazio.svg'>
-                <p>Ops!<br>Seu carrinho está vazio!</p>,
-                <a href='index.php'>Continuar comprando</a>
-                </div>
-                ";
-            }
-            ?>
                     </div>
 
                 </div>
@@ -244,6 +233,24 @@ while($linha = mysqli_fetch_assoc($resultado_carrinho)){
                         </div>
                     </div>
                 </div>
+                <?php 
+            }else{
+             
+                echo "
+                <div class='bloco-carrinho-fechar'>
+                    <div class='titulo-carrinho-fechar'>
+                        <h3>Fechar solicitação de pedido</h3>
+                    </div>
+                  
+                <div class='img-carrinho-vazio'>
+                <img width='100%' src='img/carrinho-vazio.svg'>
+                <p>Ops!<br>Seu carrinho está vazio!</p>,
+                <a href='index.php'>Continuar comprando</a>
+                </div>
+                </div>
+                ";
+            }
+            ?>
             </form>
         </div>
     </div>
@@ -340,15 +347,13 @@ $('.check_recorrente').click(function(e) {
 })
 
 
-$(document).ready(function() {
-    $("#finalizar_pedido").submit(function(e) {
-        e.preventDefault();
-        var formulario = $(this);
-        var retorno = finalizar_pedido(formulario)
-
-    })
+$("#finalizar_pedido").submit(function(e) {
+    e.preventDefault();
+    var formulario = $(this);
+    var retorno = finalizar_pedido(formulario)
 
 })
+
 
 function finalizar_pedido(dados) {
     $.ajax({
@@ -363,20 +368,24 @@ function finalizar_pedido(dados) {
         $sucesso = $.parseJSON(data)["sucesso"];
         $cd_pedido = $.parseJSON(data)["codigo_pedido"];
 
-
         if ($sucesso) {
             let diretorio = ""
             window.location.href = "?slc&" + "cds=" + $cd_pedido;
             localStorage.removeItem("dados_solicitacao")
 
             // Swal.fire(
-            //     'Pedido finalizado! Codigo do seu pedido ' +,
+            //     'Pedido finalizado! Codigo do seu pedido ',
             //     'A equipe da marvolt entrara em contato com voçê via email para a confirmação da situação dos produtos',
             //     'success'
             // )
 
         } else {
-            alertify.alert($mensagem)
+            Swal.fire({
+                icon: 'error',
+                title: $mensagem,
+
+            })
+
         }
     }
 
