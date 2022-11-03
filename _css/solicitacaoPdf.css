@@ -65,3 +65,28 @@ div#elemento{
     border-bottom: 1px solid rgba(107, 107, 107,0.3);
     width: 100%;
 }
+.info-complementares{
+ 
+    margin-top: 10px;
+
+    padding: 10px;
+}
+.info-complementares .titulo{
+    text-align: center;
+    border-bottom: 1px solid rgb(216, 216, 216);
+    padding-bottom: 5px;
+}
+
+.info-complementares ul{
+    list-style: none;
+    margin-left: 0px;
+    padding: 0px;
+}
+.info-complementares ul li{
+    font-size: 0.9em;
+}
+.info-complementares ul ul{
+
+    margin-bottom: 10px;
+    padding-left: 10px;
+}

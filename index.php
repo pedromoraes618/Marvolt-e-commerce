@@ -89,7 +89,7 @@ include "lib/alertify/alert.php";
         }else{
             ?>
         <div class="row" id="voltar-incio">
-            <a href="index.php">
+            <a href="../marvoltect/">
                 <p>Inicio</p>
             </a>
         </div>
@@ -102,14 +102,9 @@ include "lib/alertify/alert.php";
        ?>
     </div>
     <div class="box-cookies hide">
-        <p class="msg-cookies">Este site usa cookies, que são necessários para o funcionamento técnico do site e que
-            estão sempre configurados. Outros cookies, que aumentam o conforto na utilização deste website, são
-            utilizados para publicidade direta ou para simplificar a interação com outros websites e redes sociais,
-            apenas são definidos com o seu consentimento.
-            Mais informações podem ser encontradas em nossa política de privacidade.
-            <a href="#">
-                Política de privacidade
-            </a>
+        <p class="msg-cookies">O nosso site coleta cookies próprios e de terceiros para proporcionar uma experiência
+            personalizada ao usuário, apresentar publicidade relevante de acordo com o seu perfil e melhorar a qualidade
+            do nosso site.
         </p>
 
         <div class="btn-cookies">Aceitar!</div>
@@ -128,6 +123,7 @@ include "lib/alertify/alert.php";
     <script src="sweetalert2.min.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <?php include 'funcao/funcaojavascript.jar'; ?>
+    <script src="https://malsup.github.io/jquery.form.js"></script>
 
 </body>
 
@@ -138,24 +134,24 @@ include "lib/alertify/alert.php";
 
 
 $(document).ready(function(e) {
-$('#abrir_menu_mobile').click(function() {
-    
-    $(".menu-mobile .nav-mobile").css("display", "block")
+    $('#abrir_menu_mobile').click(function() {
 
-    $(".menu-mobile .nav-mobile").css("left", "0vw")
-})
-$('#fechar_menu_mobile').click(function() {
-  
-    $(".menu-mobile .nav-mobile").css("left", "-60vw")
-})
+        $(".menu-mobile .nav-mobile").css("display", "block")
 
-$('#abrir_filtro').click(function() {
-    $('.menu_filtro nav').css("left", "0vw");
-})
+        $(".menu-mobile .nav-mobile").css("left", "0vw")
+    })
+    $('#fechar_menu_mobile').click(function() {
 
-$('#fechar_filtro').click(function() {
-    $('.menu_filtro nav').css("left", "-50vw");
-})
+        $(".menu-mobile .nav-mobile").css("left", "-60vw")
+    })
+
+    $('#abrir_filtro').click(function() {
+        $('.menu_filtro nav').css("left", "0vw");
+    })
+
+    $('#fechar_filtro').click(function() {
+        $('.menu_filtro nav').css("left", "-50vw");
+    })
 
 })
 
@@ -205,12 +201,12 @@ function enviar(dados) {
 }
 
 
-if (!localStorage.nossoCooke) {
+if (!localStorage.cookmarvolt) {
     document.querySelector(".box-cookies").classList.remove('hide')
 }
 const acceptCookies = () => {
     document.querySelector('.box-cookies').classList.add('hide');
-    localStorage.setItem("nossoCooke", "accept");
+    localStorage.setItem("cookmarvolt", "accept");
 }
 const btnCookies = document.querySelector('.btn-cookies');
 btnCookies.addEventListener('click', acceptCookies);
@@ -263,7 +259,6 @@ $(".info #add_car_log").click(function(e) {
 
 
 })
-
 </script>
 
 

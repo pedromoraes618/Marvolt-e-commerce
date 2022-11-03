@@ -10,7 +10,7 @@
                     <ul>
                         <li>
                             <i class="fa-solid fa-circle-user"></i><?php
-                                if(isset($_SESSION["user_cliente_portal"])){
+                                if(isset($_SESSION["user_cliente_portal"])){ //verificar se alguem está logado
                                     ?>
                             <a>
                                 <?php
@@ -18,6 +18,18 @@
                                     echo explode(' ', $b_cliente)[0];;
                                     ?>
                             </a>
+                            <ul>
+                                <?php 
+                                 if(isset($_SESSION["user_cliente_portal"])){
+                                ?>
+                                <li><a href="?profile">Minha conta</a></li>
+                                <li><a href="?slc&cds">Solicitações</a></li>
+                                <hr style="margin-top:0px;margin-bottom:0px">
+                                <li><a href="deslogar.php">Sair</a></li>
+                                <?php 
+                                 }
+                                ?>
+                            </ul>
                             <?php
                                 }else{
                                     ?>
@@ -28,24 +40,7 @@
                             </a>
                             <?php
                                 } ?>
-                            <ul>
-                                <?php 
-                                 if(isset($_SESSION["user_cliente_portal"])){
-                                ?>
-                                <li><a href="">Meu usuário</a></li>
-                                <li><a href="?slc&cds">Solicitações</a></li>
-                                <hr style="margin-top:0px;margin-bottom:0px">
-                                <li><a href="deslogar.php">Sair</a></li>
-                                <?php 
-                                 }else{
-                                    ?>
-                                <li><a href="login.php">Login</a></li>
-                                <hr style="margin-top:0px;margin-bottom:0px">
 
-                                <?php 
-                                 }
-                                ?>
-                            </ul>
                         </li>
 
                     </ul>
@@ -67,7 +62,7 @@
                 <div class="col input-pesquisa">
                     <div class="cx-pesquisa">
                         <input type="text" name="buscar" id="buscar" placeholder="O que você procura?">
-                        <button id="btnBuscar"  class="img-pesquisar glyphicon glyphicon-search">
+                        <button id="btnBuscar" class="img-pesquisar glyphicon glyphicon-search">
                     </div>
                 </div>
 
@@ -118,11 +113,9 @@
 <script src="_js/jquery.js"></script>
 <script>
 var txtBuscar = document.getElementById("buscar");
-$("#btnBuscar").click(function(e){
-    if(txtBuscar.value==""){
+$("#btnBuscar").click(function(e) {
+    if (txtBuscar.value == "") {
         e.preventDefault()
     }
 })
-
-
 </script>

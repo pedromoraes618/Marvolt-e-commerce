@@ -18,6 +18,10 @@ if(isset($_SESSION["user_cliente_portal"])){
          $b_cliente_cnpj = $linha['cl_cnpj'];
          $b_cliente_telefone = $linha['cl_telefone'];
          $b_cliente_email = $linha['cl_email'];
+		 $b_cliente_logo = $linha['cl_dir_logo'];
+		 if($b_cliente_logo == ""){
+			$b_cliente_logo = "padrao.png";
+		 }
 	 ?>
 <?php    
 	
@@ -577,4 +581,19 @@ if(isset($_POST['erroLog'])){
 	$inserir .= " VALUES ";
 	$inserir .= "('$hoje','$mensagem')";
 	$operacao_inserir_log = mysqli_query($conecta, $inserir);
+}
+
+//upload de img do cliente
+if(isset($_POST['dirimguser'])){
+	$retorno = array();
+	$arquivo_img = $_POST['dirimguser'];
+	$clienteId = $_POST['clienteid'];
+	$update = "UPDATE tb_cliente set cl_dir_logo = '$arquivo_img' where cl_id = $clienteId ";
+	$resultado_upload_img = mysqli_query($conecta, $update);
+	if($resultado_upload_img){
+		$retornar["sucesso_upload_img"] = true;
+		}else{
+		$retornar["sucesso_upload_img"] = false;
+		}
+	echo json_encode($retornar);
 }

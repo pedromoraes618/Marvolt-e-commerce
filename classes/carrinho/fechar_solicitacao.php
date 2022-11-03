@@ -1,17 +1,18 @@
-<?php 
+<?php
 
 //funcao para verificar se é o mesmo produto que está sendo adicionado duas vez/ se for não realizar o insert no banco de dados
-function verificaProd($b_id_cliente,$sessao,$id_prod){
+function verificaProd($b_id_cliente, $sessao, $id_prod)
+{
     include "conexao/conexao.php";
     //pegar se o usuario está adicionado o mesmo produto a mesma sessao
     $select = "SELECT * from tb_carrinho where cl_cliente = $b_id_cliente and cl_sessao = '$sessao' and cl_produtoID = '$id_prod'";
     $resultado_produto_sessao = mysqli_query($conecta, $select);
-    if(!$resultado_produto_sessao){
+    if (!$resultado_produto_sessao) {
         include "classes/erro/504.php";
-    }else{
-    $linha = mysqli_fetch_assoc($resultado_produto_sessao);
-    $id_produto = $linha['cl_produtoID'];
-    return $id_produto;
+    } else {
+        $linha = mysqli_fetch_assoc($resultado_produto_sessao);
+        $id_produto = $linha['cl_produtoID'];
+        return $id_produto;
     }
 }
 
@@ -19,33 +20,32 @@ function verificaProd($b_id_cliente,$sessao,$id_prod){
 $select = "SELECT f.cl_descricao as fabricante,cl_disponivel,cl_valor,cl_recorrente, c.cl_quantidade as quantidade, p.cl_titulo as titulo,p.cl_subcategoria as subcategoria, c.cl_sessao, c.cl_id,c.cl_produtoID as id_produto, p.cl_titulo as titulo, p.cl_imagem as imagem from tb_carrinho as c
 inner join tb_produto as p on p.cl_id = c.cl_produtoID inner join tb_fabricante as f on f.cl_id = p.cl_fabricante  where c.cl_cliente = $b_id_cliente and c.cl_sessao = '$sessao'";
 $resultado_carrinho = mysqli_query($conecta, $select);
-if(!$resultado_carrinho){
-include "classes/erro/504.php";
+if (!$resultado_carrinho) {
+    include "classes/erro/504.php";
 }
 
-    //pegar q quantidade de produtos que estão no carrinho
+//pegar q quantidade de produtos que estão no carrinho
 $select = "SELECT sum(cl_quantidade) as qtd_prod from tb_carrinho where cl_cliente = $b_id_cliente and cl_sessao = '$sessao' and cl_produtoID > 0 ";
 $resultado_qtd_carrinho = mysqli_query($conecta, $select);
-if(!$resultado_qtd_carrinho){
+if (!$resultado_qtd_carrinho) {
     include "classes/erro/504.php";
-}else{
-$linha = mysqli_fetch_assoc($resultado_qtd_carrinho);
-$qtd_carrinho = $linha['qtd_prod'];
-
+} else {
+    $linha = mysqli_fetch_assoc($resultado_qtd_carrinho);
+    $qtd_carrinho = $linha['qtd_prod'];
 }
 
 /* select tb_frete*/
 $select = "SELECT * from tb_frete";
 $resultado_frete = mysqli_query($conecta, $select);
-if(!$resultado_frete){
-   include "classes/erro/504.php";
+if (!$resultado_frete) {
+    include "classes/erro/504.php";
 }
 
 /* select tb_tipo_pagamento*/
 $select = "SELECT * from tb_tipo_pagamento";
 $resultado_pagamento = mysqli_query($conecta, $select);
-if(!$resultado_pagamento){
-   include "classes/erro/504.php";
+if (!$resultado_pagamento) {
+    include "classes/erro/504.php";
 }
 
 
@@ -58,9 +58,9 @@ if(!$resultado_pagamento){
         <div class="grou-fechar-pedido">
 
             <form id="finalizar_pedido">
-                <?php 
-                  if($qtd_carrinho !=""){
-            ?>
+                <?php
+                if ($qtd_carrinho != "") {
+                ?>
                 <div class="bloco-carrinho-fechar">
                     <div class="titulo-carrinho-fechar">
                         <h3>Fechar solicitação de pedido</h3>
@@ -84,24 +84,22 @@ if(!$resultado_pagamento){
                                 <div class="input">
                                     <label for="frete">Expectativa de Frete (Opc)</label>
                                     <select name="frete" id="frete">
-                                        <option value="0">Não definido</option>
-                                        <?php while($linha = mysqli_fetch_assoc($resultado_frete)){?>
-                                        <option value="<?php echo ($linha["cl_id"]);?>">
-                                            <?php echo utf8_encode($linha["cl_descricao"]);?>
+                                        <?php while ($linha = mysqli_fetch_assoc($resultado_frete)) { ?>
+                                        <option value="<?php echo ($linha["cl_id"]); ?>">
+                                            <?php echo utf8_encode($linha["cl_descricao"]); ?>
                                         </option>
-                                        <?php }?>
+                                        <?php } ?>
                                     </select>
                                 </div>
 
                                 <div class="input">
                                     <label for="tipo_pagamento">Expectativa de Forma pagamento (Opc)</label>
                                     <select name="tipo_pagamento" id="tipo_pagamento">
-                                        <option value="0">Não definido</option>
-                                        <?php while($linha = mysqli_fetch_assoc($resultado_pagamento)){?>
-                                        <option value="<?php echo ($linha["cl_id"]);?>">
-                                            <?php echo utf8_encode($linha["cl_descricao"]);?>
+                                        <?php while ($linha = mysqli_fetch_assoc($resultado_pagamento)) { ?>
+                                        <option value="<?php echo ($linha["cl_id"]); ?>">
+                                            <?php echo utf8_encode($linha["cl_descricao"]); ?>
                                         </option>
-                                        <?php }?>
+                                        <?php } ?>
                                     </select>
                                 </div>
                                 <span id="esse"></span>
@@ -111,7 +109,7 @@ if(!$resultado_pagamento){
                                         id="cliente">
                                 </div>
                                 <div class="input">
-                                    <input type="hidden" name="sessao" value="<?php echo $sessao;?>" id="sessao">
+                                    <input type="hidden" name="sessao" value="<?php echo $sessao; ?>" id="sessao">
                                 </div>
                             </div>
                         </div>
@@ -125,32 +123,32 @@ if(!$resultado_pagamento){
                                 <nav>
                                     <ul>
                                         <?php
-                  
-while($linha = mysqli_fetch_assoc($resultado_carrinho)){
-    $titulo_prod = $linha['titulo'];
-    $img = $linha['imagem'];
-    $id = $linha['cl_id'];
-    $fabricante = $linha['fabricante'];
-    $id_produto = $linha['id_produto'];
-    $titulo = $linha['titulo'];
-    $subcategoria = $linha['subcategoria'];
-    $qtd = $linha['quantidade'];
-    $disponivel = $linha['cl_disponivel'];
-    $valor = $linha['cl_valor'];
-    $recorrente = $linha['cl_recorrente'];
-    
-?>
+
+                                            while ($linha = mysqli_fetch_assoc($resultado_carrinho)) {
+                                                $titulo_prod = $linha['titulo'];
+                                                $img = $linha['imagem'];
+                                                $id = $linha['cl_id'];
+                                                $fabricante = $linha['fabricante'];
+                                                $id_produto = $linha['id_produto'];
+                                                $titulo = $linha['titulo'];
+                                                $subcategoria = $linha['subcategoria'];
+                                                $qtd = $linha['quantidade'];
+                                                $disponivel = $linha['cl_disponivel'];
+                                                $valor = $linha['cl_valor'];
+                                                $recorrente = $linha['cl_recorrente'];
+
+                                            ?>
                                         <li>
                                             <div class="blco-produto">
                                                 <div class="img-produtos">
                                                     <a
-                                                        href="?produto=<?php echo $id_produto; ?>&desc=<?php echo $titulo;?>&subcg=<?php echo $subcategoria ?>">
-                                                        <img src="<?php echo "adm/classes/produto/".$img;?>">
+                                                        href="?produto=<?php echo $id_produto; ?>&desc=<?php echo $titulo; ?>&subcg=<?php echo $subcategoria ?>">
+                                                        <img src="<?php echo "adm/classes/produto/" . $img; ?>">
                                                     </a>
                                                 </div>
                                                 <div class="bloco-informacao">
                                                     <a
-                                                        href="?produto=<?php echo $id_produto; ?>&desc=<?php echo $titulo;?>&subcg=<?php echo $subcategoria ?>">
+                                                        href="?produto=<?php echo $id_produto; ?>&desc=<?php echo $titulo; ?>&subcg=<?php echo $subcategoria ?>">
                                                         <p class="titulo">
                                                             <?php echo $titulo_prod; ?>
                                                         </p>
@@ -160,17 +158,19 @@ while($linha = mysqli_fetch_assoc($resultado_carrinho)){
                                                             href="?incfor&id=<?php echo $id ?>"><?php echo $qtd; ?></a>
                                                     </p>
 
-                                                    <p><?php if($disponivel == 1){
-                                         echo real_format($valor) ; 
-                                      } ?></p>
+                                                    <p><?php if ($disponivel == 1) {
+                                                                    echo real_format($valor);
+                                                                } ?></p>
                                                     <div>
 
                                                         <label class="container">
                                                             <a> Esse produto é recorrente na sua empresa?</a>
                                                             <input dados_id="<?php echo $id; ?>" id="<?php echo $id; ?>"
-                                                                type="checkbox" <?php if($recorrente == 1){
-                                              ?>checked<?php
-                                                        } ?> class="check_recorrente">
+                                                                type="checkbox"
+                                                                <?php if ($recorrente == 1) {
+                                                                                                                                                    ?>checked<?php
+                                                                                                                                                            } ?>
+                                                                class="check_recorrente">
                                                             <div class="checkmark"></div>
                                                         </label>
 
@@ -186,9 +186,9 @@ while($linha = mysqli_fetch_assoc($resultado_carrinho)){
                                         <hr>
 
                                         <?php
-}
+                                            }
 
-?>
+                                            ?>
                                     </ul>
                                 </nav>
 
@@ -218,6 +218,7 @@ while($linha = mysqli_fetch_assoc($resultado_carrinho)){
                             <p>Cnpj: <?php echo $b_cliente_cnpj ?></p>
                             <p>Telefone: <?php echo $b_cliente_telefone ?></p>
                             <p>Email: <?php echo $b_cliente_email ?></p>
+                  
 
                         </div>
                         <hr>
@@ -233,10 +234,10 @@ while($linha = mysqli_fetch_assoc($resultado_carrinho)){
                         </div>
                     </div>
                 </div>
-                <?php 
-            }else{
-             
-                echo "
+                <?php
+                } else {
+
+                    echo "
                 <div class='bloco-carrinho-fechar'>
                     <div class='titulo-carrinho-fechar'>
                         <h3>Fechar solicitação de pedido</h3>
@@ -249,8 +250,8 @@ while($linha = mysqli_fetch_assoc($resultado_carrinho)){
                 </div>
                 </div>
                 ";
-            }
-            ?>
+                }
+                ?>
             </form>
         </div>
     </div>

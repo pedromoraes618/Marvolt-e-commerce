@@ -177,3 +177,4 @@ $dompdf->render();
 $dompdf ->stream("relatorio_teste.php",array("Attachment"=>false));//para realizar o download somente alterar para true
 
 ?>
+

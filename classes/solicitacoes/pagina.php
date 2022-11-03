@@ -8,7 +8,7 @@ if(isset($_GET['cds'])){
 ?>
 <div class="row" id="bloco">
     <div class="container">
-        <div class="bloco-solicitacao">
+        <div class="bloco-principal">
             <div class="titulo">
                 <h3>Solicitação</h3>
             </div>
@@ -26,9 +26,9 @@ if(isset($_GET['cds'])){
             </div>
 
 
-            <div id="pedidos-solicitacao">
+            <div id="bloco-sub-principal">
                 <div class="bloco-info">
-                    <div class="result_solicitacao"></div>
+                    <div class="result_consultar"></div>
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@ function pesquisar(cliente) {
         type: 'GET',
         url: "classes/solicitacoes/consulta.php?slc&cliente=" + cliente,
         success: function(result) {
-            return $(".result_solicitacao").html(result);
+            return $(".result_consultar").html(result);
         },
     });
 }
@@ -61,7 +61,7 @@ $('.cx-pesquisa-solicitacao button').click(function(e) {
         type: 'GET',
         url: "classes/solicitacoes/consulta.php?slc&cliente=" + cliente + "&buscar=" + pesquisa.value,
         success: function(result) {
-            $(".result_solicitacao").html(result);
+            $(".result_consultar").html(result);
         },
     });
 })

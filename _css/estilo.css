@@ -260,6 +260,10 @@ li.over ul {
 	max-width: 800px;
 
 }
+.tabcontent .form .form-column{
+	
+	width: 50%;
+}
 
 }
 
@@ -2234,10 +2238,9 @@ margin-bottom: 1px;
 	border-radius: 50%;
 	border: 2px solid;
 	border-color: var(--yellow);
-padding: 3px;	
-transition: all 0.1s ease-in-out;
-
-position: relative;
+	padding: 3px;	
+	transition: all 0.1s ease-in-out;
+	position: relative;
 
 }
 
@@ -2400,6 +2403,20 @@ position: relative;
 /* carrinho */
 .erro_404{
 	margin: 0 auto;
+}
+
+.erro_404 .btn-voltar {
+  text-align: center;
+}
+.erro_404  a{
+	width: fit-content;
+	background-color: var(--yellow);
+	padding: 7px;
+	border-radius: 5px;
+	color: white;
+	font-weight: 500;
+	text-decoration: none;
+	
 }
 
 .produto-carrinho{
@@ -2812,29 +2829,29 @@ padding: 0px;
 
 /*Solicitacoes*/
 
-.bloco-solicitacao{
+.bloco-principal{
 max-width: 1100px;
 margin: 0 auto;
 width: 100%;
 position: relative;
 }
-.bloco-solicitacao .bloco-1-1{
+.bloco-principal .bloco-1-1{
 	display: flex;
 	flex-wrap: wrap;
 	border: 1px solid;
 }
-#pedidos-solicitacao{
+#bloco-sub-principal{
 max-width: 1100px;
 margin: 0 auto;
 width: 100%;
 }
-.bloco-solicitacao .bloco-1-1 {
+.bloco-principal .bloco-1-1 {
 	padding: 7px;
 	margin-bottom: 15px;
 	border: 0px;
 }
 
-.bloco-solicitacao .bloco-1-1 .form-solicitacao{
+.bloco-principal .bloco-1-1 .form-solicitacao{
 margin: 0px auto;
 }
 
@@ -2869,7 +2886,7 @@ padding: 7px;
 .form-solicitacao .cx-pesquisa-solicitacao input::placeholder{
 	font-size: 0.9em;
 }
-.result_solicitacao hr{
+.result_consulta hr{
 	margin: 10px 0px;
 }
 .bloco-cnj-solicitacao{
@@ -3058,7 +3075,7 @@ border-radius: 3px;
 
 
 
-   /* Style the tab */
+   /* Style the tab  */
 .tab {
 	overflow: hidden;
 
@@ -3085,9 +3102,84 @@ font-weight: 500;
   }
   
   /* Style the tab content */
-  .tabcontent {
-	display: none;
-	padding: 6px 12px;
+.tabcontent {
+display: none;
+padding: 6px 12px;
+border-top: none;
+}
 
-	border-top: none;
-  }
+
+/*aba minha conta*/
+.tabcontent .form {
+
+padding: 20px;
+display: flex;
+flex-wrap: wrap;
+}
+.tabcontent .form .form-column .bloco-left{
+display: flex;
+flex-wrap: wrap;
+}
+
+.tabcontent .form .form-column .input{
+display: block;
+padding: 5px;
+margin: 0 auto;
+	
+}
+.tabcontent .form .form-column label{
+font-weight: 400;
+}
+
+.tabcontent .form .form-column .input input{
+display: block;
+width: 100%;
+border-radius: 3px;
+padding:5px;
+border: 1px solid var(--bordar);
+outline: none;
+}
+
+.tabcontent .form .form-column .bloco-right{
+	border-left: 1px solid var(--bordar);
+margin: 0 auto;
+padding: 20px;
+width: 100%;
+}
+
+.tabcontent .form .form-column .bloco-right .upload {
+margin: 0 auto;
+text-align: center;
+
+margin-top: 10px;
+}
+.tabcontent .form .form-column .bloco-right .upload input{
+margin: 0 auto;
+}
+.tabcontent .form .form-column .bloco-right .logo{
+width: 130px;
+height:130px;
+border-radius: 50%;
+margin: 0 auto;
+position: relative;
+
+}
+.tabcontent .form .form-column .bloco-right .logo img{
+object-fit: cover;
+object-position: center;
+border-radius: 50%;
+transition: 0.2s all ease-out;
+position: absolute;
+border: 1px solid var(--bordar);
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+opacity: 0.8;
+
+}
+
+
+.form-column .upload form p{
+	color: #a2a2a2;
+}
