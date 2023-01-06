@@ -14,40 +14,43 @@ include("../../crud.php");
 </div>
 
 <div id="perfil" class="tabcontent">
+
     <div class="form">
         <div class="form-column">
             <div class="bloco-left">
                 <div class="input">
-                    <label for="data_entrega_finalizar_pedido">Expectativa de entrega</label>
-                    <input type="text" autocomplete="off">
+                    <label for="data_entrega_finalizar_pedido">Razão social</label>
+                    <input type="text" name="rz_social" value="<?php echo $b_cliente_razao_social; ?>"
+                        autocomplete="off">
                 </div>
                 <div class="input">
-                    <label for="data_entrega_finalizar_pedido">Expectativa de entrega</label>
-                    <input type="text" autocomplete="off">
+                    <label for="data_entrega_finalizar_pedido">Cnpj</label>
+                    <input type="text" readonly data-mask="00.000.000/0000-00" name="cnpj"
+                        value="<?php echo ($b_cliente_cnpj); ?>" autocomplete="off">
                 </div>
                 <div class="input">
-                    <label for="data_entrega_finalizar_pedido">Expectativa de entrega</label>
-                    <input type="text" autocomplete="off">
+                    <label for="data_entrega_finalizar_pedido">Inscrição estadual</label>
+                    <input type="text" value="<?php echo $b_cliente_ie ?>" autocomplete="off">
                 </div>
                 <div class="input">
-                    <label for="data_entrega_finalizar_pedido">Expectativa de entrega</label>
-                    <input type="text" autocomplete="off">
+                    <label for="data_entrega_finalizar_pedido">Cep</label>
+                    <input type="text" value="<?php echo $b_cliente_cep; ?>" autocomplete="off">
                 </div>
                 <div class="input">
-                    <label for="data_entrega_finalizar_pedido">Expectativa de entrega</label>
-                    <input type="text" autocomplete="off">
+                    <label for="data_entrega_finalizar_pedido">Bairro</label>
+                    <input type="text" value="<?php echo $b_cliente_bairro; ?>" autocomplete="off">
                 </div>
                 <div class="input">
-                    <label for="data_entrega_finalizar_pedido">Expectativa de entrega</label>
-                    <input type="text" autocomplete="off">
+                    <label for="data_entrega_finalizar_pedido">Cidade</label>
+                    <input type="text" value="<?php echo $b_cliente_cidade; ?>" autocomplete="off">
                 </div>
                 <div class="input">
-                    <label for="data_entrega_finalizar_pedido">Expectativa de entrega</label>
-                    <input type="text" autocomplete="off">
+                    <label for="data_entrega_finalizar_pedido">Email</label>
+                    <input type="text" value="<?php echo $b_cliente_email; ?>" autocomplete="off">
                 </div>
                 <div class="input">
-                    <label for="data_entrega_finalizar_pedido">Expectativa de entrega</label>
-                    <input type="text" autocomplete="off">
+                    <label for="data_entrega_finalizar_pedido">Telefone</label>
+                    <input type="text" value="<?php echo $b_cliente_telefone; ?>" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -64,16 +67,32 @@ include("../../crud.php");
                 </div>
 
             </div>
-
         </div>
     </div>
+
+    <div class="btn-salvar">
+        <button type="submit">Cadastrar</button>
+    </div>
+
 </div>
 
 
 <div id="endereco" class="tabcontent">teste</div>
 <div id="senha" class="tabcontent"></div>
 
+
+
+<script src="_js/jquery.mask.js"></script>
 <script>
+$(document).ready(function() {
+    $("#form-perfil").submit(function(e) {
+        e.preventDefault();
+        alert('ok')
+
+    })
+
+})
+
 function openCity(evt, cityName) {
     // Declare all variables
     var i, tabcontent, tablinks;
@@ -123,8 +142,6 @@ $('#file-input').change(function() {
                     footer: ''
                 })
             }
-
-
         }
     }).submit();
 

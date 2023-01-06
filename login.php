@@ -157,15 +157,13 @@ let email = document.getElementById("email")
 let btn_login = document.getElementById("btn_login")
 
 
-function btn_ativo() {
-
+$(document).keydown(function(event){
     if (email.value != "" & senha.value != "") {
         btn_login.removeAttribute("disabled", "disabled");
     } else {
         btn_login.setAttribute("disabled", "disabled");
     }
-}
-
+})
 
 $("#mostrar_senha").click(function() {
 

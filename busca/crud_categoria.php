@@ -312,10 +312,10 @@ if(!$resultado_prod_infor){
 }else{
     $linha = mysqli_fetch_assoc($resultado_prod_infor);
     $img = $linha['imagem'];
-    $titulo = $linha['titulo'];
-    $cor = $linha['cor'];
-    $tamanho = $linha['tamanho'];
-    $obs = $linha['obs'];
+    $titulo = utf8_decode($linha['titulo']);
+    $cor = utf8_decode($linha['cor']);
+    $tamanho =utf8_decode($linha['tamanho']);
+    $obs =utf8_decode($linha['obs']);
     $quantidade = $linha['quantidade'];
 }
     }else{

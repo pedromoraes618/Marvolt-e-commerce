@@ -6,7 +6,7 @@ $('.logo-marvolt').click(function() {
     return false;
 });
 $('.logo-marvolt').css({
-    'opacity': '1'
+    'display': 'block'
 });
 
 
@@ -17,7 +17,7 @@ $('.logo-marvolt-top-1').click(function() {
     return false;
 });
 $('.logo-marvolt-top-1').css({
-    'opacity': '0'
+    'display': 'none'
 });
 
 
@@ -25,12 +25,12 @@ $(window).scroll(function() {
 
     if ($(window).scrollTop() == 0 | $(window).scrollTop() == "") {
         $('.logo-marvolt').css({
-            'opacity': '1',
+            'display': 'block',
         });
 
         $('.logo-marvolt-top-1').css({
 
-            'opacity': '0',
+            'display': 'none',
             'transition': 'opacity 50ms ease-in'
 
         });
@@ -41,14 +41,14 @@ $(window).scroll(function() {
     } else {
         $('.logo-marvolt').css({
 
-            'opacity': '0',
+            'display': 'none',
             'transition': 'opacity 50ms ease-in'
 
         });
 
         $('.logo-marvolt-top-1').css({
 
-            'opacity': '1',
+            'display': 'block',
             'transition': 'opacity 50ms ease-in'
 
         });

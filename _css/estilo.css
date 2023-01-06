@@ -1,17 +1,22 @@
+@font-face {
+	font-family:'montserrat';
+	src: url(../fonts/Montserrat-VariableFont_wght.ttf) format('opentype');
+	font-style:normal;
+  }
+
+
 * {
 
 	margin: 0;
 	padding: 0;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica neue", sans-serif;
 	text-decoration: none;
+	/* font-family: montserrat; */
+
 	
 }
 
-@font-face {
-    font-family:'sublima';
-    src: url(../fonts/Sublima-ExtraBold.otf) format('opentype');
-    font-style:normal;
-}
+
 
 :root {
 	--yellow: rgba(252, 172, 44);
@@ -31,8 +36,13 @@ button{
 		width: 700px;
 	    
 	}
-	.input-pesquisa .cx-pesquisa{
-	
+	.logo-marvolt-top-1{
+	display: none;
+	}
+
+	.bloco-central{
+		max-width: 1300px;
+		
 	}
 
 	/*texto central topo*/
@@ -264,6 +274,7 @@ li.over ul {
 	
 	width: 50%;
 }
+
 
 }
 
@@ -738,6 +749,13 @@ color: var(--yellow);
 	width: 220px;
 }
 
+.tabcontent .form .form-column{
+	width: 100%;
+}
+.tabcontent .form .form-column .bloco-right {
+	border-top: 1px solid var(--bordar);
+	
+}
 
 }
 
@@ -799,7 +817,7 @@ color: var(--yellow);
 
 .menu-cliente {
 	width: 100%;
-	padding: 0px 10px; 
+	padding: 0px 0px; 
 	
     
 
@@ -809,6 +827,7 @@ color: var(--yellow);
 	float:right;
 	margin-top: 15px;
 	cursor: pointer;
+
 }
 .menu-cliente .dp-cliente ul{
 	list-style-type: none;
@@ -820,35 +839,36 @@ color: var(--yellow);
 .menu-cliente .dp-cliente ul li{
 	list-style-type: none;
 	padding: 0;
-
-
 }
+
 /* submenu */
 .menu-cliente .dp-cliente ul ul{
 	display: none;
 	position: absolute;
 	padding: 5px;
-	right: 10px;
+	right: 5px;
 	background-color: white;
-	border-top-left-radius: 10px ;
-
-	-webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.75);
-	-moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.75);
-	box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.75);
+	border-top-left-radius: 5px ;
+	-webkit-box-shadow: 0px 0px 8px 0px rgba(138, 138, 138, 0.75);
+	
 
 }
 
 .menu-cliente .dp-cliente ul li a{
-color: #373737;
-font-weight: 600;
+color: #565656;
+font-weight: 500;
 
 }
 .menu-cliente .dp-cliente ul ul li a{
-	font-size: 1.1em;
+	font-size: 1.0em;
 	padding: 0px;
-	font-weight: 600;
+	font-weight:500;
 	color: #5a5a5a;
 	display: block;
+	transition: all 0.2s ease-in-out;
+}
+.menu-cliente .dp-cliente ul ul li a:hover{
+	color: var(--yellow);
 }
 .menu-cliente .dp-cliente ul li:hover ul{
 	display: block;
@@ -857,7 +877,7 @@ font-weight: 600;
 .menu-cliente .dp-cliente ul ul li{
 	display: block;
 	padding: 5px;
-	width:150px;
+	width:120px;
 	
 }
 
@@ -889,9 +909,7 @@ border-right: 1px solid;
 
 }
 
-.logo-marvolt-top-1{
-	border: 1px solid;
-}
+
 
 .top-1-1-2 {
 	display: flex;
@@ -1372,7 +1390,7 @@ margin-bottom: 0px;
 	padding: 0px;
 	margin: 0px;
 	color: #737373;
-	font-weight: 600;
+	font-weight: 550;
 	font-size: 0.9em;
 }
 
@@ -1385,13 +1403,12 @@ border-radius: 2px;
 }
 
 .add-carrinho {
-	padding: 5px;
+padding: 5px;
 color: white;
 font-weight: 500;
-text-shadow: black 0.5px 0.3px;
-	font-size: 90%;
-	text-decoration: none;
-	display: block;
+text-decoration: none;
+display: block;
+font-size: 0.9em;
 }
 
 .add-carrinho:hover {
@@ -2116,7 +2133,7 @@ categoria inicial tele incial */
 
 #bloco-desc-prod {
 	margin-bottom:50px;
-	
+
 }
 #bloco-desc-prod .container-4{
 	
@@ -2314,7 +2331,7 @@ margin-bottom: 1px;
 	width: 100%;
 	border-radius: 2px;
 	background-color: var(--yellow);
-	color: #373737;
+	color: white;
 	font-weight: 500;
 }
 
@@ -3112,13 +3129,12 @@ border-top: none;
 /*aba minha conta*/
 .tabcontent .form {
 
-padding: 20px;
+
 display: flex;
 flex-wrap: wrap;
-}
-.tabcontent .form .form-column .bloco-left{
-display: flex;
-flex-wrap: wrap;
+
+padding-top: 10px;
+padding-bottom: 10px;
 }
 
 .tabcontent .form .form-column .input{
@@ -3140,11 +3156,13 @@ border: 1px solid var(--bordar);
 outline: none;
 }
 
+
 .tabcontent .form .form-column .bloco-right{
-	border-left: 1px solid var(--bordar);
 margin: 0 auto;
 padding: 20px;
 width: 100%;
+
+
 }
 
 .tabcontent .form .form-column .bloco-right .upload {
@@ -3182,4 +3200,18 @@ opacity: 0.8;
 
 .form-column .upload form p{
 	color: #a2a2a2;
+}
+
+.tabcontent .btn-salvar{
+
+	text-align: center;
+	
+}
+.tabcontent .btn-salvar button{
+	padding: 5px;
+	border-radius: 2px;
+	background-color: var(--yellow);
+	color: white;
+	width: 150px;
+	font-weight: 500;
 }

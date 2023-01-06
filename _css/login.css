@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700&display=swap');
-
+@font-face {
+  font-family:'montserrat';
+  src: url(../fonts/Montserrat-VariableFont_wght.ttf) format('opentype');
+  font-style:normal;
+}
 body{
 margin:0;
-font-family:'noto sans',sans-serif;
-
+ /* font-family:'noto sans',sans-serif;  */
+font-family: montserrat;
+font-weight: 500;
 box-sizing: border-box;
 background: rgba(252, 172, 3, 0.55);
 background: -webkit-linear-gradient(0deg, rgba(252, 172, 3, 0.55) 0%, #fcac1e 100%);
@@ -14,6 +19,8 @@ background: linear-gradient(0deg, rgba(252, 172, 3, 0.55) 0%, #fcac1e 100%);
 	--yellow: rgba(252, 172, 44);
   --subtitulo: rgb(56, 56, 56);
 }
+
+
 /* 
 animacao */
 @keyframes moveToTop {
@@ -186,70 +193,79 @@ width: 33vw;
 }
 
 .formulario form input{
-    border: 0px;
-    border-radius: 5px;
-    transition: all 0.3s ease-in-out;
-    background-color:unset;
-    color: rgb(18, 18, 18);
-    font-size: 0.9em;
-    
-    
-    }
-    .input-group{
+border: 0px;
+padding-right: 25px;
+transition: all 0.3s ease-in-out;
+background-color:unset;
+color: rgb(18, 18, 18);
+font-size: 0.8em;
+}
 
- 
-    }
-    .formulario form input::placeholder{
-        color: rgb(174, 174, 174);
-    font-weight: 500;
-    }
-    .formulario form input:focus{
-    border-bottom: 1px solid;
-    box-shadow: inset 0 -1px 0;
-    background-color:unset;
-    color: rgb(111, 111, 111);
-    
-    }
-    
-    .formulario form .input-group-text{
-    background-color:unset;
-    border: 0px;
-    color: rgb(94, 94, 94);
-    }
-    
- 
-    .formulario form #btn_login{
-      margin-top: 20px;
-      padding:5px 20px;
+.formulario form input::placeholder{
+color:#858585;
+font-weight: 400;
+}
 
-      border: 0px;
-    width: 100%;
-    background: var(--yellow);
+.formulario form input:focus{
+box-shadow: 0 0 0 0;
+border: 0 none;
+outline: 0;
+background-color: unset;
+color: rgb(111, 111, 111);
 
-    }
-    .formulario form #btn_login:disabled{
-      background:#262626;
-    }
+}
 
-    .formulario form #btn_login:hover{
-      background: var(--yellow);
-    }
-    
-    .formulario form #btn_login:focus{
-      box-shadow: none;
-      background: var(--yellow);
-    }
-  
-    
-   
-    .formulario .form-check{
-        color: white;
-        cursor:pointer;
-        margin-left: 10px;
-     color: rgb(173, 173, 173);
-     font-size: 0.8em;
-        
- }
+
+.input-group{
+border: 1px solid #d7d7d7;
+}
+
+
+.formulario form .input-group-text{
+background-color:unset;
+border: 0px;
+color: rgb(94, 94, 94);
+}
+
+
+.formulario form #btn_login{
+margin-top: 20px;
+padding:5px 20px;
+
+border: 0px;
+width: 100%;
+background: var(--yellow);
+
+}
+.formulario form #btn_login:disabled{
+background:#262626;
+}
+
+.formulario form #btn_login:hover{
+background: var(--yellow);
+}
+
+.formulario form #btn_login:focus{
+box-shadow: none;
+background: var(--yellow);
+}
+
+.form-control {
+border-radius: 0px;
+background-color: unset;
+}
+.form-control:hover{
+background-color: unset;
+}
+
+.formulario .form-check{
+color: white;
+cursor:pointer;
+margin-left: 10px;
+color: rgb(173, 173, 173);
+font-size: 0.8em;
+
+}
 
 
  .sub-form a{
@@ -270,9 +286,10 @@ font-size: 0.8em;
  }
 
  .sub-form .cadastrar a{
-    font-size: 1.3em;
-    color: #d1ca36;
-    font-weight: 600;
+    font-size: 1.2em;
+    color: var(--yellow);
+    font-weight: 500;
+ 
  }
 
  #hidden{
@@ -281,7 +298,7 @@ font-size: 0.8em;
 
  #mostrar_senha{
     position: absolute;
-    right: 0px;
+    right: 5px;
     top: 12px;
     color: #838383;
     cursor: pointer;

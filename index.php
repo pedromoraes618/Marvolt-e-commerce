@@ -94,7 +94,6 @@ include "lib/alertify/alert.php";
             </a>
         </div>
 
-
         <?php 
         }
         
@@ -116,8 +115,8 @@ include "lib/alertify/alert.php";
 
     <script src="_js/jquery.js"></script>
     <script src="_js/bootstrap.min.js"></script>
+    <script src="_js/jquery.mask.js"></script>
     <script src="_js/script.js"></script>
-    <script src="_js/vanilla-tilt.js"></script>
     <script src="lib/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script src="sweetalert2.min.js"></script>

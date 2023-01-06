@@ -6,21 +6,26 @@ if(isset($_SESSION["user_cliente_portal"])){
 
 	if($_SESSION["user_cliente_portal"]){
 		 $id_user = $_SESSION["user_cliente_portal"];
-		 $select = "SELECT * from tb_cliente where cl_id = {$id_user}";
+		 $select = "SELECT * from tb_cliente where cl_id = $id_user";
 		 $lista_cliente = mysqli_query($conecta,$select);
 		 if (!$lista_cliente){
 			 die ("Falha no banco de dados");
 		 }
-		 $linha = mysqli_fetch_assoc($lista_cliente);
-		 $b_cliente = $linha['cl_nome_fantasia'];
+		 $linha =  mysqli_fetch_assoc($lista_cliente);
+		 $b_cliente =utf8_encode($linha['cl_nome_fantasia']);
 		 $b_id_cliente= $linha['cl_id'];
-		 $b_cliente_nome_fantasia = $linha['cl_nome_fantasia'];
+		 $b_cliente_nome_fantasia = utf8_encode($linha['cl_nome_fantasia']);
+		 $b_cliente_razao_social = utf8_encode($linha['cl_razao_social']);
          $b_cliente_cnpj = $linha['cl_cnpj'];
+		 $b_cliente_ie = $linha['cl_inscricao_estadual'];
          $b_cliente_telefone = $linha['cl_telefone'];
+		 $b_cliente_cep = $linha['cl_cep'];
+		 $b_cliente_bairro = utf8_encode($linha['cl_bairro']);
+		 $b_cliente_cidade = utf8_encode($linha['cl_cidade']);
          $b_cliente_email = $linha['cl_email'];
 		 $b_cliente_logo = $linha['cl_dir_logo'];
 		 if($b_cliente_logo == ""){
-			$b_cliente_logo = "padrao.png";
+			$b_cliente_logo = "padrao.png";	
 		 }
 	 ?>
 <?php    
@@ -135,12 +140,26 @@ function consultarEmail($email){
     return $resultado;
 }
 
+function consultarCnpj($cnpj){
+    include "conexao/conexao.php";
+    $select = "SELECT count(*) as quantidade from tb_cliente where cl_cnpj = '$cnpj' " ; 
+    $operacao_verificar_cnpj = mysqli_query($conecta,$select);
+    if($operacao_verificar_cnpj){
+     $linha = mysqli_fetch_assoc($operacao_verificar_cnpj);
+     $resultado = $linha['quantidade'];
+    }else{
+        die("erro banco de dados tb_clientes cl_email");
+    }
+    return $resultado;
+}
+
+
 //cadastrar cliente
 if(isset($_POST["inscricao_estadual"])){
 	$hoje = date('Y-m-d');
 	$retorno = array();
-    $razao_social =  $_POST["razao_social"];
-    $nome_fantasia =  $_POST["nome_fantasia"];
+    $razao_social = ($_POST["razao_social"]);
+    $nome_fantasia =  utf8_decode($_POST["nome_fantasia"]);
     $cnpj = $_POST["cnpj"];
 	$inscricao_municipal = $_POST["inscricao_municipal"];
 	$inscricao_estadual = $_POST["inscricao_estadual"];
@@ -148,12 +167,15 @@ if(isset($_POST["inscricao_estadual"])){
 	$outro_telefone = $_POST["outro_telefone"];
 	$telefone_fixo = $_POST["telefone_fixo"];
 	$bairro = $_POST["bairro"];
-	$endereco = $_POST["endereco"];
+	$endereco = utf8_decode($_POST["endereco"]);
 	$numero = $_POST["numero"];
-	$estado = $_POST["estado"];
-	$cidade = $_POST["cidade"];
+	$estado = utf8_decode($_POST["estado"]);
+	$cidade = utf8_decode($_POST["cidade"]);
 	$email = $_POST["email"];
 	$senha = $_POST["senha"];
+	$cep = $_POST["cep"];
+	$verifica_cnpj = $_POST["verifica_cnpj"];
+	
 	
 	//se a empresa for isento
 	if(!isset($_POST['isento'])){
@@ -163,7 +185,7 @@ if(isset($_POST["inscricao_estadual"])){
 	}
 
 	if(!isset($_POST['privacidade'])){
-		$privacidade = 0; // não defindo
+		$privacidade = 0; // não definido
 	}else{
 		$privacidade = 1;//1 defindio *obrigatorio
 	}
@@ -176,9 +198,17 @@ if(isset($_POST["inscricao_estadual"])){
 
 	//tipo de cliente 0 jurido 1 fisico
 	
+	//explodir caracteres do campo cnpj 
+	if(strlen($cnpj)==18){
+	$div1 = explode(".",$cnpj);
+	$cnpj = $div1[0]."".$div1[1]."".$div1[2];
+	$div2 = explode("/",$cnpj);
+	$cnpj = $div2[0]."".$div2[1];
+	$div3 = explode("-",$cnpj);
+	$cnpj = $div3[0]."".$div3[1];
+	}
+    $senha = base64_encode($senha);//criptografar a senha
 
-
-     $senha = base64_encode($senha);
     if($razao_social == ""){
 			$retorno["mensagem"] = "O campo Razão social não foi preenchido";
 		}elseif($nome_fantasia ==""){
@@ -195,8 +225,10 @@ if(isset($_POST["inscricao_estadual"])){
 			$retorno["mensagem"] = "O campo Endereço não foi preenchido";
 		}elseif($numero ==""){
 			$retorno["mensagem"] = "O campo Número não foi preenchido";
-		}elseif($numero ==""){
-			$retorno["mensagem"] = "O campo Número não foi preenchido";
+		}elseif(strlen($cnpj)!=14){ //verificar se o cnpj está completo
+			$retorno["mensagem"] = "Cnpj incorreto";
+		}elseif($verifica_cnpj != 1){//verificar se o cnpj foi encontrado via api
+			$retorno["mensagem"] = "Cnpj não encontrado";
 		}elseif($estado ==0){
 			$retorno["mensagem"] = "O estado não foi selecionado";
 		}elseif($cidade ==""){
@@ -207,23 +239,28 @@ if(isset($_POST["inscricao_estadual"])){
 		}elseif($privacidade == 0){
 			$retorno["mensagem"] = "É necessario aceitar os termos de política e privacidade do site";
 		}elseif(consultarEmail($email)>0){
-			$retorno["mensagem"] = "Esse email já foi cadastrado";
+			$retorno["mensagem"] = "Esse Email já foi cadastrado";
+		}elseif(strlen($cep)!=9 and ($cep != "")){
+			$retorno["mensagem"] = "CEP está incoreto";
+		}elseif(consultarCnpj($cnpj)>0){//verificar se o cnpj já está cadastrado
+			$retorno["mensagem"] = "Esse Cnpj já está cadastrado";
 		}else{
 
 	
+	
 
-	$inserir = "INSERT INTO tb_cliente ";
-	$inserir .= "(cl_data_cadastro,cl_razao_social,cl_nome_fantasia,cl_cnpj,cl_inscricao_estadual,cl_inscricao_municipal,cl_logadouro,cl_numero,
-	cl_bairro,cl_telefone,cl_outro_telefone,cl_telefone_fixo,cl_estadoID,cl_cidade,cl_email,cl_tipo_cliente,cl_senha,cl_isento,cl_rcb_email,cl_privacidade)";
-	$inserir .= " VALUES ";
-	$inserir .= "('$hoje','$razao_social','$nome_fantasia','$cnpj','$inscricao_estadual','$inscricao_municipal','$endereco','$numero','$bairro','$telefone','$outro_telefone',
-	'$telefone_fixo','$estado','$cidade','$email' ,'0' ,'$senha','$isento','$privacidade','$receber_email')";
-	$operacao_inserir = mysqli_query($conecta, $inserir);
-	if($operacao_inserir){
-	$retorno["sucesso"] = true;
-	}else{
-	$retorno["sucesso"] = false;
-	}
+		$inserir = "INSERT INTO tb_cliente ";
+		$inserir .= "(cl_data_cadastro,cl_razao_social,cl_nome_fantasia,cl_cnpj,cl_inscricao_estadual,cl_inscricao_municipal,cl_logadouro,cl_numero,
+		cl_bairro,cl_telefone,cl_outro_telefone,cl_telefone_fixo,cl_estadoID,cl_cidade,cl_email,cl_tipo_cliente,cl_senha,cl_isento,cl_privacidade,cl_rcb_email,cl_cep)";
+		$inserir .= " VALUES ";
+		$inserir .= "('$hoje','$razao_social','$nome_fantasia','$cnpj','$inscricao_estadual','$inscricao_municipal','$endereco','$numero','$bairro','$telefone','$outro_telefone',
+		'$telefone_fixo','$estado','$cidade','$email' ,'0' ,'$senha','$isento','$privacidade','$receber_email','$cep')";
+		$operacao_inserir = mysqli_query($conecta, $inserir);
+		if($operacao_inserir){
+		$retorno["sucesso"] = true;
+		}else{
+		$retorno["sucesso"] = false;
+		}
 }
 	
 echo json_encode($retorno);
@@ -266,9 +303,9 @@ if(isset($_POST['descricao_avaliacao'])){
 /*Salvar as informacoes dos produto do carrinho no banco de dados */
 if(isset($_POST['cor_prod'])){
 	$retornar = array();
-    $cor_prod = $_POST['cor_prod'];
-    $tamanho_prod = $_POST['tamanho_prod'];
-    $obs_prod = $_POST['observacao_prod'];
+    $cor_prod =utf8_encode($_POST['cor_prod']);
+    $tamanho_prod = utf8_encode($_POST['tamanho_prod']);
+    $obs_prod = utf8_encode($_POST['observacao_prod']);
     $quantidade = $_POST['quantidade_prod'];
 	$id_prod = $_POST['id_produto'];
 	
@@ -314,7 +351,7 @@ if(isset($_POST['cor_prod'])){
 		}
 
 		//verificar se já existe um numero de pedido igual
-		$codigo = rand(5000,5000000000000);
+		$codigo = random_int(5000,5000000000000);
 		$insert = "INSERT INTO tb_pedido";
 		$insert .= "(cl_data,cl_cliente,cl_sessao,cl_entrega,cl_frete,cl_forma_pagamento,cl_codigo,cl_status)";  //cl_status = 1 para analise, 2 para em negociacao, 3 para finalizado , 4 para cancelado
 		$insert .= " VALUES ";
